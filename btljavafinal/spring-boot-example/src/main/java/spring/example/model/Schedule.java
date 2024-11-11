@@ -9,15 +9,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Image {
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; // Tên ảnh
+    private String time; // Buổi sáng hoặc buổi chiều
+    private double price; // Giá thuê
+    private boolean isRented; // Trạng thái thuê (true: đã thuê, false: chưa thuê)
 
-    // Quan hệ nhiều ảnh (CourtImage) thuộc về một sân (Court)
+    // Nhiều buổi (Schedule) có thể thuộc về một sân (Court)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "court_id", nullable = false)
     private Court court;
@@ -31,12 +33,28 @@ public class Image {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTime() {
+        return time;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public boolean isRented() {
+        return isRented;
+    }
+
+    public void setRented(boolean rented) {
+        isRented = rented;
     }
 
     public Court getCourt() {

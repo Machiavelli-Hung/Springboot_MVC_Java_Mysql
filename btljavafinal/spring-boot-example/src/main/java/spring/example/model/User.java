@@ -1,7 +1,14 @@
 package spring.example.model;
 
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -13,22 +20,28 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private String gender;
+    private String role;
     private String phoneNumber;
     private String accountStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "roleId")
-    private Role role; // Một User chỉ có một Role
 
-    @OneToMany(mappedBy = "user")
-    private List<Post> posts; // Một User có thể có nhiều Post
-
-    @OneToMany(mappedBy = "user")
-    private List<Image> images; // Một User có thể có nhiều Image
+    // Quan hệ một-nhiều với Court: Một User có thể sở hữu nhiều sân (Court)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Court> courts;
 
     // Thời gian tạo người dùng
     private String createdAt = java.time.LocalDateTime.now().toString();
+
+    // Getters và Setters cho các thuộc tính hiện có
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -37,16 +50,6 @@ public class User {
         this.username = username;
     }
 
-    // Getter và Setter cho email
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    // Getter và Setter cho password
     public String getPassword() {
         return password;
     }
@@ -55,5 +58,45 @@ public class User {
         this.password = password;
     }
 
-    // Getters and setters...
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhoneNumber(){
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber){
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getAccountStatus(){
+        return accountStatus;
+    }
+
+    public void setAccountStatus(String accountStatus){
+        this.accountStatus = accountStatus;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    // Getter và Setter cho danh sách Courts
+    public List<Court> getCourts() {
+        return courts;
+    }
+
+    public void setCourts(List<Court> courts) {
+        this.courts = courts;
+    }
+
 }

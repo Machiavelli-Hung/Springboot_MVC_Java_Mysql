@@ -1,6 +1,7 @@
-# spring-boot-example
-This repository contains a simple Spring Boot/Spring MVC example to help new Spring Boot users get started
+# Install all requirements library
 
-This repository consists of a project built with the Spring Tool Suite (STS), which is an open source Integrated Development
-Environment (IDE) for developing Spring projects.
+mvn clean install
 
+# Run project
+
+mvn spring-boot:run
