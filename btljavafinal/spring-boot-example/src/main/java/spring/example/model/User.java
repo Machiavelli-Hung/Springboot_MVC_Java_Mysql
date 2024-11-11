@@ -22,7 +22,6 @@ public class User {
     private String email;
     private String role;
     private String phoneNumber;
-    private String accountStatus;
 
 
     // Quan hệ một-nhiều với Court: Một User có thể sở hữu nhiều sân (Court)
@@ -72,14 +71,6 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber){
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getAccountStatus(){
-        return accountStatus;
-    }
-
-    public void setAccountStatus(String accountStatus){
-        this.accountStatus = accountStatus;
     }
 
     public String getRole() {
