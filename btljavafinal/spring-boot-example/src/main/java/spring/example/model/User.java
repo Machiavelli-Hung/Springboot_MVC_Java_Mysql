@@ -11,9 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
  
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
  
     @Id
@@ -25,7 +26,7 @@ public class User {
     private String email;
     private String role;
     private String phoneNumber;
-    private String accountStatus;
+   
  
  
     // Quan hệ một-nhiều với Court: Một User có thể sở hữu nhiều sân (Court)
@@ -77,13 +78,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
  
-    public String getAccountStatus(){
-        return accountStatus;
-    }
- 
-    public void setAccountStatus(String accountStatus){
-        this.accountStatus = accountStatus;
-    }
  
     public String getRole() {
         return role;
