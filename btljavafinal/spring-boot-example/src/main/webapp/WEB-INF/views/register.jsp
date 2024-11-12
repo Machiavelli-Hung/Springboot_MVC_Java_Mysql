@@ -10,7 +10,7 @@
 
         
 
-        <form action="/register" method="post">
+        <form action="/user/register" method="post">
             <label for="username">Tên người dùng đăng ký:</label>
             <input type="text" id="username" name="username" value="${user.username}" required><br>
 

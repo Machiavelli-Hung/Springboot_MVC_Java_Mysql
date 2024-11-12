@@ -22,7 +22,18 @@ public class UserService {
         if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
             throw new userException("Số điện thoại đã tồn tại.");
         }
-        userRepository.save(user);
+        
+         userRepository.save(user);
     }
+
+    public boolean checkLogin(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        return user != null && (user.getPassword().equals(password) == true ) && (user.getUsername().equals(username) == true);
+    }
+
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
 
 }

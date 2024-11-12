@@ -95,5 +95,5 @@ public class User {
     public void setCourts(List<Court> courts) {
         this.courts = courts;
     }
- 
+    
 }

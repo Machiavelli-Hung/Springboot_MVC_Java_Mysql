@@ -2,6 +2,7 @@ package spring.example.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +18,7 @@ import spring.example.service.UserService;
 import javax.servlet.http.HttpSession;
 
 @Controller
-// @RequestMapping("/user")
+@RequestMapping("/user")
 public class RegisterController {
 
     @Autowired
@@ -31,7 +32,7 @@ public class RegisterController {
         return "register";
     }
 
-        // day len server 
+    // day thong tin len server va check
     @PostMapping("/register")
     public String registerUser(@ModelAttribute("user") User user, HttpSession session, Model model) {
         User existingUser = new User();
@@ -42,12 +43,10 @@ public class RegisterController {
         existingUser.setRole(user.getRole());
 
 
-        // userService.saveUser(existingUser); // luu user
-        // session.setAttribute("user", user);
         try {
             userService.saveUser(user); // lưu user nếu không có trùng lặp
             session.setAttribute("user", user);
-            return "redirect:/success";
+            return "redirect:/user/success";
         } catch (userException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "register"; // tên của trang đăng ký
@@ -58,7 +57,7 @@ public class RegisterController {
     // tra ve trang success
     @GetMapping("/success")
     public String success(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
+        User user = (User) session.getAttribute("user"); // lay user tu phien dang nhap truoc 
         model.addAttribute("user", user);
         return "success";
     }
