@@ -73,7 +73,7 @@ public class RegisterController {
         HttpSession session = request.getSession(false);
          if (session != null) {
             //session.invalidate();
-            session.removeAttribute("user")
+            session.removeAttribute("user");
             System.out.println("Session đã bị xoá.");
         } 
         return "redirect:/user/login";
