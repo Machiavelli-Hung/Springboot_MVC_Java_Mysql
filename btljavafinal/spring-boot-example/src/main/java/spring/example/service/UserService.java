@@ -35,5 +35,16 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public boolean checkPassword(User user, String oldPassword) {
+        // Giả sử mật khẩu được mã hóa (có thể dùng BCrypt hoặc SHA-256)
+        return user.getPassword().equals(oldPassword); // Cần mã hóa mật khẩu thực tế
+    }
+
+    // Cập nhật mật khẩu mới
+    public void updatePassword(User user, String newPassword) {
+        user.setPassword(newPassword); // Giả sử bạn đã mã hóa mật khẩu
+        userRepository.save(user); // Lưu lại người dùng với mật khẩu mới
+    }
+
 
 }

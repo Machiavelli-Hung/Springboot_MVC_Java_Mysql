@@ -47,6 +47,8 @@
     </head>
 
     <body>
+        
+
         <form action="/user/login" method="post">
             <h2>Đăng Nhập</h2>
             <label for="username">Tên Đăng Nhập:</label>
@@ -57,6 +59,10 @@
             <!-- doan check ma loi  -->
             <c:if test="${not empty errorMessage}">
                 <p style="color:red">${errorMessage}</p>
+            </c:if>
+
+            <c:if test="${not empty message}">
+                <p style="color:blue">${message}</p>
             </c:if>
 
             <input type="submit" value="Đăng Nhập">

@@ -17,6 +17,7 @@ import spring.example.service.UserService;
 @Controller
 @RequestMapping("/user")
 public class LoginController {
+
     @Autowired
     private UserService userService;
 
@@ -35,7 +36,14 @@ public class LoginController {
         if (userService.checkLogin(username, password)) {
             User userCheck = userService.getUserByUsername(username);
             session.setAttribute("userLogin", userCheck);
-            return "redirect:/home";
+            if(userCheck.getRole().equals("admin")|| userCheck.getRole().equals("chu san")){   
+                // session.setAttribute("ChuSan", userCheck);
+                return "redirect:/admin";
+            }else{
+                // session.setAttribute("userLogin", userCheck);
+                 return "redirect:/home";
+             }
+            
         } else {
             model.addAttribute("errorMessage", "mật khẩu hoặc tên đăng nhập chưa đúng");
             return "login";
@@ -43,11 +51,6 @@ public class LoginController {
 
     }
 
-    @GetMapping("/home")
-    public String home(Model model,HttpSession session){
-        User userLogin = (User) session.getAttribute("userLogin");
-        model.addAttribute("user", userLogin);
-        return "home";
-    }
+   
 
 }

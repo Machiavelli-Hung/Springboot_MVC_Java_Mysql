@@ -24,6 +24,7 @@
             <select id="role" name="role" required>
                 <option value="nguoi dung">Người Dùng</option>
                 <option value="chu san">Chủ Sân</option>
+                <option value="admin">Admin</option>
             </select><br>
 
             <label for="phoneNumber">Số điện thoại đăng ký:</label>
