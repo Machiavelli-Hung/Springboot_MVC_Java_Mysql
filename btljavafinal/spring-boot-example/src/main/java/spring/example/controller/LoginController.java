@@ -23,8 +23,8 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(Model model) {
-        model.addAttribute("UserLogin", new User());
-        return "login";
+       //model.addAttribute("UserLogin", new User());
+       return "login";
     }
 
     @PostMapping("/login")
@@ -36,13 +36,12 @@ public class LoginController {
         if (userService.checkLogin(username, password)) {
             User userCheck = userService.getUserByUsername(username);
             session.setAttribute("userLogin", userCheck);
+            
             if(userCheck.getRole().equals("admin")|| userCheck.getRole().equals("chu san")){   
-                // session.setAttribute("ChuSan", userCheck);
                 return "redirect:/admin";
             }else{
-                // session.setAttribute("userLogin", userCheck);
                  return "redirect:/home";
-             }
+            }
             
         } else {
             model.addAttribute("errorMessage", "mật khẩu hoặc tên đăng nhập chưa đúng");

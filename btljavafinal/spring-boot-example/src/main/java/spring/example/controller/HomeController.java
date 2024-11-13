@@ -1,5 +1,8 @@
 package spring.example.controller;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,18 +33,18 @@ public class HomeController {
         return "home";
     }
 
-    @PostMapping("/logout")
-    public String logout(HttpSession session, RedirectAttributes redirectAttributes) {
+    @GetMapping("/logout")
+    public String logout(HttpSession session, RedirectAttributes redirectAttributes) 
+    throws ServletException, IOException {
+
         // Hủy session hiện tại
         if (session != null) {
-            session.invalidate(); // Xóa toàn bộ dữ liệu session
+            session.invalidate(); 
+           // redirectAttributes.addFlashAttribute("message", "Bạn đã đăng xuất thành công!");
         }
-
-        // Thêm thông báo vào RedirectAttributes
         redirectAttributes.addFlashAttribute("message", "Bạn đã đăng xuất thành công!");
 
-        // Chuyển hướng người dùng về trang đăng nhập và hiển thị thông báo
-        return "redirect:/user/login"; // Chuyển hướng đến trang login
+        return "redirect:/user/login"; 
     }
 
      // Hiển thị trang Đổi mật khẩu
@@ -49,37 +52,31 @@ public class HomeController {
      public String showChangePasswordForm(Model model, HttpSession session) {
          User userLogin = (User) session.getAttribute("userLogin");
          if (userLogin == null) {
-             return "redirect:/user/login"; // Nếu chưa đăng nhập thì chuyển hướng đến trang login
+             return "redirect:/user/login"; 
          }
          model.addAttribute("user", userLogin);
-         return "changePassword"; // Trả về trang thay đổi mật khẩu
+         return "changePassword"; 
      }
 
     @PostMapping("/changePassword")
     public String changePassword(HttpSession session, String oldPassword, String newPassword, RedirectAttributes redirectAttributes) {
         User userLogin = (User) session.getAttribute("userLogin");
         if (userLogin == null) {
-            return "redirect:/user/login"; // Nếu chưa đăng nhập thì chuyển hướng đến trang login
+            return "redirect:/user/login";
         }
 
         // Kiểm tra mật khẩu cũ
         if (!userService.checkPassword(userLogin, oldPassword)) {
             redirectAttributes.addFlashAttribute("error", "Mật khẩu cũ không đúng.");
-            return "redirect:/home/changePassword"; // Nếu mật khẩu cũ sai, quay lại trang đổi mật khẩu
+            return "redirect:/home/changePassword"; 
         }
 
         // Cập nhật mật khẩu mới
         userService.updatePassword(userLogin, newPassword);
         redirectAttributes.addFlashAttribute("message", "Đổi mật khẩu thành công!");
-        return "redirect:/home"; // Quay lại trang chủ sau khi đổi mật khẩu thành công
+        return "redirect:/home"; 
+
     }
 
 
-
-
-    
-
-
-
-    
 }

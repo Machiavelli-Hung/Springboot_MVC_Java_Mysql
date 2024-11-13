@@ -23,15 +23,18 @@ public class AdminController {
 
     @GetMapping({"" ,"/"})
     public String admin(Model model,HttpSession session){
-        // User userLogin = (User) session.getAttribute("userLogin");
-        // model.addAttribute("user", userLogin);
+        User userLogin = (User) session.getAttribute("userLogin");
+        model.addAttribute("user", userLogin);
         return "admin";
     }
 
+    @GetMapping("/showuser")
+    public String showUser(){   
 
+        return "showuser";
+    }
 
-
-
+    
 
     
 }

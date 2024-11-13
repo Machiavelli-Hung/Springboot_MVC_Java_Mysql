@@ -56,6 +56,7 @@
 
             <label for="password">Mật Khẩu:</label>
             <input type="password" id="password" name="password" value="" required>
+
             <!-- doan check ma loi  -->
             <c:if test="${not empty errorMessage}">
                 <p style="color:red">${errorMessage}</p>

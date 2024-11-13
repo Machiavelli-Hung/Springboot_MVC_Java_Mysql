@@ -8,7 +8,7 @@
     <c:if test="${param.success != null}">
         <p>trang thai : Đăng ký thành công!</p>
     </c:if>
-    <form >
+    <form action = "/user/success" method="post">
         <label for="username">Tên người dùng dang ky :</label>
         <input type="text" id="username" name="username" value="${user.username}" required><br>
 
@@ -20,6 +20,8 @@
 
         <label for="phoneNumber">Số điện thoại dang ky la :</label>
         <input type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" required><br>
+
+        <button type="submit"> Trở về trang login </button>
     </form>
 </body>
 </html>

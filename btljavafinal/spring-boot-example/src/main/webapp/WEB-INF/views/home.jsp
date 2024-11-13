@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,18 +32,17 @@
     
     <br>
 
-    <!-- Nút Đăng xuất -->
-    <form action="/home/logout" method="post">
-        <button type="submit">Đăng xuất</button>
-    </form>
-    
-    <!-- Nút Đổi mật khẩu -->
-    <form action="/home/changePassword" method="get">
-        <button type="submit">Đổi mật khẩu</button>
-    </form>
+    <c:if test="${user != null}">
+        <a href="/home/logout"><span>Đăng xuất</span></a>
+    </c:if>
 
-    <form action="/user/login" method="get">
-        <button type="submit">đăng nhập </button>
-    </form>
+
+    <a href="/home/changePassword"><span>Đổi mật khẩu</span></a>
+    
+    <!-- Kiểm tra nếu chưa có user trong session, thì hiện phần "đăng nhập" -->
+    <c:if test="${user == null}">
+        <a href="/user/login"><span>danh nhap </span></a>
+    </c:if>
+
 </body>
 </html>
