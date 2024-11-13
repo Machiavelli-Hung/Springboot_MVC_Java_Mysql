@@ -1,5 +1,7 @@
 package spring.example.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.example.model.User;
- import spring.example.service.AdminService;;
+ import spring.example.service.AdminService;
+import spring.example.service.UserService;;
 
 
 @Controller
@@ -29,10 +32,13 @@ public class AdminController {
     }
 
     @GetMapping("/showuser")
-    public String showUser(){   
-
-        return "showuser";
+    public String getCustomers(Model model) {
+        List<User> customers = adminService.getAllCustomers();
+        model.addAttribute("customers", customers);
+        return "showuser"; // Tên của file HTML trong thư mục templates
     }
+
+    
 
     
 

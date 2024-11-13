@@ -44,7 +44,10 @@
         <a href="/user/login"><span>danh nhap </span></a>
     </c:if>
 
-    <a href="/admin/showuser"><span>hien thong tin nguoi dung </span></a>
+
+    <c:if test="${user != null}">
+        <a href="/admin/showuser"><span>hien thong tin nguoi dung </span></a>
+    </c:if>
 
 </body>
 </html>

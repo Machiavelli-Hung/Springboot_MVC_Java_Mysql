@@ -44,5 +44,9 @@
         <a href="/user/login"><span>danh nhap </span></a>
     </c:if>
 
+    <c:if test="${user == null}">
+        <a href="/user/register"><span>danh ki</span></a>
+    </c:if>
+
 </body>
 </html>

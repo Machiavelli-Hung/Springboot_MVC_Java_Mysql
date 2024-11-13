@@ -1,5 +1,7 @@
 package spring.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,10 @@ public class UserService {
     public void updatePassword(User user, String newPassword) {
         user.setPassword(newPassword); // Giả sử bạn đã mã hóa mật khẩu
         userRepository.save(user); // Lưu lại người dùng với mật khẩu mới
+    }
+
+    public List<User> getAllCustomers() {
+        return userRepository.findAll();
     }
 
 
