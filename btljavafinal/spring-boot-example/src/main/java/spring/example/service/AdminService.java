@@ -18,5 +18,17 @@ public class AdminService {
     public List<User> getAllCustomers() {
         return adminRepository.findAll();
     }
+
+    public void deleteCustomer(Long id) {
+        adminRepository.deleteById(id);
+    }
+
+    public User getCustomerById(Long id) {
+        return adminRepository.findById(id).orElse(null);
+    }
+
+    public void updateCustomer(User customer) {
+        adminRepository.save(customer); 
+    }
     
 }

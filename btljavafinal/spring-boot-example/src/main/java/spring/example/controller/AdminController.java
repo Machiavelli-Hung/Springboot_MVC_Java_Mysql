@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.example.model.User;
@@ -38,7 +40,35 @@ public class AdminController {
         return "showuser"; // Tên của file HTML trong thư mục templates
     }
 
+    @PostMapping("/delete/{id}")
+    public String deleteCustomer(@PathVariable Long id) {
+        adminService.deleteCustomer(id); // Giả sử bạn đã định nghĩa phương thức này trong AdminService
+        return "redirect:/admin/showuser"; // Chuyển hướng về trang danh sách khách hàng
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editCustomer(@PathVariable Long id, Model model) {
+        User customer = adminService.getCustomerById(id); // Lấy thông tin khách hàng theo ID
+        model.addAttribute("customer", customer);
+        return "editCustomer"; // Tên file JSP cho chỉnh sửa
+    }
+
+    @PostMapping("/update")
+    public String updateCustomer(@RequestParam Long id, 
+                              @RequestParam String username, 
+                              @RequestParam String password, 
+                              @RequestParam String email, 
+                              @RequestParam String phone) {
+    User customer = new User();
+    customer.setId(id);
+    customer.setUsername(username);
+    customer.setPassword(password);
+    customer.setEmail(email);
+    customer.setPhoneNumber(phone);
     
+    adminService.updateCustomer(customer); // Cập nhật thông tin khách hàng
+    return "redirect:/admin/showuser"; 
+}
 
     
 
