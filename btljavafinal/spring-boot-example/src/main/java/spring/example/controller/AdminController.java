@@ -58,12 +58,14 @@ public class AdminController {
                               @RequestParam String username, 
                               @RequestParam String password, 
                               @RequestParam String email, 
-                              @RequestParam String phone) {
+                              @RequestParam String phone,
+                              @RequestParam String role) {
     User customer = new User();
     customer.setId(id);
     customer.setUsername(username);
     customer.setPassword(password);
     customer.setEmail(email);
+    customer.setRole(role);
     customer.setPhoneNumber(phone);
     
     adminService.updateCustomer(customer); // Cập nhật thông tin khách hàng

@@ -5,6 +5,16 @@
 <html>
 <head>
     <title>Chỉnh sửa khách hàng</title>
+
+    <style>
+        #role {
+            display: none;
+        }
+        #role1{
+            display: none;
+        }
+
+    </style>
 </head>
 <body>
     <h1>Chỉnh sửa khách hàng</h1>
@@ -21,6 +31,10 @@
 
         <label for="phone">Số điện thoại:</label>
         <input type="text" name="phone" value="${customer.phoneNumber}" required /><br/>
+
+        <label id = "role1"for="role">role</label>
+        <input id = "role" type="text" name="role" value="${customer.role}" required /><br/>
+
 
         <input type="submit" value="Cập nhật" />
     </form>

@@ -43,13 +43,20 @@
             input[type="submit"]:hover {
                 background: #4cae4c;
             }
+
+            #x{
+                display: inline-block;
+            }
+            
         </style>
     </head>
 
     <body>
         
+        
+        
 
-        <form action="/user/login" method="post">
+        <form action="/user/login" method="post" >
             <h2>Đăng Nhập</h2>
             <label for="username">Tên Đăng Nhập:</label>
             <input type="text" id="username" name="username" value="" required>
@@ -67,7 +74,12 @@
             </c:if>
 
             <input type="submit" value="Đăng Nhập">
+            <div id = "x">Nếu không có tài khoản, nhấn vào đây 
+                <a href="/user/register">đăng ký</a>
+            </div>
         </form>
+
+        
     </body>
 
     </html>
