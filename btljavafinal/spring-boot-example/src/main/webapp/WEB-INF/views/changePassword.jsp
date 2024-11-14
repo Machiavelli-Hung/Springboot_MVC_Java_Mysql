@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,6 +35,15 @@
         </div>
     </form>
     
-    <a href="/home">Trở lại trang chủ</a>
+
+    <!-- <a href="/home">Trở lại trang chủ</a> -->
+    <a href="<c:choose>
+            <c:when test="${user.role == 'admin'}">/admin</c:when>
+            <c:otherwise>/home</c:otherwise>
+        </c:choose>">
+            Trở lại trang chủ
+    </a>
+
+    
 </body>
 </html>

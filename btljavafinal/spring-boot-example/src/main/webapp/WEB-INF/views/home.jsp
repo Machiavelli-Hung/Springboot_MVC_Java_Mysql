@@ -6,6 +6,7 @@
     <title>Thông tin người dùng</title>
 </head>
 <body>
+    
     <h1>Thông tin người dùng</h1>
     <table>
         <tr>
@@ -36,8 +37,10 @@
         <a href="/home/logout"><span>Đăng xuất</span></a>
     </c:if>
 
+    <c:if test="${user != null}">
+        <a href="/home/changePassword"><span>Đổi mật khẩu</span></a>
+    </c:if>
 
-    <a href="/home/changePassword"><span>Đổi mật khẩu</span></a>
     
     <!-- Kiểm tra nếu chưa có user trong session, thì hiện phần "đăng nhập" -->
     <c:if test="${user == null}">
