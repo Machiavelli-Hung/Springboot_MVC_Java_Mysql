@@ -30,6 +30,7 @@ public class AdminController {
     public String admin(Model model,HttpSession session){
         User userLogin = (User) session.getAttribute("userLogin");
         model.addAttribute("user", userLogin);
+        
         return "admin";
     }
 

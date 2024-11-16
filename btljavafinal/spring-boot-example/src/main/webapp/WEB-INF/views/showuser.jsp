@@ -13,7 +13,7 @@
         <tr>
             <th>Id</th>
             <th>Username</th>
-            <th>Password</th>
+            <!-- <th>Password</th> -->
             <th>Email</th>
             <th>Số điện thoại</th>
             <th>Hành động</th>
@@ -22,7 +22,7 @@
             <tr>
                 <td>${customer.id}</td>
                 <td>${customer.username}</td>
-                <td>${customer.password}</td>
+                <!-- <td>${customer.password}</td> -->
                 <td>${customer.email}</td>
                 <td>${customer.phoneNumber}</td>
                 <td>

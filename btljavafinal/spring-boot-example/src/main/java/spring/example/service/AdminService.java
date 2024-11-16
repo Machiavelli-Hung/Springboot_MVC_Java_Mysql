@@ -4,6 +4,8 @@ package spring.example.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import spring.example.model.User;
@@ -29,6 +31,10 @@ public class AdminService {
 
     public void updateCustomer(User customer) {
         adminRepository.save(customer); 
+    }
+    
+    public Page<User> getAllCustomers(int page, int size) {
+        return adminRepository.findAll(PageRequest.of(page, size));
     }
     
 }
