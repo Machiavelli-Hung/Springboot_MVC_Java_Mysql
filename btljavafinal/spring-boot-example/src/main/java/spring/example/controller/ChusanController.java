@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.example.model.User;
-import spring.example.service.AdminService;
-;
+import spring.example.service.ChusanService;
+
 
 
 @Controller
 // @RequestMapping("/admin")
 @RequestMapping("/chusan")
-public class AdminController {
+public class ChusanController {
 
     @Autowired
-    private AdminService  adminService;
+    private ChusanService ChusanService;
 
     @GetMapping({"" ,"/"})
     public String admin(Model model,HttpSession session){
@@ -36,20 +36,20 @@ public class AdminController {
 
     @GetMapping("/showuser")
     public String getCustomers(Model model) {
-        List<User> customers = adminService.getAllCustomers();
+        List<User> customers = ChusanService.getAllCustomers();
         model.addAttribute("customers", customers);
         return "showuser2"; // Tên của file HTML trong thư mục templates
     }
 
     @PostMapping("/delete/{id}")
     public String deleteCustomer(@PathVariable Long id) {
-        adminService.deleteCustomer(id); // Giả sử bạn đã định nghĩa phương thức này trong AdminService
+        ChusanService.deleteCustomer(id); // Giả sử bạn đã định nghĩa phương thức này trong AdminService
         return "redirect:/chusan/showuser"; // Chuyển hướng về trang danh sách khách hàng
     }
 
     @GetMapping("/edit/{id}")
     public String editCustomer(@PathVariable Long id, Model model) {
-        User customer = adminService.getCustomerById(id); // Lấy thông tin khách hàng theo ID
+        User customer = ChusanService.getCustomerById(id); // Lấy thông tin khách hàng theo ID
         model.addAttribute("customer", customer);
         return "editCustomer2"; // Tên file JSP cho chỉnh sửa
     }
@@ -69,7 +69,7 @@ public class AdminController {
     customer.setRole(role);
     customer.setPhoneNumber(phone);
     
-    adminService.updateCustomer(customer); // Cập nhật thông tin khách hàng
+    ChusanService.updateCustomer(customer); // Cập nhật thông tin khách hàng
     return "redirect:/chusan/showuser"; 
 }
 

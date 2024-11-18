@@ -9,32 +9,32 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import spring.example.model.User;
-import spring.example.repository.AdminRepository;
+import spring.example.repository.ChuSanRepository;
 
 @Service
-public class AdminService {
+public class ChusanService {
 
     @Autowired
-    private AdminRepository adminRepository;
+    private ChuSanRepository ChusanRepository;
 
     public List<User> getAllCustomers() {
-        return adminRepository.findAll();
+        return ChusanRepository.findAll();
     }
 
     public void deleteCustomer(Long id) {
-        adminRepository.deleteById(id);
+        ChusanRepository.deleteById(id);
     }
 
     public User getCustomerById(Long id) {
-        return adminRepository.findById(id).orElse(null);
+        return ChusanRepository.findById(id).orElse(null);
     }
 
     public void updateCustomer(User customer) {
-        adminRepository.save(customer); 
+        ChusanRepository.save(customer); 
     }
     
     public Page<User> getAllCustomers(int page, int size) {
-        return adminRepository.findAll(PageRequest.of(page, size));
+        return ChusanRepository.findAll(PageRequest.of(page, size));
     }
     
 }
