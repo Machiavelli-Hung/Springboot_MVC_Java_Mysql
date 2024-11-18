@@ -33,6 +33,28 @@ public class CourtService {
     @Autowired
     private UserRepository userRepository;
 
+    public Court getCourtById(Long id) {
+        return courtRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Court not found"));
+    }
+
+    // Phương thức để lấy tất cả hình ảnh của sân
+    public List<Image> getImagesByCourtId(Long courtId) {
+        return imageRepository.findByCourtId(courtId);
+    }
+
+    // Phương thức để lấy tất cả lịch của sân
+    public List<Schedule> getSchedulesByCourtId(Long courtId) {
+        return scheduleRepository.findByCourtId(courtId);
+    }
+
+    public List<Court> search(String keyword) {
+        if (keyword == null || keyword.trim().isEmpty()) {
+            return courtRepository.findAll(); // Nếu không có từ khóa, trả về tất cả
+        }
+        return courtRepository.findByNameContainingIgnoreCaseOrAddressContainingIgnoreCase(keyword, keyword);
+    }
+
     public Court saveCourt(Court court) {
         // Save the owner (User) first if it's new
         if (court.getOwner() != null && court.getOwner().getId() == null) {
@@ -43,10 +65,6 @@ public class CourtService {
             throw new IllegalArgumentException("Court must have an owner");
         }
         return courtRepository.save(court);
-    }
-
-    public Court getCourtById(Long id) {
-        return courtRepository.findById(id).orElse(null);
     }
 
     public List<Court> getAllCourts() {

@@ -1,59 +1,56 @@
 package spring.example.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import spring.example.exception.UserException;
 import spring.example.model.User;
 import spring.example.repository.UserRepository;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class UserService {
-
     @Autowired
     private UserRepository userRepository;
 
-    /**
-     * Retrieves all users from the database.
-     * @return List of users.
-     */
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    /**
-     * Retrieves a user by their ID.
-     * @param id The ID of the user.
-     * @return The user with the given ID, or null if not found.
-     */
-    public User getUserById(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        return user.orElse(null); // Return null if user not found
-    }
-
-    /**
-     * Saves a new or existing user to the database.
-     * @param user The user to save.
-     */
     public void saveUser(User user) {
+        if (userRepository.existsByUsername(user.getUsername())) {
+            throw new UserException("Username đã tồn tại.");
+        }
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new UserException("Email đã tồn tại.");
+        }
+        if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
+            throw new UserException("Số điện thoại đã tồn tại.");
+        }
+
         userRepository.save(user);
     }
 
-    /**
-     * Deletes a user by their ID.
-     * @param id The ID of the user to delete.
-     */
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public boolean checkLogin(String username, String password) {
+        User user = userRepository.findByUsername(username);
+        return user != null && (user.getPassword().equals(password) == true)
+                && (user.getUsername().equals(username) == true);
     }
 
-    /**
-     * Retrieves a user by their username.
-     * @param username The username of the user.
-     * @return The user with the given username, or null if not found.
-     */
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    public boolean checkPassword(User user, String oldPassword) {
+        // Giả sử mật khẩu được mã hóa (có thể dùng BCrypt hoặc SHA-256)
+        return user.getPassword().equals(oldPassword); // Cần mã hóa mật khẩu thực tế
+    }
+
+    // Cập nhật mật khẩu mới
+    public void updatePassword(User user, String newPassword) {
+        user.setPassword(newPassword); // Giả sử bạn đã mã hóa mật khẩu
+        userRepository.save(user); // Lưu lại người dùng với mật khẩu mới
+    }
+
+    public List<User> getAllCustomers() {
+        return userRepository.findAll();
+    }
+
 }

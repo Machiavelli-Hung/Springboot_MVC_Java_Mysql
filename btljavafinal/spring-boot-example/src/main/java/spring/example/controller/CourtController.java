@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.example.model.Court;
+import spring.example.model.Image;
 import spring.example.model.Schedule;
 import spring.example.service.CourtService;
 
@@ -28,7 +29,30 @@ public class CourtController {
     @Autowired
     private CourtService courtService;
 
-    private final String uploadDirectory = "uploads/";
+    @GetMapping("/details/{id}")
+    public String showCourtDetails(@PathVariable("id") Long id, Model model) {
+        Court court = courtService.getCourtById(id);
+        if (court == null) {
+            model.addAttribute("message", "Court not found");
+            return "error"; // Hiển thị trang lỗi nếu không tìm thấy sân
+        }
+        List<Image> images = courtService.getImagesByCourtId(id); // Lấy hình ảnh của sân
+        List<Schedule> schedules = courtService.getSchedulesByCourtId(id); // Lấy lịch của sân
+
+        model.addAttribute("court", court);
+        model.addAttribute("images", images);
+        model.addAttribute("schedules", schedules);
+
+        return "court/details"; // Chuyển tới JSP hiển thị chi tiết sân
+    }
+
+    @GetMapping("/search")
+    public String listCourts(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+        List<Court> courts = courtService.search(keyword);
+        model.addAttribute("courts", courts);
+        model.addAttribute("keyword", keyword);
+        return "court/list";
+    }
 
     @GetMapping("/add")
     public String showAddForm(Model model) {

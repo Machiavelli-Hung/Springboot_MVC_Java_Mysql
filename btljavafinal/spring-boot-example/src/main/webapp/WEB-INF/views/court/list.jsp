@@ -84,6 +84,20 @@ contentType="text/html" pageEncoding="UTF-8"%>
   <body>
     <h2>Danh sách các sân</h2>
     <div>
+      <form
+        action="${pageContext.request.contextPath}/courts/search"
+        method="GET"
+      >
+        <input
+          type="text"
+          name="keyword"
+          placeholder="Nhập tên hoặc địa chỉ cần tìm"
+          value="${param.keyword}"
+        />
+        <button type="submit">Tìm kiếm</button>
+      </form>
+    </div>
+    <div>
       <a
         href="${pageContext.request.contextPath}/courts/add"
         class="btn btn-primary"
