@@ -1,13 +1,12 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <!DOCTYPE html>
-        <html lang="vi">
+        <html lang="en">
 
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Xác nhận đăng ký</title>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+            <title>Chỉnh sửa thông tin</title>
             <style>
                 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
@@ -32,9 +31,9 @@
                     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
                     position: relative;
                     overflow: hidden;
-                    width: 500px;
+                    width: 600px;
                     max-width: 100%;
-                    min-height: 500px;
+                    min-height: 600px;
                     display: flex;
                 }
 
@@ -61,13 +60,31 @@
                     color: #1a4178;
                 }
 
+                .input-group {
+                    width: 100%;
+                    margin: 8px 0;
+                    text-align: left;
+                }
+
+                .input-group label {
+                    display: block;
+                    margin-bottom: 5px;
+                    color: #333;
+                    font-size: 14px;
+                }
+
                 input {
                     background-color: #eee;
                     border: none;
                     padding: 12px 15px;
-                    margin: 8px 0;
                     width: 100%;
                     font-size: 14px;
+                    border-radius: 5px;
+                }
+
+                #role,
+                #role1 {
+                    display: none;
                 }
 
                 button {
@@ -85,28 +102,15 @@
                     margin-top: 15px;
                 }
 
-                <!-- .overlay-container {
-                    flex: 1;
-                    background: linear-gradient(to right, #1a4178, #3c6bac);
-                    color: #FFFFFF;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    flex-direction: column;
-                    padding: 40px;
-                    text-align: center;
-                } -->
-
-                .success {
-                    color: green;
-                    margin-bottom: 20px;
+                a {
+                    color: #1a4178;
+                    text-decoration: none;
+                    margin-top: 15px;
+                    font-size: 14px;
                 }
 
-                label {
-                    text-align: left;
-                    width: 100%;
-                    margin-top: 10px;
-                    color: #1a4178;
+                a:hover {
+                    text-decoration: underline;
                 }
             </style>
         </head>
@@ -114,33 +118,38 @@
         <body>
             <div class="container">
                 <div class="form-container">
-                    <form action="/user/success" method="post">
-                        <h1>Thông tin đăng ký</h1>
+                    <form action="/chusan/update" method="post">
+                        <h1>Chỉnh sửa thông tin</h1>
 
-                        <c:if test="${param.success != null}">
-                            <p class="success">Đăng ký thành công!</p>
-                        </c:if>
+                        <input type="hidden" name="id" value="${customer.id}" />
 
-                        <label for="username">Tên người dùng:</label>
-                        <input type="text" id="username" name="username" value="${user.username}" readonly>
+                        <div class="input-group">
+                            <label for="username">Username:</label>
+                            <input type="text" name="username" value="${customer.username}" required />
+                        </div>
 
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" value="${user.email}" readonly>
+                        <div class="input-group">
+                            <label for="password">Password:</label>
+                            <input type="password" name="password" value="${customer.password}" required />
+                        </div>
 
-                        <label for="phoneNumber">Số điện thoại:</label>
-                        <input type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" readonly>
+                        <div class="input-group">
+                            <label for="email">Email:</label>
+                            <input type="email" name="email" value="${customer.email}" required />
+                        </div>
 
-                        <button type="submit">Trở về trang đăng nhập</button>
+                        <div class="input-group">
+                            <label for="phone">Số điện thoại:</label>
+                            <input type="text" name="phone" value="${customer.phoneNumber}" required />
+                        </div>
+
+                        <label id="role1" for="role">Role</label>
+                        <input id="role" type="text" name="role" value="${customer.role}" required />
+
+                        <button type="submit">Cập nhật</button>
+                        <a href="/chusan/showuser">Quay lại</a>
                     </form>
                 </div>
-
-                <!-- <div class="overlay-container">
-                    <div class="overlay-content">
-                        <h1>Đăng ký thành công</h1>
-                        <p>Chúc mừng bạn đã đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ để trải nghiệm dịch vụ
-                            của chúng tôi.</p>
-                    </div>
-                </div> -->
             </div>
         </body>
 

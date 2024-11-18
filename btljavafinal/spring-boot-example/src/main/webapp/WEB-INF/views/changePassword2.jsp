@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
         <!DOCTYPE html>
-        <html lang="vi">
+        <html lang="en">
 
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Xác nhận đăng ký</title>
+            <title>Đổi mật khẩu</title>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
             <style>
                 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
@@ -32,7 +32,7 @@
                     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
                     position: relative;
                     overflow: hidden;
-                    width: 500px;
+                    width: 600px;
                     max-width: 100%;
                     min-height: 500px;
                     display: flex;
@@ -41,6 +41,7 @@
                 .form-container {
                     flex: 1;
                     padding: 40px;
+                    
                 }
 
                 form {
@@ -85,7 +86,7 @@
                     margin-top: 15px;
                 }
 
-                <!-- .overlay-container {
+                .overlay-container {
                     flex: 1;
                     background: linear-gradient(to right, #1a4178, #3c6bac);
                     color: #FFFFFF;
@@ -95,18 +96,47 @@
                     flex-direction: column;
                     padding: 40px;
                     text-align: center;
+                }
+
+                <!-- .overlay-content {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 20px;
                 } -->
+
+                <!-- .overlay-container h1 {
+                    color: #FFFFFF;
+                    margin-bottom: 20px;
+                } -->
+
+                <!-- .overlay-container p {
+                    font-size: 14px;
+                    line-height: 20px;
+                    letter-spacing: 0.5px;
+                    margin: 20px 0;
+                } -->
+
+                a {
+                    color: #1a4178;
+                    text-decoration: none;
+                    margin-top: 15px;
+                }
+
+                a:hover {
+                    text-decoration: underline;
+                }
+
+                .message {
+                    margin: 15px 0;
+                }
 
                 .success {
                     color: green;
-                    margin-bottom: 20px;
                 }
 
-                label {
-                    text-align: left;
-                    width: 100%;
-                    margin-top: 10px;
-                    color: #1a4178;
+                .error {
+                    color: red;
                 }
             </style>
         </head>
@@ -114,31 +144,36 @@
         <body>
             <div class="container">
                 <div class="form-container">
-                    <form action="/user/success" method="post">
-                        <h1>Thông tin đăng ký</h1>
+                    <form action="/home/changePassword" method="post">
+                        <h1>Đổi mật khẩu</h1>
 
-                        <c:if test="${param.success != null}">
-                            <p class="success">Đăng ký thành công!</p>
+                        <c:if test="${not empty message}">
+                            <p class="message success">${message}</p>
+                        </c:if>
+                        <c:if test="${not empty error}">
+                            <p class="message error">${error}</p>
                         </c:if>
 
-                        <label for="username">Tên người dùng:</label>
-                        <input type="text" id="username" name="username" value="${user.username}" readonly>
+                        <input type="password" id="oldPassword" name="oldPassword" placeholder="Mật khẩu cũ" required />
+                        <input type="password" id="newPassword" name="newPassword" placeholder="Mật khẩu mới"
+                            required />
 
-                        <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" value="${user.email}" readonly>
+                        <button type="submit">Đổi mật khẩu</button>
 
-                        <label for="phoneNumber">Số điện thoại:</label>
-                        <input type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" readonly>
-
-                        <button type="submit">Trở về trang đăng nhập</button>
+                        <a href="<c:choose>
+                    <c:when test=" ${user.role=='admin' }">/admin</c:when>
+                            <c:otherwise>/home</c:otherwise>
+                            </c:choose>">
+                            Trở lại trang chủ
+                        </a>
                     </form>
                 </div>
 
                 <!-- <div class="overlay-container">
                     <div class="overlay-content">
-                        <h1>Đăng ký thành công</h1>
-                        <p>Chúc mừng bạn đã đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ để trải nghiệm dịch vụ
-                            của chúng tôi.</p>
+                        <h1>Đổi mật khẩu</h1>
+                        <p>Để bảo mật tài khoản của bạn, hãy sử dụng mật khẩu mạnh và không chia sẻ mật khẩu với người
+                            khác</p>
                     </div>
                 </div> -->
             </div>

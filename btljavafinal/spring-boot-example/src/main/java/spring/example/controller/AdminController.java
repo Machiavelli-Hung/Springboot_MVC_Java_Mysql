@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import spring.example.model.User;
- import spring.example.service.AdminService;
-import spring.example.service.UserService;;
+import spring.example.service.AdminService;
+;
 
 
 @Controller
-@RequestMapping("/admin")
+// @RequestMapping("/admin")
+@RequestMapping("/chusan")
 public class AdminController {
 
     @Autowired
@@ -31,27 +31,27 @@ public class AdminController {
         User userLogin = (User) session.getAttribute("userLogin");
         model.addAttribute("user", userLogin);
         
-        return "admin";
+        return "chusan";
     }
 
     @GetMapping("/showuser")
     public String getCustomers(Model model) {
         List<User> customers = adminService.getAllCustomers();
         model.addAttribute("customers", customers);
-        return "showuser"; // Tên của file HTML trong thư mục templates
+        return "showuser2"; // Tên của file HTML trong thư mục templates
     }
 
     @PostMapping("/delete/{id}")
     public String deleteCustomer(@PathVariable Long id) {
         adminService.deleteCustomer(id); // Giả sử bạn đã định nghĩa phương thức này trong AdminService
-        return "redirect:/admin/showuser"; // Chuyển hướng về trang danh sách khách hàng
+        return "redirect:/chusan/showuser"; // Chuyển hướng về trang danh sách khách hàng
     }
 
     @GetMapping("/edit/{id}")
     public String editCustomer(@PathVariable Long id, Model model) {
         User customer = adminService.getCustomerById(id); // Lấy thông tin khách hàng theo ID
         model.addAttribute("customer", customer);
-        return "editCustomer"; // Tên file JSP cho chỉnh sửa
+        return "editCustomer2"; // Tên file JSP cho chỉnh sửa
     }
 
     @PostMapping("/update")
@@ -70,7 +70,7 @@ public class AdminController {
     customer.setPhoneNumber(phone);
     
     adminService.updateCustomer(customer); // Cập nhật thông tin khách hàng
-    return "redirect:/admin/showuser"; 
+    return "redirect:/chusan/showuser"; 
 }
 
     

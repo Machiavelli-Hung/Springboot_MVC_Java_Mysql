@@ -30,7 +30,7 @@ public class HomeController {
     public String home(Model model,HttpSession session){
         User userLogin = (User) session.getAttribute("userLogin");
         model.addAttribute("user", userLogin);
-        return "home";
+        return "home2";
     }
 
     @GetMapping("/logout")
@@ -55,7 +55,7 @@ public class HomeController {
              return "redirect:/user/login"; 
          }
          model.addAttribute("user", userLogin);
-         return "changePassword"; 
+         return "changePassword2"; 
      }
 
     @PostMapping("/changePassword")

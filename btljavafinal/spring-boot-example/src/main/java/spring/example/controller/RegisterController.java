@@ -1,8 +1,14 @@
 package spring.example.controller;
 
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,14 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import spring.example.exception.userException;
 import spring.example.model.User;
-import spring.example.repository.UserRepository;
 import spring.example.service.UserService;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import javax.servlet.ServletException;
 
 @Controller
 @RequestMapping("/user")
@@ -33,7 +32,7 @@ public class RegisterController {
     public String register(Model model) {
         // User user = new User();
         // model.addAttribute("user", user);
-        return "register";
+        return "register2";
     }
 
     // day thong tin len server va check
@@ -52,7 +51,7 @@ public class RegisterController {
             return "redirect:/user/success";
         } catch (userException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "register"; // tên của trang đăng ký
+            return "register2"; // tên của trang đăng ký
         }
 
     }
