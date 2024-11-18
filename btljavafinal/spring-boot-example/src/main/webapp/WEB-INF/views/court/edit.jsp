@@ -39,39 +39,6 @@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
         <form:input path="owner.phoneNumber" />
         <form:errors path="owner.phoneNumber" cssClass="error" />
       </div>
-      <div>
-        <h3>Schedule Prices</h3>
-        <c:forEach var="schedule" items="${court.schedules}" varStatus="status">
-          <div>
-            <!-- Hidden field for schedule ID -->
-            <form:hidden path="schedules[${status.index}].id" />
-
-            <!-- Time -->
-            <form:label path="schedules[${status.index}].time"
-              >Time (Morning/Afternoon):</form:label
-            >
-            <form:input path="schedules[${status.index}].time" />
-            <form:errors
-              path="schedules[${status.index}].time"
-              cssClass="error"
-            />
-
-            <!-- Price -->
-            <form:label path="schedules[${status.index}].price"
-              >Price:</form:label
-            >
-            <form:input
-              path="schedules[${status.index}].price"
-              type="number"
-              step="0.01"
-            />
-            <form:errors
-              path="schedules[${status.index}].price"
-              cssClass="error"
-            />
-          </div>
-        </c:forEach>
-      </div>
 
       <!-- Submit Button -->
       <div>

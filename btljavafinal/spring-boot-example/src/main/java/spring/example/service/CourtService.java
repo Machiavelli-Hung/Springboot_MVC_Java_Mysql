@@ -1,7 +1,9 @@
 package spring.example.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,6 +92,23 @@ public class CourtService {
         }
     }
 
+    public boolean deleteImage(Long courtId, Long imageId) {
+        // Tìm ảnh trong cơ sở dữ liệu và xóa nó
+        Optional<Image> image = imageRepository.findById(imageId);
+        if (image.isPresent()) {
+            // Xóa ảnh từ hệ thống tệp (nếu cần)
+            File imageFile = new File("uploads/" + image.get().getName());
+            if (imageFile.exists()) {
+                imageFile.delete();
+            }
+
+            // Xóa ảnh khỏi cơ sở dữ liệu
+            imageRepository.delete(image.get());
+            return true;
+        }
+        return false;
+    }
+
     public List<Schedule> getAllSchedulesForCourt(Long courtId) {
         Court court = courtRepository.findById(courtId).orElse(null);
         return court != null ? court.getSchedules() : null;
@@ -115,6 +134,11 @@ public class CourtService {
                 .orElseThrow(() -> new IllegalArgumentException("Schedule not found"));
     }
 
+    public Image getImageById(Long imageId) {
+        return imageRepository.findById(imageId)
+                .orElseThrow(() -> new IllegalArgumentException("Image not found"));
+    }
+
     @Transactional
     public void updateSchedule(Long scheduleId, String time, double price, boolean rented) {
         Schedule schedule = scheduleRepository.findById(scheduleId)
@@ -132,6 +156,15 @@ public class CourtService {
     public Long getCourtIdByScheduleId(Long scheduleId) {
         Schedule schedule = getScheduleById(scheduleId);
         return schedule.getCourt().getId();
+    }
+
+    public Long getCourtIdByImageId(Long imageId) {
+        Image image = getImageById(imageId);
+        return image.getCourt().getId();
+    }
+
+    public void deleteImage(Long imageId) {
+        imageRepository.deleteById(imageId);
     }
 
 }

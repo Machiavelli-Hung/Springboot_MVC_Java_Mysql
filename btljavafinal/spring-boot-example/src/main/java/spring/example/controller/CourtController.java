@@ -130,6 +130,14 @@ public class CourtController {
         return "redirect:/courts";
     }
 
+    @GetMapping("/delete-image/{imageId}")
+    public String deleteImage(@PathVariable("imageId") Long imageId, RedirectAttributes redirectAttributes) {
+        Long courtId = courtService.getCourtIdByImageId(imageId); // Retrieve court ID for redirection
+        courtService.deleteImage(imageId);
+        redirectAttributes.addFlashAttribute("message", "image deleted successfully!");
+        return "redirect:/courts/add-images/" + courtId;
+    }
+
     @GetMapping("/delete/{id}")
     public String deleteCourt(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         courtService.deleteCourt(id);
