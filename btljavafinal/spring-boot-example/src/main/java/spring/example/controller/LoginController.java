@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import spring.example.model.User;
@@ -23,8 +22,8 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login(Model model) {
-       //model.addAttribute("UserLogin", new User());
-       return "login";
+        // model.addAttribute("UserLogin", new User());
+        return "login2";
     }
 
     @PostMapping("/login")
@@ -36,20 +35,18 @@ public class LoginController {
         if (userService.checkLogin(username, password)) {
             User userCheck = userService.getUserByUsername(username);
             session.setAttribute("userLogin", userCheck);
-            
-            if(userCheck.getRole().equals("admin")|| userCheck.getRole().equals("chu san")){   
-                return "redirect:/admin";
-            }else{
-                 return "redirect:/home";
+
+            if (userCheck.getRole().equals("admin") || userCheck.getRole().equals("chu san")) {
+                return "redirect:/chusan";
+            } else {
+                return "redirect:/home";
             }
-            
+
         } else {
             model.addAttribute("errorMessage", "mật khẩu hoặc tên đăng nhập chưa đúng");
-            return "login";
+            return "login2";
         }
 
     }
-
-   
 
 }
