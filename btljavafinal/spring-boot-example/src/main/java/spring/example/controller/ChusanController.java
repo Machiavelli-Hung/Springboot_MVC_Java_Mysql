@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import spring.example.model.Court;
 import spring.example.model.User;
 import spring.example.service.ChusanService;
+import spring.example.service.CourtService;
 
 @Controller
 // @RequestMapping("/admin")
@@ -24,11 +26,15 @@ public class ChusanController {
     @Autowired
     private ChusanService ChusanService;
 
+    @Autowired
+    private CourtService courtService;
+
     @GetMapping({ "", "/" })
     public String admin(Model model, HttpSession session) {
         User userLogin = (User) session.getAttribute("userLogin");
         model.addAttribute("user", userLogin);
-
+        List<Court> courts = courtService.getAllCourts();
+        model.addAttribute("courts", courts);
         return "chusan";
     }
 

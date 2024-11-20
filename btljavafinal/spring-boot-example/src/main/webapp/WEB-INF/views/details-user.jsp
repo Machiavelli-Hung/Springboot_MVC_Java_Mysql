@@ -42,16 +42,6 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             <button onclick="location.href='/home/changePassword'" class="btn">
               Đổi mật khẩu
             </button>
-          </c:if>
-
-          <!-- Kiểm tra nếu chưa có user trong session -->
-          <c:if test="${user == null}">
-            <button onclick="location.href='/user/login'" class="btn">
-              Đăng nhập
-            </button>
-            <button onclick="location.href='/user/register'" class="btn">
-              Đăng ký
-            </button>
             <button class="user-btn">
               <i class="fa-solid fa-user"></i>
             </button>

@@ -67,114 +67,27 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     </div>
     <!-- Main content -->
     <div class="main-content">
-      <div class="sidebar">
-        <c:if test="${user != null}">
-          <h3>Thông tin người dùng</h3>
-          <table>
-            <tr>
-              <th>Tên người dùng</th>
-              <td>${user.username}</td>
-            </tr>
-            <tr>
-              <th>Email</th>
-              <td>${user.email}</td>
-            </tr>
-            <tr>
-              <th>Số điện thoại</th>
-              <td>${user.phoneNumber}</td>
-            </tr>
-            <tr>
-              <th>Vai trò</th>
-              <td>${user.role}</td>
-            </tr>
-          </table>
-        </c:if>
-
-        <br />
-      </div>
-
       <div class="venues-grid">
-        <div class="venue-card">
-          <h3>Tennis Tân Trường</h3>
-          <img
-            src="/images/s1.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>0908344582</p>
-            <p>
-              96 Đường Đào Trí, phường Phú Thuận, Quận 7, Hồ Chí Minh, Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
+        <!-- Lặp qua danh sách sân -->
+        <c:forEach var="court" items="${courts}">
+          <div class="venue-card">
+            <h3>${court.name}</h3>
+            <img
+              src="/images/s1.png"
+              style="width: 100%; height: 60%; object-fit: cover"
+              alt="san1"
+            />
+            <div class="content_image">
+              <p>${court.owner.phoneNumber}</p>
+              <!-- Hiển thị chủ sân -->
+              <p>${court.address}</p>
+              <!-- Địa chỉ sân -->
+              <a href="/courts/details/${court.id}" class="btn-detail"
+                >Chi tiết</a
+              >
+            </div>
           </div>
-        </div>
-
-        <div class="venue-card">
-          <h3>Saigon Padel</h3>
-          <img
-            src="/images/s2.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>0903920094</p>
-            <p>
-              Khu Dân Cư Conic, Đường Nguyễn Văn Linh, Bình Chánh, Hồ Chí Minh,
-              Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
-          </div>
-        </div>
-
-        <div class="venue-card">
-          <h3>Hoàng Nghệu Tennis & Pickleball</h3>
-          <img
-            src="/images/s3.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>941172736</p>
-            <p>
-              Khu Dân Cư Conic, Đường Nguyễn Văn Linh, Bình Chánh, Hồ Chí Minh,
-              Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
-          </div>
-        </div>
-        <div class="venue-card">
-          <h3>Saigon Padel</h3>
-          <img
-            src="/images/s2.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>0903920094</p>
-            <p>
-              Khu Dân Cư Conic, Đường Nguyễn Văn Linh, Bình Chánh, Hồ Chí Minh,
-              Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
-          </div>
-        </div>
-        <div class="venue-card">
-          <h3>Saigon Padel</h3>
-          <img
-            src="/images/s2.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>0903920094</p>
-            <p>
-              Khu Dân Cư Conic, Đường Nguyễn Văn Linh, Bình Chánh, Hồ Chí Minh,
-              Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
-          </div>
-        </div>
+        </c:forEach>
       </div>
     </div>
   </body>

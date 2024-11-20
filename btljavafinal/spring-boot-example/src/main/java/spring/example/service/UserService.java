@@ -14,6 +14,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public List<User> getOwners() {
+        return userRepository.findByRole("owner");
+    }
+
     public User getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserException("Không tìm thấy người dùng với id: " + id));

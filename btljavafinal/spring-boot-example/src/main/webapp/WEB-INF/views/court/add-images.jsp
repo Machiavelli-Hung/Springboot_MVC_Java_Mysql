@@ -1,43 +1,121 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%@ page
 contentType="text/html" pageEncoding="UTF-8" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thêm ảnh cho sân</title>
     <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        background-color: #f9f9f9;
+        color: #333;
+      }
+
+      h2,
+      h3 {
+        color: #2c3e50;
+        text-align: center;
+      }
+
+      form,
+      .preview-container {
+        margin: 20px auto;
+        max-width: 600px;
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      input[type="file"] {
+        display: block;
+        margin: 10px 0;
+        padding: 8px;
+        font-size: 16px;
+      }
+
+      button[type="submit"] {
+        display: inline-block;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #2980b9;
+      }
+
       .preview-container {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
         margin-top: 15px;
       }
+
       .preview-item {
         position: relative;
         display: inline-block;
       }
+
       .preview-item img {
         max-width: 100px;
         max-height: 100px;
         border: 1px solid #ddd;
         border-radius: 4px;
         padding: 5px;
+        background-color: #fff;
       }
+
       .delete-btn {
         position: absolute;
         top: 2px;
         right: 2px;
-        background-color: red;
+        background-color: #e74c3c;
         color: white;
         border: none;
         border-radius: 50%;
         width: 20px;
         height: 20px;
         font-size: 14px;
+        line-height: 20px;
+        text-align: center;
         cursor: pointer;
+      }
+
+      .delete-btn:hover {
+        background-color: #c0392b;
+      }
+
+      .back-link {
+        display: block;
+        text-align: center;
+        margin: 20px;
+        text-decoration: none;
+        font-size: 16px;
+        color: #3498db;
+      }
+
+      .back-link:hover {
+        text-decoration: underline;
       }
     </style>
     <script>
-      let selectedFiles = []; // Array to hold all selected files
+      let selectedFiles = [];
 
       function previewImages() {
         const previewContainer = document.getElementById("preview-container");
@@ -45,10 +123,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
           document.getElementById("file-input").files
         );
 
-        // Add new files to the selectedFiles array
         selectedFiles = selectedFiles.concat(newFiles);
-
-        // Clear previewContainer and regenerate previews for all selected files
         previewContainer.innerHTML = "";
 
         selectedFiles.forEach((file, index) => {
@@ -63,10 +138,9 @@ contentType="text/html" pageEncoding="UTF-8" %>
             const deleteBtn = document.createElement("button");
             deleteBtn.innerHTML = "X";
             deleteBtn.classList.add("delete-btn");
-
             deleteBtn.onclick = function () {
-              selectedFiles.splice(index, 1); // Remove from selectedFiles array
-              previewItem.remove(); // Remove the preview item from DOM
+              selectedFiles.splice(index, 1);
+              previewItem.remove();
             };
 
             previewItem.appendChild(img);
@@ -76,22 +150,24 @@ contentType="text/html" pageEncoding="UTF-8" %>
           reader.readAsDataURL(file);
         });
       }
-    </script>
-    <script>
-      function confirmDeleteImage(event, imageId) {
-        event.preventDefault(); // Ngừng hành động mặc định của thẻ a
 
-        // Hiển thị popup xác nhận
+      function confirmDeleteImage(event, imageId) {
+        event.preventDefault();
         const confirmation = confirm("Bạn có chắc chắn muốn xóa ảnh này?");
         if (confirmation) {
-          // Nếu người dùng đồng ý, thực hiện yêu cầu xóa
-          window.location.href = event.target.href; // Chuyển hướng đến URL xóa ảnh
+          window.location.href = event.target.href;
         }
       }
     </script>
   </head>
   <body>
     <h2>Thêm ảnh cho sân</h2>
+
+    <c:if test="${not empty errorMessage}">
+      <div style="color: red; font-weight: bold">${errorMessage}</div>
+    </c:if>
+
+    <c:out value="${errorMessage}" />
 
     <!-- Form to add images -->
     <form
@@ -107,15 +183,9 @@ contentType="text/html" pageEncoding="UTF-8" %>
         multiple
         onchange="previewImages()"
       />
-      <br /><br />
-
-      <!-- Preview selected images -->
       <div id="preview-container" class="preview-container"></div>
-
       <button type="submit">Thêm ảnh</button>
     </form>
-
-    <br /><br />
 
     <!-- Display existing images of the court -->
     <h3>Ảnh hiện tại của sân:</h3>
@@ -123,10 +193,9 @@ contentType="text/html" pageEncoding="UTF-8" %>
       <c:forEach var="image" items="${court.images}">
         <div class="preview-item">
           <img
-            src="${pageContext.request.contextPath}/uploads/${image.name}"
+            src="${pageContext.request.contextPath}/images/${image.name}"
             alt="Image"
           />
-          <!-- Add delete button for each image -->
           <a
             class="delete-btn"
             href="${pageContext.request.contextPath}/courts/delete-image/${image.id}"
@@ -138,11 +207,8 @@ contentType="text/html" pageEncoding="UTF-8" %>
       </c:forEach>
     </div>
 
-    <br />
-    <div>
-      <a href="${pageContext.request.contextPath}/courts"
-        >Quay lại danh sách sân</a
-      >
-    </div>
+    <a href="${pageContext.request.contextPath}/courts" class="back-link"
+      >Quay lại danh sách sân</a
+    >
   </body>
 </html>

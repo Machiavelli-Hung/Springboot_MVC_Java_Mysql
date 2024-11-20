@@ -1,11 +1,13 @@
 package spring.example.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,6 +19,11 @@ import spring.example.repository.CourtRepository;
 import spring.example.repository.ImageRepository;
 import spring.example.repository.ScheduleRepository;
 import spring.example.repository.UserRepository;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.Path;
 
 @Service
 public class CourtService {
@@ -32,6 +39,9 @@ public class CourtService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Value("${upload.directory}")
+    private String uploadDir;
 
     public Court getCourtById(Long id) {
         return courtRepository.findById(id)
@@ -85,8 +95,16 @@ public class CourtService {
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {
                 try {
-                    // Lấy tên file (giữ nguyên tên file gốc)
+                    // Tạo thư mục nếu chưa có
+                    File directory = new File(uploadDir);
+                    if (!directory.exists()) {
+                        directory.mkdirs();
+                    }
+
+                    // Lưu file vào thư mục tĩnh (static/images)
                     String fileName = file.getOriginalFilename();
+                    File targetFile = new File(directory, fileName);
+                    Files.copy(file.getInputStream(), targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
                     // Tạo đối tượng Image và lưu tên file vào cơ sở dữ liệu
                     Image image = new Image();
@@ -94,8 +112,7 @@ public class CourtService {
                     image.setCourt(court); // Gắn ảnh với sân
 
                     images.add(image); // Thêm ảnh vào danh sách
-                } catch (Exception e) {
-                    // Log lỗi nếu có
+                } catch (IOException e) {
                     System.err.println("Failed to save image: " + e.getMessage());
                 }
             }
@@ -104,9 +121,6 @@ public class CourtService {
         // Lưu các ảnh vào cơ sở dữ liệu
         if (!images.isEmpty()) {
             imageRepository.saveAll(images); // Lưu tất cả ảnh vào DB
-            System.out.println("Images saved to DB");
-        } else {
-            System.out.println("No images to save");
         }
     }
 
@@ -182,7 +196,28 @@ public class CourtService {
     }
 
     public void deleteImage(Long imageId) {
+        // Tìm ảnh trong cơ sở dữ liệu
+        Image image = imageRepository.findById(imageId)
+                .orElseThrow(() -> new IllegalArgumentException("Image not found"));
+
+        // Xoá ảnh khỏi cơ sở dữ liệu
         imageRepository.deleteById(imageId);
+
+        // Xoá ảnh khỏi thư mục static/images
+        String fileName = image.getName(); // Lấy tên ảnh từ cơ sở dữ liệu
+        Path imagePath = Paths.get("src/main/resources/static/images", fileName);
+
+        try {
+            // Kiểm tra xem tệp có tồn tại không trước khi xoá
+            if (Files.exists(imagePath)) {
+                Files.delete(imagePath); // Xoá tệp ảnh khỏi hệ thống
+                System.out.println("Image deleted from file system: " + fileName);
+            } else {
+                System.out.println("Image file not found: " + fileName);
+            }
+        } catch (IOException e) {
+            System.err.println("Failed to delete image from file system: " + e.getMessage());
+        }
     }
 
 }

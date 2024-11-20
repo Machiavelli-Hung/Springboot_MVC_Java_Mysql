@@ -11,6 +11,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Court {
@@ -19,7 +22,10 @@ public class Court {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Tên sân không được để trống")
     private String name;
+
+    @NotEmpty(message = "Địa chỉ không được để trống")
     private String address;
 
     // Nhiều sân (Court) có thể thuộc về một chủ sân (User)
