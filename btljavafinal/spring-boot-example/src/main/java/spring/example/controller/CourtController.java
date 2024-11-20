@@ -96,7 +96,6 @@ public class CourtController {
             @RequestParam("files") MultipartFile[] files,
             RedirectAttributes redirectAttributes) {
         if (files == null || files.length == 0) {
-            System.out.println("Vui lòng chọn ít nhất 1 ảnh...");
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn ít nhất một ảnh.");
             return "redirect:/courts/add-images/" + id;
         }
@@ -104,7 +103,7 @@ public class CourtController {
         courtService.saveImages(id, files);
 
         redirectAttributes.addFlashAttribute("message", "Images uploaded successfully!");
-        return "redirect:/courts/add-images/" + id;
+        return "redirect:/courts";
     }
 
     @GetMapping("/add-schedules/{id}")

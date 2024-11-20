@@ -73,7 +73,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
           <div class="venue-card">
             <h3>${court.name}</h3>
             <img
-              src="/images/s1.png"
+              src="/images/${court.images[0].name}"
               style="width: 100%; height: 60%; object-fit: cover"
               alt="san1"
             />
