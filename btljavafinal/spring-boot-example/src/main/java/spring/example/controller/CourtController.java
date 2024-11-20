@@ -175,4 +175,6 @@ public class CourtController {
         System.out.println(courtService.getAllCourts());
         return "court/list";
     }
+
+    
 }

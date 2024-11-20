@@ -10,6 +10,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
       type="text/css"
       href="${pageContext.request.contextPath}/css/css_user/chusan.css"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
+      integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
 
   <body>
@@ -35,6 +38,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             <button onclick="location.href='/home/changePassword'" class="btn">
               Đổi mật khẩu
             </button>
+            <button onclick="location.href='/user/details/${user.id}'" class="user-btn">
+              <i class="fa-solid fa-user"></i>
+            </button>
           </c:if>
 
           <!-- Kiểm tra nếu chưa có user trong session -->
@@ -54,32 +60,6 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     </div>
     <!-- Main content -->
     <div class="main-content">
-      <div class="sidebar">
-        <c:if test="${user != null}">
-          <h3>Thông tin người dùng</h3>
-          <table>
-            <tr>
-              <th>Tên người dùng</th>
-              <td>${user.username}</td>
-            </tr>
-            <tr>
-              <th>Email</th>
-              <td>${user.email}</td>
-            </tr>
-            <tr>
-              <th>Số điện thoại</th>
-              <td>${user.phoneNumber}</td>
-            </tr>
-            <tr>
-              <th>Vai trò</th>
-              <td>${user.role}</td>
-            </tr>
-          </table>
-        </c:if>
-
-        <br />
-      </div>
-
       <div class="venues-grid">
         <div class="venue-card">
           <h3>Tennis Tân Trường</h3>
