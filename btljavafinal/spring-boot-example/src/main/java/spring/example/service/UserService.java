@@ -14,6 +14,11 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserException("Không tìm thấy người dùng với id: " + id));
+    }
+
     public void saveUser(User user) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new UserException("Username đã tồn tại.");

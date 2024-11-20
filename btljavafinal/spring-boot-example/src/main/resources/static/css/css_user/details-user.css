@@ -145,38 +145,6 @@ nav a {
   background-color: #f1f1f1;
 }
 
-.venues-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
-  flex: 3;
-  margin-top: 4rem;
-  /* Điều chỉnh thêm khoảng cách nếu cần */
-}
-
-.venue-card {
-  border: 1px solid #ddd;
-  padding: 1rem;
-  border-radius: 8px;
-  background: white;
-  position: relative;
-  height: 451px;
-}
-
-.venue-card h3 {
-  color: #1a4178;
-  margin-bottom: 1rem;
-}
-
-.venue-card image {
-  margin-bottom: 10px;
-}
-
-.venue-card .content_image {
-  position: absolute;
-  bottom: 10px;
-}
-
 .btn-detail {
   display: inline-block;
   background-color: #1a4178;
@@ -205,15 +173,6 @@ nav a {
   padding: 0.5rem;
   border: 1px solid #ddd;
   border-radius: 4px;
-}
-
-.btn-submit {
-  background-color: #1a4178;
-  color: white;
-  padding: 0.5rem 2rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
 }
 
 .user-btn {

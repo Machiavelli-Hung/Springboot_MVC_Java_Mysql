@@ -10,6 +10,13 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
       type="text/css"
       href="${pageContext.request.contextPath}/css/css_user/chusan.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
+      integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
 
   <body>
@@ -34,6 +41,12 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             </button>
             <button onclick="location.href='/home/changePassword'" class="btn">
               Đổi mật khẩu
+            </button>
+            <button
+              onclick="location.href='/user/details/${user.id}'"
+              class="user-btn"
+            >
+              <i class="fa-solid fa-user"></i>
             </button>
           </c:if>
 
