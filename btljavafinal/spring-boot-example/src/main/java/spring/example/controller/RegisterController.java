@@ -17,21 +17,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import spring.example.exception.UserException;
 import spring.example.model.User;
+import spring.example.service.AuthenticService;
 import spring.example.service.UserService;
 
 @Controller
 @RequestMapping("/user")
 public class RegisterController {
 
+
+
     @Autowired
-    private UserService userService;
+    private AuthenticService authenticService;
 
     // tao trang dang ky
     @GetMapping("/register")
     public String register(Model model) {
         // User user = new User();
         // model.addAttribute("user", user);
-        return "register2";
+        return "register-user-owner";
     }
 
     // day thong tin len server va check
@@ -45,12 +48,12 @@ public class RegisterController {
         existingUser.setRole(user.getRole());
 
         try {
-            userService.saveUser(user); // lưu user nếu không có trùng lặp
+            authenticService.saveUser(user); // lưu user nếu không có trùng lặp
             session.setAttribute("user", user);
             return "redirect:/user/success";
         } catch (UserException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "register2"; // tên của trang đăng ký
+            return "register-user-owner"; // tên của trang đăng ký
         }
 
     }

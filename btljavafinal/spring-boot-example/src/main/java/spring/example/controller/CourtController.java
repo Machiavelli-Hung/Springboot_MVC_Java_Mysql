@@ -20,7 +20,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import spring.example.model.Court;
 import spring.example.model.Image;
 import spring.example.model.Schedule;
+import spring.example.model.User;
 import spring.example.service.CourtService;
+import spring.example.service.UserService;
 
 @Controller
 @RequestMapping("/courts")
@@ -28,6 +30,9 @@ public class CourtController {
 
     @Autowired
     private CourtService courtService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/details/{id}")
     public String showCourtDetails(@PathVariable("id") Long id, Model model) {
@@ -57,6 +62,8 @@ public class CourtController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("court", new Court());
+        List<User> owners = userService.getOwners();
+        model.addAttribute("owners", owners);
         return "court/add";
     }
 
@@ -64,10 +71,14 @@ public class CourtController {
     public String addCourt(@Valid @ModelAttribute("court") Court court, BindingResult result, Model model,
             RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
+            // Nếu có lỗi, gửi lỗi qua redirectAttributes để tránh mất thông tin khi làm mới
+            // trang
+            model.addAttribute("owners", userService.getOwners()); // Đảm bảo danh sách chủ sân vẫn có sẵn
             return "court/add";
         }
+
         courtService.saveCourt(court);
-        redirectAttributes.addFlashAttribute("message", "Court added successfully!");
+        redirectAttributes.addFlashAttribute("message", "Sân đã được thêm thành công!");
         return "redirect:/courts";
     }
 
@@ -84,11 +95,15 @@ public class CourtController {
             @PathVariable("id") Long id,
             @RequestParam("files") MultipartFile[] files,
             RedirectAttributes redirectAttributes) {
-        // Logic to handle file saving, e.g., saving file names to DB
-        courtService.saveImages(id, files); // Ensure CourtService has a method to handle the image storage
+        if (files == null || files.length == 0) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn ít nhất một ảnh.");
+            return "redirect:/courts/add-images/" + id;
+        }
+        // Lưu ảnh và chuyển hướng về trang upload ảnh
+        courtService.saveImages(id, files);
 
         redirectAttributes.addFlashAttribute("message", "Images uploaded successfully!");
-        return "redirect:/courts"; // Redirect after upload is complete
+        return "redirect:/courts";
     }
 
     @GetMapping("/add-schedules/{id}")
@@ -140,6 +155,7 @@ public class CourtController {
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         Court court = courtService.getCourtById(id);
         model.addAttribute("court", court);
+        model.addAttribute("owners", userService.getOwners());
         return "court/edit";
     }
 
@@ -172,7 +188,7 @@ public class CourtController {
     @GetMapping
     public String listCourts(Model model) {
         model.addAttribute("courts", courtService.getAllCourts());
-        System.out.println(courtService.getAllCourts());
         return "court/list";
     }
+
 }

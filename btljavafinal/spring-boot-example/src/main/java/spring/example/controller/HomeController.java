@@ -18,7 +18,6 @@ import spring.example.service.UserService;
 
 @Controller
 @RequestMapping("/home")
-
 public class HomeController {
 
     @Autowired
@@ -29,7 +28,7 @@ public class HomeController {
     public String home(Model model, HttpSession session) {
         User userLogin = (User) session.getAttribute("userLogin");
         model.addAttribute("user", userLogin);
-        return "home2";
+        return "home";
     }
 
     @GetMapping("/logout")
@@ -51,7 +50,7 @@ public class HomeController {
     @GetMapping("/changePassword")
     public String showChangePasswordForm(Model model, HttpSession session) {
         User userLogin = (User) session.getAttribute("userLogin");
-        if (userLogin == null) {
+        if (session == null) {
             return "redirect:/user/login";
         }
         model.addAttribute("user", userLogin);
@@ -82,5 +81,8 @@ public class HomeController {
         return "redirect:/home"; // Redirect to home page for regular users
 
     }
+    
+    
+    
 
 }

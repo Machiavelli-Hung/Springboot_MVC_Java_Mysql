@@ -23,12 +23,15 @@ contentType="text/html;charset=UTF-8" language="java" %>
         <form action="/home/changePassword" method="post">
           <h1>Đổi mật khẩu</h1>
 
+          <!-- Hiển thị thông báo nếu có -->
+        <div>
           <c:if test="${not empty message}">
-            <p class="message success">${message}</p>
+              <p style="color: green;" >${message}</p>
           </c:if>
           <c:if test="${not empty error}">
-            <p class="message error">${error}</p>
+              <p style="color: red;" >${error}</p>
           </c:if>
+        </div>  
 
           <input
             type="password"

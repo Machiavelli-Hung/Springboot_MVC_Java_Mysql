@@ -3,6 +3,7 @@ package spring.example.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
 import spring.example.exception.UserException;
@@ -14,18 +15,13 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public void saveUser(User user) {
-        if (userRepository.existsByUsername(user.getUsername())) {
-            throw new UserException("Username đã tồn tại.");
-        }
-        if (userRepository.existsByEmail(user.getEmail())) {
-            throw new UserException("Email đã tồn tại.");
-        }
-        if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
-            throw new UserException("Số điện thoại đã tồn tại.");
-        }
+    public List<User> getOwners() {
+        return userRepository.findByRole("owner");
+    }
 
-        userRepository.save(user);
+    public User getUserById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserException("Không tìm thấy người dùng với id: " + id));
     }
 
     public boolean checkLogin(String username, String password) {

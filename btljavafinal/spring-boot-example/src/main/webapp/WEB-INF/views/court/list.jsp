@@ -1,89 +1,128 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%@page
-contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> <%@ page
+contentType="text/html" pageEncoding="UTF-8" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="vi">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Danh sách các sân</title>
     <style>
-      /* CSS cho modal */
-      .modal {
-        display: none; /* Ẩn modal mặc định */
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgba(0, 0, 0, 0.4); /* Màu nền mờ */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
       }
 
-      .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 80%; /* Chiều rộng của modal */
-        max-width: 400px; /* Giới hạn chiều rộng modal */
+      h2 {
+        text-align: center;
       }
 
-      .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-      }
-
-      .close:hover,
-      .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-      }
-
-      .modal-buttons {
+      .search-container {
         display: flex;
-        justify-content: space-around;
+        justify-content: center;
+        margin-bottom: 20px;
       }
 
-      .modal-buttons button {
+      .search-container input[type="text"] {
+        width: 300px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      .search-container button {
         padding: 10px 20px;
+        margin-left: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
         cursor: pointer;
+        font-size: 16px;
+      }
+
+      .search-container button:hover {
+        background-color: #0056b3;
+      }
+
+      .btn-primary {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        text-align: center;
+        width: fit-content;
+      }
+
+      .btn-primary:hover {
+        background-color: #0056b3;
+      }
+
+      /* Grid layout */
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+
+      .grid-item {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background-color: #f9f9f9;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+
+      .grid-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .grid-item h3 {
+        margin: 10px 0;
+        font-size: 18px;
+        color: #333;
+      }
+
+      .grid-item p {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .grid-item a {
+        display: inline-block;
+        margin: 5px;
+        padding: 8px 15px;
+        background-color: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .grid-item a:hover {
+        background-color: #0056b3;
+      }
+
+      .grid-item a.delete {
+        background-color: #dc3545;
+      }
+
+      .grid-item a.delete:hover {
+        background-color: #c82333;
       }
     </style>
-    <script type="text/javascript">
-      // JavaScript để hiển thị modal
-      function showModal(courtId) {
-        // Lấy modal và nút đóng
-        var modal = document.getElementById("deleteModal");
-        var span = document.getElementsByClassName("close")[0];
-
-        // Hiển thị modal
-        modal.style.display = "block";
-
-        // Xử lý xác nhận xóa
-        document.getElementById("confirmDelete").onclick = function () {
-          window.location.href = "/courts/delete/" + courtId; // Nếu xác nhận, chuyển hướng tới xóa sân
-        };
-
-        // Xử lý đóng modal
-        span.onclick = function () {
-          modal.style.display = "none";
-        };
-
-        // Nếu người dùng click ra ngoài modal, đóng modal
-        window.onclick = function (event) {
-          if (event.target == modal) {
-            modal.style.display = "none";
-          }
-        };
-      }
-    </script>
   </head>
   <body>
     <h2>Danh sách các sân</h2>
-    <div>
+
+    <!-- Thanh tìm kiếm -->
+    <div class="search-container">
       <form
         action="${pageContext.request.contextPath}/courts/search"
         method="GET"
@@ -97,59 +136,45 @@ contentType="text/html" pageEncoding="UTF-8"%>
         <button type="submit">Tìm kiếm</button>
       </form>
     </div>
-    <div>
-      <a
-        href="${pageContext.request.contextPath}/courts/add"
-        class="btn btn-primary"
-        >Tạo sân mới</a
-      >
-    </div>
-    <table border="1">
-      <tr>
-        <th>ID</th>
-        <th>Tên</th>
-        <th>Địa chỉ</th>
-        <th>Hoạt động</th>
-      </tr>
-      <c:forEach items="${courts}" var="court">
-        <tr>
-          <td>${court.id}</td>
-          <td>${court.name}</td>
-          <td>${court.address}</td>
-          <td>
-            <a
-              href="${pageContext.request.contextPath}/courts/add-images/${court.id}"
-              >Thêm ảnh</a
-            >
-            <a
-              href="${pageContext.request.contextPath}/courts/add-schedules/${court.id}"
-              >Thêm lịch</a
-            >
-            <a href="${pageContext.request.contextPath}/courts/edit/${court.id}"
-              >Sửa</a
-            >
-            <a href="javascript:void(0);" onclick="showModal(${court.id})"
-              >Xoá</a
-            >
-          </td>
-        </tr>
-      </c:forEach>
-    </table>
 
-    <!-- Modal -->
-    <div id="deleteModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Bạn có chắc chắn muốn xóa sân này?</h3>
-        <div class="modal-buttons">
-          <button id="confirmDelete">Xóa</button>
-          <button
-            onclick="document.getElementById('deleteModal').style.display='none'"
-          >
-            Hủy
-          </button>
-        </div>
-      </div>
+    <a href="${pageContext.request.contextPath}/courts/add" class="btn-primary"
+      >Tạo sân mới</a
+    >
+
+    <div class="grid-container">
+      <c:if test="${courts != null && !courts.isEmpty()}">
+        <c:forEach items="${courts}" var="court">
+          <div class="grid-item">
+            <h3>${court.name}</h3>
+            <p>Địa chỉ: ${court.address}</p>
+            <div>
+              <a
+                href="${pageContext.request.contextPath}/courts/add-images/${court.id}"
+                >Thêm ảnh</a
+              >
+              <a
+                href="${pageContext.request.contextPath}/courts/add-schedules/${court.id}"
+                >Thêm lịch</a
+              >
+              <a
+                href="${pageContext.request.contextPath}/courts/edit/${court.id}"
+                >Sửa</a
+              >
+              <a
+                href="${pageContext.request.contextPath}/courts/delete/${court.id}"
+                class="delete"
+                onclick="return confirm('Bạn có chắc chắn muốn xóa sân này?')"
+                >Xóa</a
+              >
+            </div>
+          </div>
+        </c:forEach>
+      </c:if>
+      <c:if test="${courts == null || courts.isEmpty()}">
+        <p style="text-align: center; grid-column: span 3">
+          Không tìm thấy sân nào.
+        </p>
+      </c:if>
     </div>
   </body>
 </html>
