@@ -262,7 +262,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
           <!-- Kiểm tra nếu chưa có user trong session -->
           <c:if test="${user == null}">
-            <button onclick="location.href='/user/login'" class="btn">
+            <button onclick="location.href='/login'" class="btn">
               Đăng nhập
             </button>
             <button onclick="location.href='/user/register'" class="btn">

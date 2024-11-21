@@ -63,10 +63,11 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
       }
 
       .court-images {
-        display: grid;
+        display: flex;
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 1rem;
         margin: 1.5rem 0;
+        justify-content: center;
       }
 
       .court-image {
@@ -74,6 +75,24 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         height: 150px;
         object-fit: cover;
         border-radius: 4px;
+      }
+
+      .court-address,
+      .court-owner,
+      .court-images-title {
+        margin-top: 10px;
+      }
+
+      .court-owner-details {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        text-decoration: underline;
+        font-size: 16px;
+      }
+
+      .court-owner-details:hover {
+        color: cornflowerblue;
       }
 
       .schedule-table {
@@ -165,11 +184,6 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         text-align: center;
-        width: 40vh;
-        height: 40vh;
-      }
-      .popup h3 {
-        margin-top: 10vh;
       }
       .popup button {
         margin-top: 15px;
@@ -188,10 +202,6 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
       <nav>
         <ul>
           <li><a href="/home">Trang chủ</a></li>
-          <li><a href="#">Giới thiệu</a></li>
-          <li><a href="#">Chính sách</a></li>
-          <li><a href="#">Điều khoản</a></li>
-          <li><a href="#">Liên hệ</a></li>
         </ul>
         <div class="auth-buttons">
           <c:if test="${user != null}">
@@ -203,7 +213,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             </button>
           </c:if>
           <c:if test="${user == null}">
-            <button onclick="location.href='/user/login'" class="btn">
+            <button onclick="location.href='/login'" class="btn">
               Đăng nhập
             </button>
             <button onclick="location.href='/user/register'" class="btn">
@@ -217,10 +227,18 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <div class="court-details">
       <div class="court-info">
         <h3>${court.name}</h3>
-        <p><strong>Địa chỉ:</strong> ${court.address}</p>
-        <p><strong>Chủ sở hữu:</strong> ${court.owner.username}</p>
+        <p class="court-address"><strong>Địa chỉ:</strong> ${court.address}</p>
+        <p class="court-owner">
+          <strong>Chủ sở hữu:</strong>
+          <button
+            onclick="location.href='/user/details/${court.owner.id}'"
+            class="court-owner-details"
+          >
+            ${court.owner.username}
+          </button>
+        </p>
 
-        <h4>Hình ảnh sân</h4>
+        <h4 class="court-images-title">Hình ảnh sân</h4>
         <div class="court-images">
           <c:forEach var="image" items="${court.images}">
             <img
@@ -249,7 +267,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                 <td>${schedule.rented ? 'Đã thuê' : 'Chưa thuê'}</td>
                 <div class="overlay" id="overlay"></div>
                 <div class="popup" id="popup">
-                  <h3>Bạn đã đặt sân</h3>
+                  <h3>
+                    Bạn đã yêu cầu thuê sân, vui lòng chờ xác nhận của chủ sân!
+                  </h3>
                   <button onclick="closePopup()">Đóng</button>
                 </div>
 
@@ -281,7 +301,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         </table>
 
         <button onclick="window.history.back();" class="back-btn">
-          Quay lại
+          Quay lại danh sách sân
         </button>
       </div>
     </div>

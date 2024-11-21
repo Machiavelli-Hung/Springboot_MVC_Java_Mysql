@@ -25,7 +25,7 @@ import spring.example.service.CourtService;
 import spring.example.service.UserService;
 
 @Controller
-@RequestMapping("/courts")
+@RequestMapping("/manage-courts")
 public class CourtController {
 
     @Autowired

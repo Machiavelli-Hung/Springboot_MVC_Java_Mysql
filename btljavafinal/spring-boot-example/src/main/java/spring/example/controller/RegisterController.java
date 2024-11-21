@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+// import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,9 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
+    // @Autowired
+    // private PasswordEncoder passwordEncoder;
+
     // tao trang dang ky
     @GetMapping("/register")
     public String register(Model model) {
@@ -43,6 +47,8 @@ public class RegisterController {
         existingUser.setEmail(user.getEmail());
         existingUser.setPhoneNumber(user.getPhoneNumber());
         existingUser.setRole(user.getRole());
+
+        // user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         try {
             userService.saveUser(user); // lưu user nếu không có trùng lặp
@@ -71,9 +77,8 @@ public class RegisterController {
         if (session != null) {
             // session.invalidate();
             session.removeAttribute("user");
-            System.out.println("Session đã bị xoá.");
         }
-        return "redirect:/user/login";
+        return "redirect:/login";
     }
 
 }

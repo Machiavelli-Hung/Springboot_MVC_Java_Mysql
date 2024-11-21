@@ -8,7 +8,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <link
       rel="stylesheet"
       type="text/css"
-      href="${pageContext.request.contextPath}/css/css_user/showuser2.css"
+      href="${pageContext.request.contextPath}/css/css_user/manage-user.css"
     />
   </head>
 
@@ -18,14 +18,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
       <nav>
         <ul>
           <li><a href="/chusan">Trang chủ</a></li>
-
-          <li><a href="#">Giới thiệu</a></li>
-          <li><a href="#">Chính sách</a></li>
-          <li><a href="#">Điều khoản</a></li>
-          <li><a href="#">Liên hệ</a></li>
           <c:if test="${customers != null}">
-            <a href="/chusan/showuser"><span>Danh sách người dùng</span></a>
-            <a href="/chusan/showuser"><span>Danh sách sân</span></a>
+            <a href="/home/manage-users"><span>Danh sách người dùng</span></a>
+            <a href="/manage-courts"><span>Danh sách sân</span></a>
           </c:if>
         </ul>
         <div class="auth-buttons">
@@ -43,7 +38,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
         <table border="1">
           <tr>
-            <th>Id</th>
+            <th>UserID</th>
             <th>Username</th>
             <!-- <th>Password</th> -->
             <th>Email</th>
@@ -58,9 +53,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
               <td>${customer.email}</td>
               <td>${customer.phoneNumber}</td>
               <td>
-                <a href="/chusan/edit/${customer.id}">Edit</a>
+                <a href="/home/edit/${customer.id}">Edit</a>
                 <form
-                  action="/chusan/delete/${customer.id}"
+                  action="/home/delete/${customer.id}"
                   method="post"
                   style="display: inline"
                 >

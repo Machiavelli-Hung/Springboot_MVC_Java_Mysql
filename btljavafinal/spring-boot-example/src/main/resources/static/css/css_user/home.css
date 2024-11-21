@@ -27,11 +27,15 @@ nav a {
 }
 
 .auth-buttons {
+  align-items: center;
+  display: flex;
   float: right;
   margin-right: 1rem;
   /* Thêm khoảng cách từ cạnh phải */
   margin-top: -1.6rem;
   /* Căn chỉnh từ phía trên */
+  align-items: center;
+  display: flex;
 }
 
 .btn {
@@ -70,7 +74,7 @@ nav a {
   border-bottom: 2px solid #ffc107;
   display: inline-block;
   padding-bottom: 0.5rem;
-  margin-left: 30%;
+  margin-left: 10%;
 }
 
 /* Main content styles */
@@ -78,73 +82,9 @@ nav a {
   display: flex;
   padding: 2rem;
 }
-
-.sidebar {
-  flex: 1;
-  padding-right: 2rem;
-}
-
-.sidebar ul {
-  list-style: none;
-}
-
-.sidebar li {
-  margin: 1rem 0;
-}
-
-.sidebar a {
-  text-decoration: none;
-  color: #333;
-}
-
-.sidebar h3 {
-  font-size: 1.5rem;
-  color: #1a4178;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  border-bottom: 2px solid #ffc107;
-  display: inline-block;
-  padding-bottom: 0.5rem;
-}
-
-/* Định dạng bảng */
-.sidebar table {
-  width: 100%;
-  border-collapse: collapse;
-  /* Loại bỏ khoảng cách giữa các đường kẻ */
-  margin-top: 1rem;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Định dạng cho tiêu đề các cột */
-.sidebar th {
-  background-color: #1a4178;
-  color: #fff;
-  text-align: left;
-  padding: 0.8rem;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-/* Định dạng cho nội dung các cột */
-.sidebar td {
-  padding: 0.8rem;
-  text-align: left;
-  font-size: 1rem;
-  color: #333;
-  border-top: 1px solid #ddd;
-  /* Đường kẻ giữa các hàng */
-}
-
-/* Hiệu ứng khi hover vào các hàng */
-.sidebar tr:hover {
-  background-color: #f1f1f1;
-}
-
 .venues-grid {
   display: grid;
+  width: 400px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
   flex: 3;
@@ -173,6 +113,23 @@ nav a {
 .venue-card .content_image {
   position: absolute;
   bottom: 10px;
+  width: 100%;
+}
+.phone-number {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.phone-number i {
+  margin-right: 10px;
+}
+.address {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+.address i {
+  margin-right: 15px;
 }
 
 .btn-detail {
@@ -182,7 +139,15 @@ nav a {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   text-decoration: none;
-  margin-top: 1rem;
+  margin-top: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+  width: 90%;
+  text-align: center;
+}
+
+.btn-detail:hover {
+  opacity: 0.9;
 }
 
 /* Register section */

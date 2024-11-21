@@ -52,7 +52,6 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           <select id="role" name="role" required>
             <option value="nguoi dung">Người Dùng</option>
             <option value="chu san">Chủ Sân</option>
-            <option value="admin">Admin</option>
           </select>
 
           <input
@@ -77,10 +76,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <div class="overlay-content">
           <h1>Hello, Friend!</h1>
           <p>Enter your personal details and start journey with us</p>
-          <form
-            action="${pageContext.request.contextPath}/user/login"
-            method="get"
-          >
+          <form action="${pageContext.request.contextPath}/login" method="get">
             <button type="submit" class="ghost">SIGN IN</button>
           </form>
         </div>

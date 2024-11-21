@@ -1,85 +1,80 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-    <!DOCTYPE html>
-    <html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ taglib
+prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign In/Sign Up Form</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="${pageContext.request.contextPath}/css/css_user/login.css"
+    />
+  </head>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>Đăng Nhập</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-            }
-
-            form {
-                background: white;
-                padding: 20px;
-                border-radius: 5px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-
-            input[type="text"],
-            input[type="password"] {
-                width: 100%;
-                padding: 10px;
-                margin: 10px 0;
-                border: 1px solid #ccc;
-                border-radius: 5px;
-            }
-
-            input[type="submit"] {
-                background: #5cb85c;
-                color: white;
-                border: none;
-                padding: 10px;
-                border-radius: 5px;
-                cursor: pointer;
-            }
-
-            input[type="submit"]:hover {
-                background: #4cae4c;
-            }
-
-            #x{
-                display: inline-block;
-            }
-            
-        </style>
-    </head>
-
-    <body>
-        
-        
-        
-
-        <form action="/user/login" method="post" >
-            <h2>Đăng Nhập</h2>
-            <label for="username">Tên Đăng Nhập:</label>
-            <input type="text" id="username" name="username" value="" required>
-
-            <label for="password">Mật Khẩu:</label>
-            <input type="password" id="password" name="password" value="" required>
-
-            <!-- doan check ma loi  -->
-            <c:if test="${not empty errorMessage}">
-                <p style="color:red">${errorMessage}</p>
-            </c:if>
-
-            <c:if test="${not empty message}">
-                <p style="color:blue">${message}</p>
-            </c:if>
-
-            <input type="submit" value="Đăng Nhập">
-            <div id = "x">Nếu không có tài khoản, nhấn vào đây 
-                <a href="/user/register">đăng ký</a>
-            </div>
+  <body>
+    <div
+      class="container ${param.formType == 'signup' ? 'right-panel-active' : ''}"
+    >
+      <div class="form-container sign-up-container">
+        <form action="/user/register" method="post">
+          <h1>Create Account</h1>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <span>or use your email for registration</span>
+          <input type="text" name="name" placeholder="Name" required />
+          <input type="email" name="email" placeholder="Email" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
+          <a href="/user/register"><span>danh ki</span></a>
         </form>
+      </div>
 
-        
-    </body>
+      <div class="form-container sign-in-container">
+        <form action="/login" method="post">
+          <h1>Đăng nhập</h1>
+          <input type="text" name="username" placeholder="Username" required />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+          />
 
-    </html>
+          <button type="submit">Đăng nhập</button>
+        </form>
+      </div>
+
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome Back!</h1>
+            <p>
+              To keep connected with us please login with your personal info
+            </p>
+            <a
+              href="${pageContext.request.contextPath}/auth/signin"
+              class="ghost button"
+              >Đăng nhập</a
+            >
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Xin chào!</h1>
+            <p>Bạn chưa có tài khoản? Đăng ký tại đây</p>
+            <a href="/user/register" class="ghost button">Đăng ký</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

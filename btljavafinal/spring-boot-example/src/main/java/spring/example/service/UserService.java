@@ -62,4 +62,15 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public void deleteCustomer(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public User getCustomerById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    public void updateCustomer(User customer) {
+        userRepository.save(customer);
+    }
 }

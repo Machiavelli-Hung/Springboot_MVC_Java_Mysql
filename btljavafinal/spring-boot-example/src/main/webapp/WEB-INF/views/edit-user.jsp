@@ -9,14 +9,14 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     <link
       rel="stylesheet"
       type="text/css"
-      href="${pageContext.request.contextPath}/css/css_user/editCustomer2.css"
+      href="${pageContext.request.contextPath}/css/css_user/edit-user.css"
     />
   </head>
 
   <body>
     <div class="container">
       <div class="form-container">
-        <form action="/chusan/update" method="post">
+        <form action="/home/edit/{customer.id}" method="post">
           <h1>Chỉnh sửa thông tin</h1>
 
           <input type="hidden" name="id" value="${customer.id}" />
@@ -71,7 +71,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
           />
 
           <button type="submit">Cập nhật</button>
-          <a href="/chusan/showuser">Quay lại</a>
+          <a href="/home/manage-users">Quay lại</a>
         </form>
       </div>
     </div>
