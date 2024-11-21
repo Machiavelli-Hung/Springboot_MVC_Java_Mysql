@@ -24,6 +24,11 @@ public class Schedule {
     @JoinColumn(name = "court_id", nullable = false)
     private Court court;
 
+    // Thêm quan hệ với User (người thuê sân)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "renter_id") // Tên cột lưu id của người thuê sân
+    private User renter; // Người thuê sân
+
     // Getters và Setters
     public Long getId() {
         return id;
@@ -63,5 +68,13 @@ public class Schedule {
 
     public void setCourt(Court court) {
         this.court = court;
+    }
+
+    public User getRenter() {
+        return renter;
+    }
+
+    public void setRenter(User renter) {
+        this.renter = renter;
     }
 }

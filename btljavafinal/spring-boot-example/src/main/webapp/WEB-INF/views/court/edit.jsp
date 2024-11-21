@@ -117,7 +117,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
     <h2>Chỉnh sửa sân</h2>
 
     <form:form
-      action="${pageContext.request.contextPath}/courts/edit/${court.id}"
+      action="${pageContext.request.contextPath}/manage-courts/edit/${court.id}"
       modelAttribute="court"
       method="post"
     >
@@ -151,7 +151,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
       <div>
         <button type="submit">Lưu thay đổi</button>
         <div class="cancel-link">
-          <a href="${pageContext.request.contextPath}/courts">Hủy</a>
+          <a href="${pageContext.request.contextPath}/manage-courts">Hủy</a>
         </div>
       </div>
     </form:form>

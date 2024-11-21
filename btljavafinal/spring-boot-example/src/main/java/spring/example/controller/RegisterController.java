@@ -35,7 +35,7 @@ public class RegisterController {
     public String register(Model model) {
         // User user = new User();
         // model.addAttribute("user", user);
-        return "register2";
+        return "register";
     }
 
     // day thong tin len server va check
@@ -56,7 +56,7 @@ public class RegisterController {
             return "redirect:/user/success";
         } catch (UserException e) {
             model.addAttribute("errorMessage", e.getMessage());
-            return "register2"; // tên của trang đăng ký
+            return "register"; // tên của trang đăng ký
         }
 
     }

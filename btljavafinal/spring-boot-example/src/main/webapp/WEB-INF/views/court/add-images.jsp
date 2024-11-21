@@ -171,7 +171,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
 
     <!-- Form to add images -->
     <form
-      action="${pageContext.request.contextPath}/courts/add-images/${court.id}"
+      action="${pageContext.request.contextPath}/manage-courts/add-images/${court.id}"
       method="post"
       enctype="multipart/form-data"
     >
@@ -198,7 +198,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
           />
           <a
             class="delete-btn"
-            href="${pageContext.request.contextPath}/courts/delete-image/${image.id}"
+            href="${pageContext.request.contextPath}/manage-courts/delete-image/${image.id}"
             onclick="return confirm('Bạn có chắc chắn muốn xoá ảnh này?');"
           >
             X
@@ -207,7 +207,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
       </c:forEach>
     </div>
 
-    <a href="${pageContext.request.contextPath}/courts" class="back-link"
+    <a href="${pageContext.request.contextPath}/manage-courts" class="back-link"
       >Quay lại danh sách sân</a
     >
   </body>

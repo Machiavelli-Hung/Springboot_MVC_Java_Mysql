@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,7 @@ import spring.example.model.Image;
 import spring.example.model.Schedule;
 import spring.example.model.User;
 import spring.example.service.CourtService;
+import spring.example.service.ScheduleService;
 import spring.example.service.UserService;
 
 @Controller
@@ -30,6 +33,9 @@ public class CourtController {
 
     @Autowired
     private CourtService courtService;
+
+    @Autowired
+    private ScheduleService scheduleService;
 
     @Autowired
     private UserService userService;
@@ -79,7 +85,7 @@ public class CourtController {
 
         courtService.saveCourt(court);
         redirectAttributes.addFlashAttribute("message", "Sân đã được thêm thành công!");
-        return "redirect:/courts";
+        return "redirect:/manage-courts";
     }
 
     // Xử lý việc tải lên ảnh cho sân
@@ -97,13 +103,13 @@ public class CourtController {
             RedirectAttributes redirectAttributes) {
         if (files == null || files.length == 0) {
             redirectAttributes.addFlashAttribute("errorMessage", "Vui lòng chọn ít nhất một ảnh.");
-            return "redirect:/courts/add-images/" + id;
+            return "redirect:/manage-courts/add-images/" + id;
         }
         // Lưu ảnh và chuyển hướng về trang upload ảnh
         courtService.saveImages(id, files);
 
         redirectAttributes.addFlashAttribute("message", "Images uploaded successfully!");
-        return "redirect:/courts";
+        return "redirect:/manage-courts";
     }
 
     @GetMapping("/add-schedules/{id}")
@@ -121,7 +127,7 @@ public class CourtController {
             @RequestParam("prices") List<Double> prices, RedirectAttributes redirectAttributes) {
         courtService.addSchedules(id, times, prices);
         redirectAttributes.addFlashAttribute("message", "Schedules added successfully!");
-        return "redirect:/courts/add-schedules/" + id; // Redirect to the court list after adding schedules
+        return "redirect:/manage-courts/add-schedules/" + id; // Redirect to the court list after adding schedules
     }
 
     @GetMapping("/edit-schedule/{scheduleId}")
@@ -139,8 +145,9 @@ public class CourtController {
             RedirectAttributes redirectAttributes) {
         courtService.updateSchedule(scheduleId, time, price, rented);
         redirectAttributes.addFlashAttribute("message", "Schedule updated successfully!");
-        return "redirect:/courts/add-schedules/" + courtService.getCourtIdByScheduleId(scheduleId); // Redirect back to
-                                                                                                    // schedule list
+        return "redirect:/manage-courts/add-schedules/" + courtService.getCourtIdByScheduleId(scheduleId); // Redirect
+                                                                                                           // back to
+        // schedule list
     }
 
     @GetMapping("/delete-schedule/{scheduleId}")
@@ -148,7 +155,7 @@ public class CourtController {
         Long courtId = courtService.getCourtIdByScheduleId(scheduleId); // Retrieve court ID for redirection
         courtService.deleteSchedule(scheduleId);
         redirectAttributes.addFlashAttribute("message", "Schedule deleted successfully!");
-        return "redirect:/courts/add-schedules/" + courtId;
+        return "redirect:/manage-courts/add-schedules/" + courtId;
     }
 
     @GetMapping("/edit/{id}")
@@ -167,7 +174,7 @@ public class CourtController {
         }
         courtService.saveCourt(court);
         redirectAttributes.addFlashAttribute("message", "Court updated successfully!");
-        return "redirect:/courts";
+        return "redirect:/manage-courts";
     }
 
     @GetMapping("/delete-image/{imageId}")
@@ -175,20 +182,41 @@ public class CourtController {
         Long courtId = courtService.getCourtIdByImageId(imageId); // Retrieve court ID for redirection
         courtService.deleteImage(imageId);
         redirectAttributes.addFlashAttribute("message", "image deleted successfully!");
-        return "redirect:/courts/add-images/" + courtId;
+        return "redirect:/manage-courts/add-images/" + courtId;
     }
 
     @GetMapping("/delete/{id}")
     public String deleteCourt(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         courtService.deleteCourt(id);
         redirectAttributes.addFlashAttribute("message", "Court deleted successfully!");
-        return "redirect:/courts";
+        return "redirect:/manage-courts";
     }
 
     @GetMapping
     public String listCourts(Model model) {
         model.addAttribute("courts", courtService.getAllCourts());
         return "court/list";
+    }
+
+    @PostMapping("/rent/{scheduleId}")
+    public String rentCourt(@PathVariable Long scheduleId, HttpSession session) {
+        // Lấy thông tin người dùng từ session
+        User currentUser = (User) session.getAttribute("userLogin");
+
+        if (currentUser == null) {
+            // Nếu không có người dùng trong session, điều hướng tới trang đăng nhập
+            return "redirect:/login";
+        }
+
+        // Cập nhật schedule với renter là user hiện tại
+        Schedule schedule = scheduleService.findById(scheduleId);
+        if (schedule != null && !schedule.isRented()) {
+            schedule.setRenter(currentUser);
+            scheduleService.save(schedule); // Lưu lại thay đổi
+        }
+
+        // Điều hướng về trang chi tiết sân
+        return "redirect:/manage-courts/details/" + schedule.getCourt().getId();
     }
 
 }

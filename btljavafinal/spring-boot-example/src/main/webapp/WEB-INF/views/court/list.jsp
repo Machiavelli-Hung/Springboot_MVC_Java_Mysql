@@ -124,7 +124,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
     <!-- Thanh tìm kiếm -->
     <div class="search-container">
       <form
-        action="${pageContext.request.contextPath}/courts/search"
+        action="${pageContext.request.contextPath}/manage-courts/search"
         method="GET"
       >
         <input
@@ -137,7 +137,9 @@ contentType="text/html" pageEncoding="UTF-8" %>
       </form>
     </div>
 
-    <a href="${pageContext.request.contextPath}/courts/add" class="btn-primary"
+    <a
+      href="${pageContext.request.contextPath}/manage-courts/add"
+      class="btn-primary"
       >Tạo sân mới</a
     >
 
@@ -149,19 +151,19 @@ contentType="text/html" pageEncoding="UTF-8" %>
             <p>Địa chỉ: ${court.address}</p>
             <div>
               <a
-                href="${pageContext.request.contextPath}/courts/add-images/${court.id}"
+                href="${pageContext.request.contextPath}/manage-courts/add-images/${court.id}"
                 >Thêm ảnh</a
               >
               <a
-                href="${pageContext.request.contextPath}/courts/add-schedules/${court.id}"
+                href="${pageContext.request.contextPath}/manage-courts/add-schedules/${court.id}"
                 >Thêm lịch</a
               >
               <a
-                href="${pageContext.request.contextPath}/courts/edit/${court.id}"
+                href="${pageContext.request.contextPath}/manage-courts/edit/${court.id}"
                 >Sửa</a
               >
               <a
-                href="${pageContext.request.contextPath}/courts/delete/${court.id}"
+                href="${pageContext.request.contextPath}/manage-courts/delete/${court.id}"
                 class="delete"
                 onclick="return confirm('Bạn có chắc chắn muốn xóa sân này?')"
                 >Xóa</a

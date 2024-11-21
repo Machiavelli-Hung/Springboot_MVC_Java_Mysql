@@ -13,7 +13,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
     <link
       rel="stylesheet"
       type="text/css"
-      href="${pageContext.request.contextPath}/css/css_user/changePassword2.css"
+      href="${pageContext.request.contextPath}/css/css_user/change-password.css"
     />
   </head>
 

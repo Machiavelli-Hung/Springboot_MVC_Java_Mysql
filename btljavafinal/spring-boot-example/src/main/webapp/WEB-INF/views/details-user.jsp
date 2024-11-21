@@ -26,13 +26,9 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         <ul>
           <li><a href="/chusan">Trang chủ</a></li>
           <c:if test="${userDetails != null}">
-            <a href="/chusan/showuser"><span>Danh sách người dùng</span></a>
-            <a href="/chusan/showuser"><span>Danh sách sân</span></a>
+            <a href="/home/manage-users"><span>Danh sách người dùng</span></a>
+            <a href="/manage-courts"><span>Danh sách sân</span></a>
           </c:if>
-          <li><a href="#">Giới thiệu</a></li>
-          <li><a href="#">Chính sách</a></li>
-          <li><a href="#">Điều khoản</a></li>
-          <li><a href="#">Liên hệ</a></li>
         </ul>
         <div class="auth-buttons">
           <c:if test="${userDetails != null}">

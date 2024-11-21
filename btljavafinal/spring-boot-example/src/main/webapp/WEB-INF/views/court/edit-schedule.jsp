@@ -89,7 +89,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
 
     <!-- Form to edit schedule -->
     <form
-      action="${pageContext.request.contextPath}/courts/edit-schedule/${schedule.id}"
+      action="${pageContext.request.contextPath}/manage-courts/edit-schedule/${schedule.id}"
       method="post"
     >
       <div>
@@ -129,7 +129,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
       </div>
       <button type="submit">Cập nhật lịch</button>
     </form>
-    <a href="${pageContext.request.contextPath}/courts" class="back-link"
+    <a href="${pageContext.request.contextPath}/manage-courts" class="back-link"
       >Quay lại danh sách sân</a
     >
   </body>

@@ -97,7 +97,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
     <h2>Thêm Sân</h2>
 
     <form:form
-      action="${pageContext.request.contextPath}/courts/add"
+      action="${pageContext.request.contextPath}/manage-courts/add"
       modelAttribute="court"
       method="post"
     >
@@ -131,7 +131,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
     </form:form>
 
     <!-- Link quay lại danh sách sân -->
-    <a href="${pageContext.request.contextPath}/courts" class="back-link"
+    <a href="${pageContext.request.contextPath}/manage-courts" class="back-link"
       >Quay lại danh sách sân</a
     >
   </body>

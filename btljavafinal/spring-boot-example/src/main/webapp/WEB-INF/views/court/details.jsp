@@ -275,12 +275,20 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
                 <!-- Thêm script -->
                 <script>
-                  function showPopup() {
+                  function showPopup(formId) {
+                    // Hiển thị popup
                     document.getElementById("overlay").style.display = "block";
                     document.getElementById("popup").style.display = "block";
+
+                    // Lưu lại form ID để thực hiện gửi form khi xác nhận
+                    document.getElementById("confirm-rent").onclick =
+                      function () {
+                        document.getElementById(formId).submit();
+                      };
                   }
 
                   function closePopup() {
+                    // Đóng popup
                     document.getElementById("overlay").style.display = "none";
                     document.getElementById("popup").style.display = "none";
                   }
@@ -288,12 +296,20 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
                 <!-- Sửa nút "Thuê ngay" -->
                 <td>
-                  <c:if test="${!schedule.rented}">
-                    <button type="button" onclick="showPopup()">
-                      Thuê ngay
-                    </button>
-                  </c:if>
-                  <c:if test="${schedule.rented}"> Không thể thuê </c:if>
+                  <form
+                    action="/manage-courts/rent/${schedule.id}"
+                    method="post"
+                  >
+                    <c:if test="${!schedule.rented && schedule.renter == null}">
+                      <button type="submit" class="rent-btn">Thuê ngay</button>
+                    </c:if>
+                    <c:if test="${!schedule.rented && schedule.renter != null}">
+                      <button type="submit" class="rent-btn">
+                        Chờ xác nhận
+                      </button>
+                    </c:if>
+                    <c:if test="${schedule.rented}"> Không thể thuê </c:if>
+                  </form>
                 </td>
               </tr>
             </c:forEach>

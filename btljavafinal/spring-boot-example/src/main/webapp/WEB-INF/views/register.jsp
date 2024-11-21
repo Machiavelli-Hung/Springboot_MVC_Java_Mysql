@@ -1,39 +1,86 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <html>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %> <%@ taglib
+prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign In/Sign Up Form</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
 
-    <head>
-        <title>Đăng Ký</title>
-    </head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="${pageContext.request.contextPath}/css/css_user/register.css"
+    />
+  </head>
 
-    <body>
-        <h2>Đăng Ký Người Dùng</h2>
-
-        
-
+  <body>
+    <div class="container">
+      <div class="form-container">
         <form action="/user/register" method="post">
-            <label for="username">Tên người dùng đăng ký:</label>
-            <input type="text" id="username" name="username" value="${user.username}" required><br>
+          <h2>Create Account</h2>
 
-            <label for="password">Mật khẩu đăng ký:</label>
-            <input type="password" id="password" name="password" value="${user.password}" required><br>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            placeholder="Tên người dùng"
+            value="${user.username}"
+            required
+          />
 
-            <label for="email">Email đăng ký:</label>
-            <input type="email" id="email" name="email" value="${user.email}" required><br>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Mật khẩu"
+            value="${user.password}"
+            required
+          />
 
-            <label for="role">Vai trò:</label>
-            <select id="role" name="role" required>
-                <option value="nguoi dung">Người Dùng</option>
-                <option value="chu san">Chủ Sân</option>
-                <option value="admin">Admin</option>
-            </select><br>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
+            value="${user.email}"
+            required
+          />
 
-            <label for="phoneNumber">Số điện thoại đăng ký:</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" value="${user.phoneNumber}" required><br>
+          <select id="role" name="role" required>
+            <option value="nguoi dung">Người Dùng</option>
+            <option value="chu san">Chủ Sân</option>
+          </select>
 
-            <c:if test="${not empty errorMessage}">
-                <p style="color:red">${errorMessage}</p>
-            </c:if>
+          <input
+            type="text"
+            id="phoneNumber"
+            name="phoneNumber"
+            placeholder="Số điện thoại"
+            value="${user.phoneNumber}"
+            required
+          />
 
-            <button type="submit">Đăng Ký</button>
+          <c:if test="${not empty errorMessage}">
+            <p style="color: red">${errorMessage}</p>
+          </c:if>
+
+          <button type="submit">Đăng Ký</button>
         </form>
-    </body>
+      </div>
+
+      <!-- Phần overlay-container trong HTML -->
+      <div class="overlay-container">
+        <div class="overlay-content">
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <form action="${pageContext.request.contextPath}/login" method="get">
+            <button type="submit" class="ghost">SIGN IN</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

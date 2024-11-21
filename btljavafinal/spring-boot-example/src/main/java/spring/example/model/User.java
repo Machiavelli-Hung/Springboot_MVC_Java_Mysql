@@ -23,10 +23,12 @@ public class User {
     private String role;
     private String phoneNumber;
 
-
     // Quan hệ một-nhiều với Court: Một User có thể sở hữu nhiều sân (Court)
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Court> courts;
+
+    @OneToMany(mappedBy = "renter", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Schedule> schedules; // Danh sách các lịch thuê của User
 
     // Thời gian tạo người dùng
     private String createdAt = java.time.LocalDateTime.now().toString();
@@ -65,11 +67,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPhoneNumber(){
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber){
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -88,6 +90,14 @@ public class User {
 
     public void setCourts(List<Court> courts) {
         this.courts = courts;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 
 }

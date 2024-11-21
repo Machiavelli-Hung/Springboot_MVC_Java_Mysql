@@ -22,11 +22,11 @@ public class UserController {
 
     @GetMapping("/details/{id}")
     public String getUserDetails(@PathVariable Long id, Model model, HttpSession session) {
-        User userLogin = (User) session.getAttribute("userLogin");
-        if (userLogin == null) {
-            // Chuyển hướng hoặc thông báo nếu người dùng không có quyền
-            return "redirect:/login";
-        }
+        // User userLogin = (User) session.getAttribute("userLogin");
+        // if (userLogin == null) {
+        // // Chuyển hướng hoặc thông báo nếu người dùng không có quyền
+        // return "redirect:/login";
+        // }
 
         User userDetails = userService.getUserById(id);
         model.addAttribute("userDetails", userDetails);

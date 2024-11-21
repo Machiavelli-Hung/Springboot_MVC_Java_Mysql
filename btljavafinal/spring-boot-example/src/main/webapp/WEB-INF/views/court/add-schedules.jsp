@@ -82,6 +82,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
       }
 
       table th {
+        text-align: center;
         background-color: #3498db;
         color: white;
       }
@@ -114,6 +115,16 @@ contentType="text/html" pageEncoding="UTF-8" %>
       .back-link:hover {
         text-decoration: underline;
       }
+
+      .renter-name {
+        text-decoration: underline;
+        color: #3498db;
+        cursor: pointer;
+        background-color: transparent;
+        border: none;
+        padding: 0;
+        font-size: 16px;
+      }
     </style>
   </head>
   <body>
@@ -121,7 +132,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
 
     <!-- Form to add schedule -->
     <form
-      action="${pageContext.request.contextPath}/courts/add-schedules/${court.id}"
+      action="${pageContext.request.contextPath}/manage-courts/add-schedules/${court.id}"
       method="post"
     >
       <div>
@@ -156,6 +167,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
           <th>Giá</th>
           <th>Trạng thái</th>
           <th>Hành động</th>
+          <th>Người thuê</th>
         </tr>
       </thead>
       <tbody>
@@ -166,23 +178,46 @@ contentType="text/html" pageEncoding="UTF-8" %>
             <td>${schedule.isRented() ? 'Đã thuê' : 'Chưa thuê'}</td>
             <td>
               <a
-                href="${pageContext.request.contextPath}/courts/edit-schedule/${schedule.id}"
+                href="${pageContext.request.contextPath}/manage-courts/edit-schedule/${schedule.id}"
               >
                 Sửa
               </a>
               <a
-                href="${pageContext.request.contextPath}/courts/delete-schedule/${schedule.id}"
+                href="${pageContext.request.contextPath}/manage-courts/delete-schedule/${schedule.id}"
                 onclick="return confirm('Bạn có chắc chắn muốn xoá lịch này?');"
-                style="color: red"
+                style="color: red; display: inline"
               >
                 Xoá
               </a>
+            </td>
+            <td>
+              <c:if test="${!schedule.rented && schedule.renter == null}">
+                Chưa có người thuê
+              </c:if>
+              <c:if test="${!schedule.rented && schedule.renter != null}">
+                <button
+                  onclick="location.href='/user/details/${schedule.renter.id}'"
+                  class="renter-name"
+                >
+                  ${schedule.renter.username}
+                </button>
+                muốn thuê, vui lòng xác nhận
+              </c:if>
+              <c:if test="${schedule.rented}"
+                ><button
+                  onclick="location.href='/user/details/${schedule.renter.id}'"
+                  class="renter-name"
+                >
+                  ${schedule.renter.username}
+                </button>
+                đã thuê
+              </c:if>
             </td>
           </tr>
         </c:forEach>
       </tbody>
     </table>
-    <a href="${pageContext.request.contextPath}/courts" class="back-link"
+    <a href="${pageContext.request.contextPath}/manage-courts" class="back-link"
       >Quay lại danh sách sân</a
     >
   </body>

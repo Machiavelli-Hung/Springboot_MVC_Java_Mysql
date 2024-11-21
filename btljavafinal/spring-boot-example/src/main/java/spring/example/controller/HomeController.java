@@ -58,7 +58,7 @@ public class HomeController {
     }
 
     // Hiển thị trang Đổi mật khẩu
-    @GetMapping("/changePassword")
+    @GetMapping("/change-password")
     public String showChangePasswordForm(Model model, HttpSession session) {
         User userLogin = (User) session.getAttribute("userLogin");
         if (userLogin == null) {

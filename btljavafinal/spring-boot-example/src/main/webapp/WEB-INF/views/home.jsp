@@ -31,7 +31,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
               <a href="/manage-courts"><span>Quản lý sân</span></a>
             </c:if>
             <c:if test="${user.role == 'owner'}">
-              <a href="/chusan/showsan"><span>Danh sách sân</span></a>
+              <a href="/manage-courts"><span>Danh sách sân</span></a>
             </c:if>
           </c:if>
         </ul>
@@ -89,14 +89,27 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                 <p>${court.address}</p>
               </div>
 
-              <a href="/courts/details/${court.id}" class="btn-detail"
-                >Chi tiết</a
-              >
+              <button class="btn-detail" onclick="checkLogin(${court.id})">
+                Chi tiết
+              </button>
             </div>
           </div>
         </c:forEach>
       </div>
     </div>
+    <script>
+      function checkLogin(courtId) {
+        // Kiểm tra nếu người dùng chưa đăng nhập (user = null)
+        var user = ${user != null ? 'true' : 'false'};
+
+        if (!user) {
+          // Hiển thị popup yêu cầu đăng nhập
+          alert("Vui lòng đăng nhập để xem thông tin chi tiết!");
+        } else {
+          // Nếu người dùng đã đăng nhập, chuyển hướng đến trang chi tiết
+          window.location.href = "/manage-courts/details/" + courtId;
+        }
+      }
+    </script>
   </body>
-  <footer></footer>
 </html>

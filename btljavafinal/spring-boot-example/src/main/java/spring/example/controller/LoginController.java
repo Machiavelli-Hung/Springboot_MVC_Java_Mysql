@@ -30,10 +30,6 @@ public class LoginController {
     public String loginUser(Model model, HttpSession session, @ModelAttribute("UserLogin") User userLogin) {
         String username = userLogin.getUsername();
         String password = userLogin.getPassword();
-        System.out.println("--------------------------------");
-        System.out.println(
-                "Check login>>>: " + username + " " + password + " " + userService.checkLogin(username, password));
-        System.out.println("--------------------------------");
         if (userService.checkLogin(username, password)) {
             User userCheck = userService.getUserByUsername(username);
             session.setAttribute("userLogin", userCheck);
