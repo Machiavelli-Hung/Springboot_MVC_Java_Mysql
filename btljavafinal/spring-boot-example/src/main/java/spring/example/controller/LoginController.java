@@ -30,16 +30,19 @@ public class LoginController {
     public String loginUser(Model model, HttpSession session, @ModelAttribute("UserLogin") User userLogin) {
         String username = userLogin.getUsername();
         String password = userLogin.getPassword();
-        System.out.println("--------------------------------");
-        System.out.println(
-                "Check login>>>: " + username + " " + password + " " + userService.checkLogin(username, password));
-        System.out.println("--------------------------------");
+        // kiem tra dong nay nen xoa di
+        // System.out.println("--------------------------------");
+        // System.out.println(
+        //         "Check login>>>: " + username + " " + password + " " + userService.checkLogin(username, password));
+        // System.out.println("--------------------------------");
+
         if (userService.checkLogin(username, password)) {
             User userCheck = userService.getUserByUsername(username);
             session.setAttribute("userLogin", userCheck);
+            
             return "redirect:/home";
         } else {
-            System.out.println("----------------------------------\nHello World\n-------------------------------");
+            // System.out.println("----------------------------------\nHello World\n-------------------------------");
             model.addAttribute("errorMessage", "mật khẩu hoặc tên đăng nhập chưa đúng");
             return "login";
         }

@@ -71,16 +71,10 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         </form>
       </div>
 
+      <!-- phan nay phai xoa (khong them lai khi merger) -->
       <!-- Phần overlay-container trong HTML -->
-      <div class="overlay-container">
-        <div class="overlay-content">
-          <h1>Hello, Friend!</h1>
-          <p>Enter your personal details and start journey with us</p>
-          <form action="${pageContext.request.contextPath}/login" method="get">
-            <button type="submit" class="ghost">SIGN IN</button>
-          </form>
-        </div>
-      </div>
+      
+      <!-- end -->
     </div>
   </body>
 </html>

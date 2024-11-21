@@ -2,6 +2,7 @@ package spring.example.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -186,9 +187,14 @@ public class CourtController {
     }
 
     @GetMapping
-    public String listCourts(Model model) {
-        model.addAttribute("courts", courtService.getAllCourts());
-        return "court/list";
+    public String listCourts(Model model,HttpSession session) {
+        // phan nay the, check o admin nen la khong xoa
+        if(userService.checkAdmin(session)){
+            model.addAttribute("courts", courtService.getAllCourts());
+            return "court/list";
+        }
+        return "redirect:/home"; 
+        // end phan khong xoa 
     }
 
 }

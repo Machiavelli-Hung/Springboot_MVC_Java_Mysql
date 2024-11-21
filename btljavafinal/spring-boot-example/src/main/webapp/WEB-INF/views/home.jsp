@@ -30,7 +30,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
               <a href="/home/manage-users"><span>Quản lý người dùng</span></a>
               <a href="/manage-courts"><span>Quản lý sân</span></a>
             </c:if>
-            <c:if test="${user.role == 'owner'}">
+            <c:if test="${user.role == 'owner' || user.role == 'admin'}">
               <a href="/chusan/showsan"><span>Danh sách sân</span></a>
             </c:if>
           </c:if>
