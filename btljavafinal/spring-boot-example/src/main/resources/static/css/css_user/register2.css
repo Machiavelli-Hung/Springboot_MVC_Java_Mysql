@@ -206,3 +206,62 @@ form {
   max-width: 380px;
   /* hoặc giá trị phù hợp với design của bạn */
 }
+
+/* Style cho container chứa input password và icon */
+.password-container {
+  position: relative;
+  width: 100%;
+  margin: 8px 0;
+}
+
+/* Style cho input password */
+.password-container input {
+  padding-right: 40px; /* Tạo khoảng trống cho icon */
+  margin: 0;
+  width: 100%;
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  font-size: 14px;
+}
+
+/* Style cho icon toggle password */
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 50%;
+}
+
+/* Hiệu ứng hover cho icon */
+.password-toggle:hover {
+  color: #1a4178;
+  background-color: rgba(26, 65, 120, 0.1);
+}
+
+/* Hiệu ứng khi click */
+.password-toggle:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Animation khi chuyển đổi icon */
+.password-toggle i {
+  transition: all 0.2s ease;
+}
+
+/* Style khi password đang hiện */
+.password-toggle.show {
+  color: #1a4178;
+}
+
+/* Đảm bảo input trong password-container không bị lệch */
+.password-container input:focus {
+  outline: none;
+  background-color: #f5f5f5;
+}

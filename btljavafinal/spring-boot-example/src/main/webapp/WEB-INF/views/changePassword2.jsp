@@ -30,27 +30,44 @@ contentType="text/html;charset=UTF-8" language="java" %>
             <p class="message error">${error}</p>
           </c:if>
 
-          <input
-            type="password"
-            id="oldPassword"
-            name="oldPassword"
-            placeholder="Mật khẩu cũ"
-            required
-          />
-          <input
-            type="password"
-            id="newPassword"
-            name="newPassword"
-            placeholder="Mật khẩu mới"
-            required
-          />
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            placeholder="Nhập lại mật khẩu"
-            required
-          />
+          <div class="password-container">
+            <input
+              type="password"
+              id="oldPassword"
+              name="oldPassword"
+              placeholder="Mật khẩu cũ"
+              required
+            />
+            <span class="password-toggle" onclick="togglePassword('oldPassword')">
+              <i class="fas fa-eye-slash"></i>
+            </span>
+          </div>
+
+          <div class="password-container">
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              placeholder="Mật khẩu mới"
+              required
+            />
+            <span class="password-toggle" onclick="togglePassword('newPassword')">
+              <i class="fas fa-eye-slash"></i>
+            </span>
+          </div>
+
+          <div class="password-container">
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              placeholder="Nhập lại mật khẩu"
+              required
+            />
+            <span class="password-toggle" onclick="togglePassword('confirmPassword')">
+              <i class="fas fa-eye-slash"></i>
+            </span>
+          </div>
 
           <button type="submit">Đổi mật khẩu</button>
 
@@ -58,7 +75,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
             <c:when test="${user.role == 'admin'}">
               <c:set
                 var="homeUrl"
-                value="${pageContext.request.contextPath}/chusan"
+                value="${pageContext.request.contextPath}/chusans"
               />
             </c:when>
             <c:otherwise>
@@ -73,5 +90,22 @@ contentType="text/html;charset=UTF-8" language="java" %>
         </form>
       </div>
     </div>
+
+    <script>
+    function togglePassword(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const icon = event.target;
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    }
+    </script>
   </body>
 </html>

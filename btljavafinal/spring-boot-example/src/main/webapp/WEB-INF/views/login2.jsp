@@ -17,8 +17,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
   <body>
     <div
-      class="container ${param.formType == 'signup' ? 'right-panel-active' : ''}"
-    >
+      class="container ${param.formType == 'signup' ? 'right-panel-active' : ''}">
       <div class="form-container sign-up-container">
         <form action="/user/register" method="post">
           <h1>Create Account</h1>
@@ -30,12 +29,19 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           <span>or use your email for registration</span>
           <input type="text" name="name" placeholder="Name" required />
           <input type="email" name="email" placeholder="Email" required />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
+          <div style="position: relative; width: 100%;">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+              id="registerPassword"
+            />
+            <i class="fas fa-eye-slash password-toggle" 
+               onclick="togglePassword('registerPassword')" 
+               style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+            </i>
+          </div>
           <a href="/user/register"><span>danh ki</span></a>
         </form>
       </div>
@@ -44,12 +50,19 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <form action="/user/login" method="post">
           <h1>Sign in</h1>
           <input type="text" name="username" placeholder="Username" required />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            required
-          />
+          <div style="position: relative; width: 100%;">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              required
+              id="loginPassword"
+            />
+            <i class="fas fa-eye-slash password-toggle" 
+               onclick="togglePassword('loginPassword')" 
+               style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
+            </i>
+          </div>
 
           <button type="submit">Sign In</button>
         </form>
@@ -76,5 +89,22 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         </div>
       </div>
     </div>
+
+    <script>
+    function togglePassword(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const icon = event.target;
+        
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    }
+    </script>
   </body>
 </html>
