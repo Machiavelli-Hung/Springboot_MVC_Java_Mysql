@@ -220,4 +220,8 @@ public class CourtService {
         }
     }
 
+    public List<Court> getCourtsByOwnerId(Long ownerId) {
+        return courtRepository.findByOwnerId(ownerId);
+    }
+
 }

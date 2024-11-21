@@ -29,6 +29,7 @@ public class HomeController {
     public String home(Model model, HttpSession session) {
         User userLogin = (User) session.getAttribute("userLogin");
         model.addAttribute("user", userLogin);
+        System.out.println(userLogin);
         return "home2";
     }
 
@@ -82,8 +83,5 @@ public class HomeController {
         return "redirect:/home"; // Redirect to home page for regular users
 
     }
-    
-    
-    
 
 }

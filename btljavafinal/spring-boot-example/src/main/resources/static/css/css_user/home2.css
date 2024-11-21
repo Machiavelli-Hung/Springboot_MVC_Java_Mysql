@@ -214,6 +214,15 @@ nav a {
   cursor: pointer;
 }
 
+.user-btn {
+  width: 30px;
+  border-radius: 50%;
+  height: 30px;
+  margin-left: 20px;
+  color: #000;
+  cursor: pointer;
+}
+
 /* Footer */
 footer {
   background-color: #1a4178;

@@ -12,8 +12,8 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
-      integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
@@ -78,7 +78,10 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
               alt="san1"
             />
             <div class="content_image">
-              <p>${court.owner.phoneNumber}</p>
+              <div>
+                <i class="fa-solid fa-phone"></i>
+                <p>${court.owner.phoneNumber}</p>
+              </div>
               <!-- Hiển thị chủ sân -->
               <p>${court.address}</p>
               <!-- Địa chỉ sân -->

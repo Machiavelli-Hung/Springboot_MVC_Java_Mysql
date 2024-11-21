@@ -18,7 +18,7 @@ public class IndexController {
         Date now = new Date();
         String dateStr = dateFormat.format(now);
         model.addAttribute("time", dateStr);
-        return "index";
+        return "home2";
     }
 
 }
