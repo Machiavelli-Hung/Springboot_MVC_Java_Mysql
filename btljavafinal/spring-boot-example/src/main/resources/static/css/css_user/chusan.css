@@ -84,6 +84,7 @@ nav a {
 }
 .venues-grid {
   display: grid;
+  width: 400px;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 1rem;
   flex: 3;
@@ -98,6 +99,7 @@ nav a {
   background: white;
   position: relative;
   height: 451px;
+  
 }
 
 .venue-card h3 {
@@ -107,11 +109,28 @@ nav a {
 
 .venue-card image {
   margin-bottom: 10px;
+  
 }
 
 .venue-card .content_image {
   position: absolute;
   bottom: 10px;
+}
+.phone-number {
+  display: flex;
+  align-items: center;
+  margin-bottom: 3px;
+}
+.phone-number i {
+  margin-right: 10px;
+}
+.address {
+  display: flex;
+  align-items: center;
+  
+}
+.address i {
+  margin-right: 10px;
 }
 
 .btn-detail {
@@ -121,7 +140,11 @@ nav a {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   text-decoration: none;
-  margin-top: 1rem;
+  margin-top: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+  width: 90px;
+  margin-left: 120px;
 }
 
 /* Register section */
@@ -166,12 +189,4 @@ nav a {
 footer {
   background-color: #1a4178;
   padding: 2rem;
-}
-.user-btn {
-  width: 30px;
-  border-radius: 50%;
-  height: 30px;
-  margin-left: 20px;
-  color: #000;
-  cursor: pointer;
 }

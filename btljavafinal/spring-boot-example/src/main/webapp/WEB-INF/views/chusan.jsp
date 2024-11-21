@@ -78,13 +78,19 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
               alt="san1"
             />
             <div class="content_image">
-              <p>${court.owner.phoneNumber}</p>
+              <div class="phone-number">
+                <i class="fa-solid fa-phone"></i>
+                <p>  ${court.owner.phoneNumber}</p>
+              </div>
               <!-- Hiển thị chủ sân -->
-              <p>${court.address}</p>
-              <!-- Địa chỉ sân -->
-              <a href="/courts/details/${court.id}" class="btn-detail"
-                >Chi tiết</a
-              >
+              <div class="address">
+                <i class="fa-solid fa-location-dot"></i>
+                <p>  ${court.address}</p>
+              </div>
+              
+              <a href="/courts/details/${court.id}" class="btn-detail">Chi tiết</a>
+              
+
             </div>
           </div>
         </c:forEach>

@@ -45,6 +45,8 @@ nav a {
   /* Thêm khoảng cách từ cạnh phải */
   margin-top: -1.6rem;
   /* Căn chỉnh từ phía trên */
+  align-items: center;
+  display: flex;
 }
 
 .btn {
@@ -193,6 +195,9 @@ footer {
             <button onclick="location.href='/home/changePassword'" class="btn">
               Đổi mật khẩu
             </button>
+            <button onclick="location.href='/user/details/${user.id}'" class="user-btn">
+              <i class="fa-solid fa-user"></i>
+            </button>
           </c:if>
 
           <!-- Kiểm tra nếu chưa có user trong session -->
@@ -215,87 +220,23 @@ footer {
       
 
       <div class="venues-grid">
-        <div class="venue-card">
-          <h3>Tennis Tân Trường</h3>
-          <img
-            src="/images/s1.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>0908344582</p>
-            <p>
-              96 Đường Đào Trí, phường Phú Thuận, Quận 7, Hồ Chí Minh, Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
+        <c:forEach var="court" items="${courts}">
+          <div class="venue-card">
+            <h3>${court.name}</h3>
+            <img src="/images/${court.images[0].name}" style="width: 100%; height: 60%; object-fit: cover" alt="san1" />
+            <div class="content_image">
+              <p>SĐT: ${court.owner.phoneNumber}</p>
+              <!-- Hiển thị chủ sân -->
+              <p>Địa chỉ: ${court.address}</p>
+              <!-- Địa chỉ sân -->
+              <a href="/courts/details/${court.id}" class="btn-detail">Chi tiết</a>
+            </div>
           </div>
-        </div>
-
-        <div class="venue-card">
-          <h3>Saigon Padel</h3>
-          <img
-            src="/images/s2.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>0903920094</p>
-            <p>
-              Khu Dân Cư Conic, Đường Nguyễn Văn Linh, Bình Chánh, Hồ Chí Minh,
-              Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
-          </div>
-        </div>
-
-        <div class="venue-card">
-          <h3>Hoàng Nghệu Tennis & Pickleball</h3>
-          <img
-            src="/images/s3.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>941172736</p>
-            <p>
-              Khu Dân Cư Conic, Đường Nguyễn Văn Linh, Bình Chánh, Hồ Chí Minh,
-              Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
-          </div>
-        </div>
-        <div class="venue-card">
-          <h3>Saigon Padel</h3>
-          <img
-            src="/images/s2.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>0903920094</p>
-            <p>
-              Khu Dân Cư Conic, Đường Nguyễn Văn Linh, Bình Chánh, Hồ Chí Minh,
-              Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
-          </div>
-        </div>
-        <div class="venue-card">
-          <h3>Saigon Padel</h3>
-          <img
-            src="/images/s2.png"
-            style="width: 100%; height: 60%; object-fit: cover"
-            alt="san1"
-          />
-          <div class="content_image">
-            <p>0903920094</p>
-            <p>
-              Khu Dân Cư Conic, Đường Nguyễn Văn Linh, Bình Chánh, Hồ Chí Minh,
-              Việt Nam
-            </p>
-            <a href="#" class="btn-detail">Chi tiết</a>
-          </div>
-        </div>
+        </c:forEach>
+       
+       
+       
+        
       </div>
     </div>
   </body>

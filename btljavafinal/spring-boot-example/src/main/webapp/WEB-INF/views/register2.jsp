@@ -52,7 +52,6 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           <select id="role" name="role" required>
             <option value="nguoi dung">Người Dùng</option>
             <option value="chu san">Chủ Sân</option>
-            <option value="admin">Admin</option>
           </select>
 
           <input
