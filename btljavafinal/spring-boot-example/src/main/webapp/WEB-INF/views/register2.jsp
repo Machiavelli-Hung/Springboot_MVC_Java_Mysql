@@ -39,6 +39,14 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             value="${user.password}"
             required
           />
+          <input 
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="Nhập lại mật khẩu"
+            value="${user.confirmPassword}"
+            required
+          />
 
           <input
             type="email"
