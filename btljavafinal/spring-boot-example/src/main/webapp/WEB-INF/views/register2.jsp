@@ -15,6 +15,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       href="${pageContext.request.contextPath}/css/css_user/register2.css"
     />
   </head>
+  
 
   <body>
     <div class="container">
