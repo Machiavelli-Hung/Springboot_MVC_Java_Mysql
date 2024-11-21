@@ -15,6 +15,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     />
   </head>
 
+
   <body>
     <div
       class="container ${param.formType == 'signup' ? 'right-panel-active' : ''}">
