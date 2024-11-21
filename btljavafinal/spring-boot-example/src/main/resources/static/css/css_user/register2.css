@@ -46,7 +46,6 @@ form {
 h1 {
   font-weight: bold;
   margin: 0;
-  margin-bottom: 20px;
   color: #1a4178;
 }
 
@@ -86,8 +85,21 @@ button {
   padding: 40px;
   text-align: center;
   position: relative;
+  background-image: url('/images/login.png');
+  right: 0;
+  transform: translateX(0);
+  background-size: 389px 532px;
+  flex: 1;
+  /* background: linear-gradient(to right, #1a4178, #3c6bac); */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
   /* Thêm position relative */
 }
+
 
 /* Tạo một div wrapper cho nội dung chính */
 .overlay-content {
@@ -96,14 +108,20 @@ button {
   transform: translateY(-50%);
   width: 100%;
   padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20vh;
+  /*đẩy xuống dưới*/
+  gap: 20px;
 }
+
+
 
 .overlay-container h1 {
   color: black;
-  margin-top: 36px;
-  /* Giảm margin bottom */
+
   font-size: 2.5em;
-  margin-bottom: -30px;
+
 }
 
 .overlay-container p {
@@ -112,7 +130,7 @@ button {
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.5px;
-  margin-top: 15px 0;
+
   /* Giảm margin */
 }
 
@@ -132,7 +150,6 @@ button {
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
-  margin-top: -20px;
   position: relative;
   overflow: hidden;
 }
@@ -176,27 +193,8 @@ select {
 }
 
 /* Sửa lại overlay container để căn giữa theo chiều dọc */
-.overlay-container {
-  background-image: url('/images/login.png');
-  right: 0;
-  transform: translateX(0);
-  background-size: 389px 532px;
-  flex: 1;
-  /* background: linear-gradient(to right, #1a4178, #3c6bac); */
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  text-align: center;
-}
 
-.overlay-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
+
 
 /* Đảm bảo form container có width đồng nhất */
 .form-container {
@@ -272,4 +270,5 @@ form {
   outline: none;
   background-color: #f5f5f5;
 }
+
 
