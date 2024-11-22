@@ -45,9 +45,6 @@ public class UserService {
         if (user.getPassword().length() < 6) {
             throw new UserException("Mật khẩu người dùng phải có 6 ký tự trở lên ");
         }
-        if (!strongPassword(user.getPassword())) {
-            throw new UserException("Mật khẩu phải chứa chữ hoa, chữ thường, số và ký tự đặc biệt");
-        }
         if (!isValidPhoneNumber(user.getPhoneNumber())) {
             throw new UserException("Số điện thoại không được chứa ký tự đặc biệt và phải có đủ 10 số hoặc 11 số ");
         }

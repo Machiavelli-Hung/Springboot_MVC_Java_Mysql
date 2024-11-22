@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +20,7 @@ import spring.example.model.User;
 import spring.example.service.UserService;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("")
 public class RegisterController {
 
     @Autowired
@@ -53,7 +52,7 @@ public class RegisterController {
         try {
             userService.saveUser(user); // lưu user nếu không có trùng lặp
             session.setAttribute("user", user);
-            return "redirect:/user/success";
+            return "redirect:/success";
         } catch (UserException e) {
             model.addAttribute("errorMessage", e.getMessage());
             return "register"; // tên của trang đăng ký

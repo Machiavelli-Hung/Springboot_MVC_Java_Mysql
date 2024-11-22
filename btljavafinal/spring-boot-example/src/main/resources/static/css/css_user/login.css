@@ -70,9 +70,14 @@ button:focus {
 
 button.ghost,
 .button.ghost {
-  background-color: transparent;
+  background-color: #1a4178;
   border-color: #ffffff;
   color: #ffffff;
+  margin-top: 175px;
+}
+
+.ghost:hover {
+  opacity: 0.9;
 }
 
 form {
@@ -166,13 +171,14 @@ input {
 }
 
 .overlay {
-  background: #ff416c;
+  /* background: #ff416c;
   background: -webkit-linear-gradient(to right, #1a4178, #3c6bac);
-  background: linear-gradient(to right, #1a4178, #3c6bac);
+  background: linear-gradient(to right, #1a4178, #3c6bac); */
+
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0 0;
-  color: #ffffff;
+  color: black;
   position: relative;
   left: -100%;
   height: 100%;
@@ -209,8 +215,20 @@ input {
 }
 
 .overlay-right {
+  background-image: url("/images/login.png");
   right: 0;
   transform: translateX(0);
+  background-size: 389px 532px;
+  /* Width 100px, Height 200px */
+}
+
+.overlay-right h1 {
+  margin-top: 35vh;
+  /*đẩy xuống dưới*/
+}
+
+.overlay-right p {
+  font-size: medium;
 }
 
 .container.right-panel-active .overlay-right {
@@ -283,4 +301,53 @@ input:focus {
 button.loading {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+/* Style cho container chứa input password và icon */
+.password-container {
+  position: relative;
+  width: 100%;
+  margin: 8px 0;
+}
+
+/* Style cho input password */
+.password-container input {
+  padding-right: 40px;
+  /* Tạo khoảng trống cho icon */
+  margin: 0;
+}
+
+/* Style cho icon toggle password */
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 50%;
+}
+
+/* Hiệu ứng hover cho icon */
+.password-toggle:hover {
+  color: #1a4178;
+  background-color: rgba(26, 65, 120, 0.1);
+}
+
+/* Hiệu ứng khi click */
+.password-toggle:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Animation khi chuyển đổi icon */
+.password-toggle i {
+  transition: all 0.2s ease;
+}
+
+/* Style khi password đang hiện */
+.password-toggle.show {
+  color: #1a4178;
 }

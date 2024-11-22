@@ -20,7 +20,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
   <body>
     <div class="container">
       <div class="form-container">
-        <form action="/user/success" method="post">
+        <form action="/success" method="post">
           <h1>Thông tin đăng ký</h1>
 
           <c:if test="${param.success != null}">

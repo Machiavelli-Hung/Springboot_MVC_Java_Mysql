@@ -19,47 +19,64 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <body>
     <div class="container">
       <div class="form-container">
-        <form action="/user/register" method="post">
-          <h2>Create Account</h2>
+        <form action="/register" method="post">
+          <h2>Đăng ký</h2>
 
           <input
             type="text"
             id="username"
             name="username"
             placeholder="Tên người dùng"
-            value="${user.username}"
             required
           />
 
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Mật khẩu"
-            value="${user.password}"
-            required
-          />
+          <div class="password-container">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Mật khẩu"
+              required
+            />
+            <span class="password-toggle" onclick="togglePassword('password')">
+              <i class="fas fa-eye-slash"></i>
+            </span>
+          </div>
+
+          <div class="password-container">
+            <input
+              type="password"
+              id="confirm-password"
+              name="confirm-password"
+              placeholder="Nhập lại mật khẩu"
+              required
+            />
+            <span
+              class="password-toggle"
+              onclick="togglePassword('confirm-password')"
+            >
+              <i class="fas fa-eye-slash"></i>
+            </span>
+          </div>
 
           <input
             type="email"
             id="email"
             name="email"
             placeholder="Email"
-            value="${user.email}"
             required
           />
 
           <select id="role" name="role" required>
-            <option value="nguoi dung">Người Dùng</option>
-            <option value="chu san">Chủ Sân</option>
+            <option value="nguoi-dung">Người Dùng</option>
+            <option value="chu-san">Chủ Sân</option>
           </select>
 
           <input
             type="text"
-            id="phoneNumber"
-            name="phoneNumber"
+            id="phone-number"
+            name="phone-number"
             placeholder="Số điện thoại"
-            value="${user.phoneNumber}"
             required
           />
 
@@ -67,19 +84,35 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             <p style="color: red">${errorMessage}</p>
           </c:if>
 
-          <button type="submit">Đăng Ký</button>
+          <button class="register-btn" type="submit">Đăng Ký</button>
         </form>
       </div>
 
       <!-- Phần overlay-container trong HTML -->
       <div class="overlay-container">
         <div class="overlay-content">
-          <p></p>
           <form action="${pageContext.request.contextPath}/login" method="get">
-            <button type="submit" class="ghost">SIGN IN</button>
+            <button type="submit" class="ghost">Đăng nhập</button>
           </form>
         </div>
       </div>
     </div>
+
+    <script>
+      function togglePassword(inputId) {
+        const passwordInput = document.getElementById(inputId);
+        const icon = event.target;
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
+        } else {
+          passwordInput.type = "password";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
+        }
+      }
+    </script>
   </body>
 </html>

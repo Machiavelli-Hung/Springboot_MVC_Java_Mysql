@@ -46,7 +46,6 @@ form {
 h1 {
   font-weight: bold;
   margin: 0;
-  margin-bottom: 20px;
   color: #1a4178;
 }
 
@@ -77,7 +76,7 @@ button {
 
 .overlay-container {
   flex: 1;
-  background: linear-gradient(to right, #1a4178, #3c6bac);
+
   color: #ffffff;
   display: flex;
   align-items: center;
@@ -86,6 +85,18 @@ button {
   padding: 40px;
   text-align: center;
   position: relative;
+  background-image: url("/images/login.png");
+  right: 0;
+  transform: translateX(0);
+  background-size: 389px 532px;
+  flex: 1;
+  /* background: linear-gradient(to right, #1a4178, #3c6bac); */
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  text-align: center;
   /* Thêm position relative */
 }
 
@@ -96,31 +107,37 @@ button {
   transform: translateY(-50%);
   width: 100%;
   padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20vh;
+  /*đẩy xuống dưới*/
+  gap: 20px;
 }
 
 .overlay-container h1 {
-  color: #ffffff;
-  margin-top: 36px;
-  /* Giảm margin bottom */
+  color: black;
+
   font-size: 2.5em;
-  margin-bottom: -30px;
 }
 
 .overlay-container p {
+  color: black;
+  font-size: medium;
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.5px;
-  margin-top: 15px 0;
+
   /* Giảm margin */
 }
 
 .ghost {
   background-color: transparent;
-  border: 2px solid #ffffff;
+  border: 2px solid #1a4178;
+  margin-top: 130px;
 }
 
 .overlay-container button {
-  background-color: transparent;
+  background-color: #1a4178;
   border: 1px solid #ffffff;
   color: #ffffff;
   border-radius: 30px;
@@ -130,13 +147,13 @@ button {
   letter-spacing: 1px;
   text-transform: uppercase;
   cursor: pointer;
-  margin-top: -20px;
   position: relative;
   overflow: hidden;
+  margin-top: 130px;
 }
 
 .overlay-container button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  opacity: 0.9 !important;
 }
 
 .overlay-container form {
@@ -174,23 +191,6 @@ select {
 }
 
 /* Sửa lại overlay container để căn giữa theo chiều dọc */
-.overlay-container {
-  flex: 1;
-  background: linear-gradient(to right, #1a4178, #3c6bac);
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 40px;
-  text-align: center;
-}
-
-.overlay-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
 
 /* Đảm bảo form container có width đồng nhất */
 .form-container {
@@ -205,4 +205,68 @@ form {
   width: 100%;
   max-width: 380px;
   /* hoặc giá trị phù hợp với design của bạn */
+}
+
+/* Style cho container chứa input password và icon */
+.password-container {
+  position: relative;
+  width: 100%;
+  margin: 8px 0;
+}
+
+/* Style cho input password */
+.password-container input {
+  padding-right: 40px;
+  /* Tạo khoảng trống cho icon */
+  margin: 0;
+  width: 100%;
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  font-size: 14px;
+}
+
+/* Style cho icon toggle password */
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  transition: all 0.3s ease;
+  font-size: 16px;
+  padding: 4px;
+  border-radius: 50%;
+}
+
+/* Hiệu ứng hover cho icon */
+.password-toggle:hover {
+  color: #1a4178;
+  background-color: rgba(26, 65, 120, 0.1);
+}
+
+/* Hiệu ứng khi click */
+.password-toggle:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Animation khi chuyển đổi icon */
+.password-toggle i {
+  transition: all 0.2s ease;
+}
+
+/* Style khi password đang hiện */
+.password-toggle.show {
+  color: #1a4178;
+}
+
+/* Đảm bảo input trong password-container không bị lệch */
+.password-container input:focus {
+  outline: none;
+  background-color: #f5f5f5;
+}
+
+.register-btn:hover {
+  opacity: 0.9;
 }
