@@ -2,9 +2,8 @@ package spring.example.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -193,9 +192,19 @@ public class CourtController {
     }
 
     @GetMapping
-    public String listCourts(Model model) {
-        model.addAttribute("courts", courtService.getAllCourts());
-        return "court/list";
+    public String listCourts(Model model, HttpSession session) {
+        List<Court> courts;
+        // phan nay the, check o admin nen la khong xoa
+        if (userService.checkAdmin(session)) {
+            courts = courtService.getAllCourts();
+            model.addAttribute("courts", courts);
+            return "court/list";
+        } else if (userService.checkOwner(session)) {
+            courts = courtService.getCourtsByOwnerId(userService.getCurrentUserId(session));
+            model.addAttribute("courts", courts);
+            return "court/list";
+        } else
+            return "redirect:/home";
     }
 
     @PostMapping("/rent/{scheduleId}")

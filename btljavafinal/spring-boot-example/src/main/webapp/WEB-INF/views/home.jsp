@@ -31,7 +31,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
               <a href="/manage-courts"><span>Quản lý sân</span></a>
             </c:if>
             <c:if test="${user.role == 'owner'}">
-              <a href="/manage-courts"><span>Danh sách sân</span></a>
+              <a href="/manage-courts"><span>Quản lý sân</span></a>
             </c:if>
           </c:if>
         </ul>
@@ -40,7 +40,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             <button onclick="location.href='/home/logout'" class="btn">
               Đăng xuất
             </button>
-            <button onclick="location.href='/home/changePassword'" class="btn">
+            <button onclick="location.href='/home/change-password'" class="btn">
               Đổi mật khẩu
             </button>
             <button
