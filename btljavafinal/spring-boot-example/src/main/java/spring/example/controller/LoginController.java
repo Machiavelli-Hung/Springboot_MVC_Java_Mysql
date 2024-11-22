@@ -35,8 +35,7 @@ public class LoginController {
             session.setAttribute("userLogin", userCheck);
             return "redirect:/home";
         } else {
-            System.out.println("----------------------------------\nHello World\n-------------------------------");
-            model.addAttribute("errorMessage", "mật khẩu hoặc tên đăng nhập chưa đúng");
+            model.addAttribute("errorMessage", "Mật khẩu hoặc tên đăng nhập chưa đúng");
             return "login";
         }
     }

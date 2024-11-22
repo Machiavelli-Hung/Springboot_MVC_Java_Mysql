@@ -40,7 +40,11 @@ public class CourtController {
     private UserService userService;
 
     @GetMapping("/details/{id}")
-    public String showCourtDetails(@PathVariable("id") Long id, Model model) {
+    public String showCourtDetails(@PathVariable("id") Long id, Model model, HttpSession session) {
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null)
+            return "redirect:/login";
+        model.addAttribute("user", userLogin);
         Court court = courtService.getCourtById(id);
         if (court == null) {
             model.addAttribute("message", "Court not found");

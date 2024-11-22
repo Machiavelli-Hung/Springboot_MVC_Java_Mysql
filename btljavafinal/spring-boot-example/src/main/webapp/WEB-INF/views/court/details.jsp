@@ -5,6 +5,13 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <head>
     <meta charset="UTF-8" />
     <title>Chi tiết sân bóng</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+      integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
       * {
         margin: 0;
@@ -194,6 +201,15 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
         border-radius: 4px;
         cursor: pointer;
       }
+
+      .user-btn {
+        width: 30px;
+        border-radius: 50%;
+        height: 30px;
+        margin-left: 20px;
+        color: #000;
+        cursor: pointer;
+      }
     </style>
   </head>
 
@@ -202,6 +218,15 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
       <nav>
         <ul>
           <li><a href="/home">Trang chủ</a></li>
+          <c:if test="${user != null}">
+            <c:if test="${user.role == 'admin'}">
+              <a href="/home/manage-users"><span>Quản lý người dùng</span></a>
+              <a href="/manage-courts"><span>Quản lý sân</span></a>
+            </c:if>
+            <c:if test="${user.role == 'owner'}">
+              <a href="/manage-courts"><span>Quản lý sân</span></a>
+            </c:if>
+          </c:if>
         </ul>
         <div class="auth-buttons">
           <c:if test="${user != null}">
@@ -210,6 +235,12 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             </button>
             <button onclick="location.href='/home/changePassword'" class="btn">
               Đổi mật khẩu
+            </button>
+            <button
+              onclick="location.href='/user/details/${user.id}'"
+              class="user-btn"
+            >
+              <i class="fa-solid fa-user"></i>
             </button>
           </c:if>
           <c:if test="${user == null}">
