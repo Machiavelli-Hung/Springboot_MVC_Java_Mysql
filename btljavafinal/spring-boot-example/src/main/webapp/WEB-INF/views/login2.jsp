@@ -36,10 +36,10 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
               name="password"
               placeholder="Password"
               required
-              id="registerPassword"
+              id="register-password"
             />
             <i class="fas fa-eye-slash password-toggle" 
-               onclick="togglePassword('registerPassword')" 
+               onclick="togglePassword('register-password')" 
                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
             </i>
           </div>
@@ -57,10 +57,10 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
               name="password"
               placeholder="Password"
               required
-              id="loginPassword"
+              id="login-password"
             />
             <i class="fas fa-eye-slash password-toggle" 
-               onclick="togglePassword('loginPassword')" 
+               onclick="togglePassword('login-password')" 
                style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;">
             </i>
           </div>
