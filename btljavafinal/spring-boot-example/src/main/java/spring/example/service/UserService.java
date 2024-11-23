@@ -27,7 +27,7 @@ public class UserService {
                 .orElseThrow(() -> new UserException("Không tìm thấy người dùng với id: " + id));
     }
 
-    public void saveUser(User user) {
+    public void saveUser(User user,String confirmpassword) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new UserException("Username đã tồn tại.");
         }
@@ -37,10 +37,8 @@ public class UserService {
         if (userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
             throw new UserException("Số điện thoại đã tồn tại.");
         }
-
-        // phan nay them vao de check mat khau chuan hon khong xoa
-        if (user.getUsername().length() < 6 || containsSpecialChar(user.getUsername())) {
-            throw new UserException("Tên người dùng phải có 6 ký tự trở lên và không được chứa kí tự đặc biệt nào");
+        if(user.getPassword().compareTo(confirmpassword) != 0){    
+            throw new UserException("Mật khẩu không nhập chính xác với mật khẩu ! nhập lại");
         }
         if (user.getPassword().length() < 6) {
             throw new UserException("Mật khẩu người dùng phải có 6 ký tự trở lên ");
@@ -48,7 +46,6 @@ public class UserService {
         if (!isValidPhoneNumber(user.getPhoneNumber())) {
             throw new UserException("Số điện thoại không được chứa ký tự đặc biệt và phải có đủ 10 số hoặc 11 số ");
         }
-
         userRepository.save(user);
     }
 

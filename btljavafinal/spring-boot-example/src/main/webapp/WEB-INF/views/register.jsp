@@ -26,7 +26,17 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             type="text"
             id="username"
             name="username"
+            value="${user.username}"
             placeholder="Tên người dùng"
+            required
+          />
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value="${user.email}"
+            placeholder="Email"
             required
           />
 
@@ -35,6 +45,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
               type="password"
               id="password"
               name="password"
+              value="${user.password}"
               placeholder="Mật khẩu"
               required
             />
@@ -46,26 +57,21 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           <div class="password-container">
             <input
               type="password"
-              id="confirm-password"
-              name="confirm-password"
+              id="confirmpassword"  
+              name="confirmpassword" 
               placeholder="Nhập lại mật khẩu"
               required
             />
+            <!-- cai nay ohai de lai la confirm password thi moi sua duoc ko xoa -->
             <span
               class="password-toggle"
-              onclick="togglePassword('confirm-password')"
+              onclick="togglePassword('confirmpassword')"
             >
               <i class="fas fa-eye-slash"></i>
             </span>
           </div>
 
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
+          
 
           <select id="role" name="role" required>
             <option value="nguoi-dung">Người Dùng</option>
@@ -74,8 +80,9 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
           <input
             type="text"
-            id="phone-number"
-            name="phone-number"
+            id="phoneNumber"
+            name="phoneNumber"
+            value="${user.phoneNumber}""
             placeholder="Số điện thoại"
             required
           />

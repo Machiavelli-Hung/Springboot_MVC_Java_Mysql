@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import spring.example.exception.UserException;
 import spring.example.model.User;
@@ -39,18 +40,22 @@ public class RegisterController {
 
     // day thong tin len server va check
     @PostMapping("/register")
-    public String registerUser(@ModelAttribute("user") User user, HttpSession session, Model model) {
+    public String registerUser(@ModelAttribute("user") User user, 
+                                HttpSession session, 
+                                Model model,
+                                @RequestParam String confirmpassword) {
         User existingUser = new User();
         existingUser.setUsername(user.getUsername());
         existingUser.setPassword(user.getPassword());
         existingUser.setEmail(user.getEmail());
         existingUser.setPhoneNumber(user.getPhoneNumber());
         existingUser.setRole(user.getRole());
+        String x = confirmpassword;
 
         // user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         try {
-            userService.saveUser(user); // lưu user nếu không có trùng lặp
+            userService.saveUser(user,x); // lưu user nếu không có trùng lặp
             session.setAttribute("user", user);
             return "redirect:/success";
         } catch (UserException e) {
