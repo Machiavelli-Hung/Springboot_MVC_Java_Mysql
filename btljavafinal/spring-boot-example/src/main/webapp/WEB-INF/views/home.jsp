@@ -40,9 +40,12 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             <button onclick="location.href='/home/logout'" class="btn">
               Đăng xuất
             </button>
-            <button onclick="location.href='/home/change-password'" class="btn">
+
+            <!-- phần này để xác thực không xóa -> nó chuyển đến trang /auth/reset-password   -->
+            <button onclick="location.href='/auth/reset-password'" class="btn">
               Đổi mật khẩu
             </button>
+            <!-- kết thúc phần sửa trang này  -->
             <button
               onclick="location.href='/user/details/${user.id}'"
               class="user-btn"
