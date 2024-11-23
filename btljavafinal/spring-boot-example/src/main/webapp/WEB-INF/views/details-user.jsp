@@ -24,10 +24,15 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <header>
       <nav>
         <ul>
-          <li><a href="/chusan">Trang chủ</a></li>
-          <c:if test="${userDetails != null}">
-            <a href="/home/manage-users"><span>Danh sách người dùng</span></a>
-            <a href="/manage-courts"><span>Danh sách sân</span></a>
+          <li><a href="/home">Trang chủ</a></li>
+          <c:if test="${user != null}">
+            <c:if test="${user.role == 'admin'}">
+              <a href="/home/manage-users"><span>Quản lý người dùng</span></a>
+              <a href="/manage-courts"><span>Quản lý sân</span></a>
+            </c:if>
+            <c:if test="${user.role == 'owner'}">
+              <a href="/manage-courts"><span>Quản lý sân</span></a>
+            </c:if>
           </c:if>
         </ul>
         <div class="auth-buttons">

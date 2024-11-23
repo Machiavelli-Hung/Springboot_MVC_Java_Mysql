@@ -17,7 +17,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <header>
       <nav>
         <ul>
-          <li><a href="/chusan">Trang chủ</a></li>
+          <li><a href="/home">Trang chủ</a></li>
           <c:if test="${customers != null}">
             <a href="/home/manage-users"><span>Danh sách người dùng</span></a>
             <a href="/manage-courts"><span>Danh sách sân</span></a>

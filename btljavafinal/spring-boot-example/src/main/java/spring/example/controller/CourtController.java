@@ -231,5 +231,4 @@ public class CourtController {
         // Điều hướng về trang chi tiết sân
         return "redirect:/manage-courts/details/" + schedule.getCourt().getId();
     }
-
 }
