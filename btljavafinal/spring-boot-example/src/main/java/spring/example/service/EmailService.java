@@ -1,16 +1,16 @@
 package spring.example.service;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.ServletContext;
 
+import org.apache.commons.text.StringSubstitutor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -46,35 +46,46 @@ public class EmailService {
         mailSender.send(message);
     }
 
-    public void sendEmailWithAttachment(String to, String subject, String body, String filePath)
-            throws MessagingException {
+    // public void sendEmailWithAttachment(String to, String subject, String body,
+    // String filePath) throws MessagingException {
+    // MimeMessage message = mailSender.createMimeMessage();
+    // MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+    // helper.setTo(to);
+    // helper.setSubject(subject);
+    // helper.setText(body, true);
+
+    // FileSystemResource file = new FileSystemResource(new File(filePath));
+    // helper.addAttachment(file.getFilename(), file);
+
+    // mailSender.send(message);
+    // }
+
+    // public void sendEmailWithHtmlFromJsp(String to, String subject, String
+    // jspFilePath) throws MessagingException, IOException {
+    // MimeMessage message = mailSender.createMimeMessage();
+    // MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+    // String htmlContent = readHtmlFromJsp(jspFilePath);
+    // helper.setTo(to);
+    // helper.setSubject(subject);
+    // helper.setText(htmlContent, true);
+
+    // mailSender.send(message);
+    // }
+
+    public void sendEmailWithHtmlFromJsp(String toEmail, String subject, String jspFilePath,
+            Map<String, String> variables) throws MessagingException, IOException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setTo(to);
+        String htmlContent = readHtmlFromJsp(jspFilePath);
+        StringSubstitutor sub = new StringSubstitutor(variables);
+        String resolvedHtmlContent = sub.replace(htmlContent);
+
+        helper.setTo(toEmail);
         helper.setSubject(subject);
-        helper.setText(body, true);
-
-        FileSystemResource file = new FileSystemResource(new File(filePath));
-        helper.addAttachment(file.getFilename(), file);
-
-        mailSender.send(message);
-    }
-
-    public void sendEmailWithHtmlFromJsp(String to, String subject, String jspFilePath, String name, String email,
-            String phone, String field, String schedule) throws MessagingException, IOException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-        String htmlContent = readHtmlFromJsp(jspFilePath)
-                .replace("${name}", name)
-                .replace("${email}", email)
-                .replace("${phone}", phone)
-                .replace("${field}", field)
-                .replace("${schedule}", schedule);
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(htmlContent, true);
+        helper.setText(resolvedHtmlContent, true);
 
         mailSender.send(message);
     }

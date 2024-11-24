@@ -50,12 +50,16 @@
       <h1>Thông tin đặt sân</h1>
       <div class="form-group">
         <label for="name">Tên:</label>
-        <input type="text" id="name" name="name" value="${name}" />
+        <input type="text" id="name" name="name" value="${user.username}" />
       </div>
-
       <div class="form-group">
         <label for="phone">Số điện thoại:</label>
-        <input type="text" id="phone" name="phone" value="${phone}" />
+        <input
+          type="text"
+          id="phone"
+          name="phone"
+          value="${user.phoneNumber}"
+        />
       </div>
       <div class="form-group">
         <label for="field">Sân đã đặt:</label>
@@ -65,15 +69,16 @@
         <label for="schedule">Lịch đặt:</label>
         <input type="text" id="schedule" name="schedule" value="${schedule}" />
       </div>
-
       <!-- Thêm các trường nhập liệu cho email -->
       <div class="form-group">
         <label for="toEmail">Email gửi đến:</label>
-        <input type="email" id="toEmail" name="toEmail" required />
-      </div>
-      <div class="form-group">
-        <label for="subject">Chủ đề email:</label>
-        <input type="text" id="subject" name="subject" required />
+        <input
+          type="email"
+          id="toEmail"
+          name="toEmail"
+          value="${user.email}"
+          required
+        />
       </div>
     </div>
   </body>
