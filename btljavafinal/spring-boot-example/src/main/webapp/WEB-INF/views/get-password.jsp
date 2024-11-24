@@ -10,8 +10,8 @@
 </head>
 <body class="d-flex justify-content-center align-items-center vh-100 bg-light">
     <div class="card shadow p-5" style="width: 750px; max-width: 650px; border-radius: 12px; height:300px;">
-        <h4 class="text-center mb-4">Nhập email của bạn để xác nhận đổi mật khẩu </h4>
-        <h4 style = "color : red;font-size : 16px;text-align: center;">${message}</h4>
+        <h4 class="text-center mb-4">Nhập email của bạn để lấy lại mật khẩu </h4>
+        <h4 style = "color : red;">${message}</h4>
         <form action="/auth/reset-password" method="post">
             <div class="mb-4">
                 <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="Nhập email của bạn" required>

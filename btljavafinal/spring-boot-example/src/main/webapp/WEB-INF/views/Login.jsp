@@ -22,6 +22,11 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       <div class="form-container sign-in-container">
         <form action="/login" method="post">
           <h1>Đăng nhập</h1>
+          <!-- in thông báo ko xóa đi (in thông báo lúc đổi mật khẩu) -->
+          <c:if test="${not empty message}">
+            <p class="message success" style = "color : red;">${message}</p>
+          </c:if>
+
           <input type="text" name="username" placeholder="Username" required />
           <div style="position: relative; width: 100%">
             <input
@@ -46,6 +51,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           </div>
 
           <button type="submit">Đăng nhập</button>
+          <p>Nếu quên mật khẩu hãy ấn  <a href="/auth/get-password" style = "color: red;">tại đây </a></p>
         </form>
       </div>
 

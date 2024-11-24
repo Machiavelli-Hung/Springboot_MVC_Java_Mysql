@@ -151,4 +151,16 @@ public class UserService {
 
         return currentUser.getId(); // Trả về ID của người dùng
     }
+
+    // lay lai mat khau 
+    public String getPassword(String email){
+        User check= userRepository.findByEmail(email);
+        return check.getPassword();
+    }
+
+    public boolean checkEmail(String email ){
+        return userRepository.existsByEmail(email);
+    }
+
+    
 }

@@ -264,7 +264,7 @@ public class CourtController {
                 scheduleService.save(courtSchedule); // Lưu lại thay đổi
 
                 // Gửi email xác nhận
-                email = "buicongbac182004@gmail.com";
+                email = "pthanhlong303@gmail.com";
                 Map<String, String> variables = new HashMap<>();
                 variables.put("user.username", name);
                 variables.put("user.phoneNumber", phone);
