@@ -38,7 +38,10 @@ contentType="text/html;charset=UTF-8" language="java" %>
               placeholder="Mật khẩu cũ"
               required
             />
-            <span class="password-toggle" onclick="togglePassword('old-password')">
+            <span
+              class="password-toggle"
+              onclick="togglePassword('old-password')"
+            >
               <i class="fas fa-eye-slash"></i>
             </span>
           </div>
@@ -51,7 +54,10 @@ contentType="text/html;charset=UTF-8" language="java" %>
               placeholder="Mật khẩu mới"
               required
             />
-            <span class="password-toggle" onclick="togglePassword('new-password')">
+            <span
+              class="password-toggle"
+              onclick="togglePassword('new-password')"
+            >
               <i class="fas fa-eye-slash"></i>
             </span>
           </div>
@@ -64,7 +70,10 @@ contentType="text/html;charset=UTF-8" language="java" %>
               placeholder="Nhập lại mật khẩu"
               required
             />
-            <span class="password-toggle" onclick="togglePassword('confirm-password')">
+            <span
+              class="password-toggle"
+              onclick="togglePassword('confirm-password')"
+            >
               <i class="fas fa-eye-slash"></i>
             </span>
           </div>
@@ -92,20 +101,20 @@ contentType="text/html;charset=UTF-8" language="java" %>
     </div>
 
     <script>
-    function togglePassword(inputId) {
+      function togglePassword(inputId) {
         const passwordInput = document.getElementById(inputId);
         const icon = event.target;
-        
-        if (passwordInput.type === 'password') {
-            passwordInput.type = 'text';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
+
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          icon.classList.remove("fa-eye-slash");
+          icon.classList.add("fa-eye");
         } else {
-            passwordInput.type = 'password';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
+          passwordInput.type = "password";
+          icon.classList.remove("fa-eye");
+          icon.classList.add("fa-eye-slash");
         }
-    }
+      }
     </script>
   </body>
 </html>

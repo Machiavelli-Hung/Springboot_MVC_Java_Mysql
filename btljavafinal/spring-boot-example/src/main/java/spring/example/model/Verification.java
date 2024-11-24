@@ -14,9 +14,6 @@ public class Verification {
     private String email;
     private String pin;
 
-    // Getter, Setter, Constructor
-    public PinCode() {}
-
     public Long getId() {
         return id;
     }

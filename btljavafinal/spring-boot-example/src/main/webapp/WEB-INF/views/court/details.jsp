@@ -332,6 +332,23 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                     method="post"
                   >
                     <c:if test="${!schedule.rented && schedule.renter == null}">
+                      <input
+                        type="hidden"
+                        name="name"
+                        value="${user.username}"
+                      />
+                      <input type="hidden" name="email" value="${user.email}" />
+                      <input
+                        type="hidden"
+                        name="phone"
+                        value="${user.phoneNumber}"
+                      />
+                      <input type="hidden" name="field" value="${court.name}" />
+                      <input
+                        type="hidden"
+                        name="schedule"
+                        value="${schedule.time}"
+                      />
                       <button type="submit" class="rent-btn">Thuê ngay</button>
                     </c:if>
                     <c:if test="${!schedule.rented && schedule.renter != null}">

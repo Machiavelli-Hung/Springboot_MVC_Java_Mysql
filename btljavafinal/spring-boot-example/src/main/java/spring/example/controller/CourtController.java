@@ -1,7 +1,9 @@
 package spring.example.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -25,6 +27,7 @@ import spring.example.model.User;
 import spring.example.service.CourtService;
 import spring.example.service.ScheduleService;
 import spring.example.service.UserService;
+import spring.example.service.EmailService;
 
 @Controller
 @RequestMapping("/manage-courts")
@@ -38,6 +41,9 @@ public class CourtController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/details/{id}")
     public String showCourtDetails(@PathVariable("id") Long id, Model model, HttpSession session) {
@@ -211,8 +217,16 @@ public class CourtController {
             return "redirect:/home";
     }
 
-    @PostMapping("/rent/{scheduleId}")
-    public String rentCourt(@PathVariable Long scheduleId, HttpSession session) {
+    @PostMapping("/manage-courts/rent/{scheduleId}")
+    public String rentCourt(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String phone,
+            @RequestParam String field,
+            @RequestParam String schedule,
+            @PathVariable Long scheduleId,
+            HttpSession session) {
+
         // Lấy thông tin người dùng từ session
         User currentUser = (User) session.getAttribute("userLogin");
 
@@ -221,14 +235,32 @@ public class CourtController {
             return "redirect:/login";
         }
 
-        // Cập nhật schedule với renter là user hiện tại
-        Schedule schedule = scheduleService.findById(scheduleId);
-        if (schedule != null && !schedule.isRented()) {
-            schedule.setRenter(currentUser);
-            scheduleService.save(schedule); // Lưu lại thay đổi
-        }
+        try {
+            // Tìm kiếm lịch cần thuê
+            Schedule courtSchedule = scheduleService.findById(scheduleId);
 
-        // Điều hướng về trang chi tiết sân
-        return "redirect:/manage-courts/details/" + schedule.getCourt().getId();
+            if (courtSchedule != null && !courtSchedule.isRented()) {
+                // Cập nhật trạng thái thuê sân
+                courtSchedule.setRenter(currentUser);
+                scheduleService.save(courtSchedule); // Lưu lại thay đổi
+
+                // Gửi email xác nhận
+                emailService.sendEmailWithHtmlFromJsp(
+                        email,
+                        "Thông tin đặt sân",
+                        "getinfor",
+                        name, email, phone, field, schedule);
+
+                return "redirect:/manage-courts/details/" + courtSchedule.getCourt().getId() + "?success=true";
+            } else {
+                // Trường hợp lịch đã được thuê hoặc không tồn tại
+                return "redirect:/manage-courts/details/"
+                        + (courtSchedule != null ? courtSchedule.getCourt().getId() : "") + "?error=true";
+            }
+        } catch (MessagingException | IOException e) {
+            e.printStackTrace();
+            return "redirect:/manage-courts?error=true";
+        }
     }
+
 }
