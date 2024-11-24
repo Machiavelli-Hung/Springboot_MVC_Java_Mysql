@@ -364,8 +364,19 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                     action="/manage-courts/cancel/${schedule.id}"
                     method="post"
                   >
-                    <input type="hidden" name="courtId" value="${court.id}" />
                     <input type="hidden" name="role" value="user" />
+                    <input type="hidden" name="courtId" value="${court.id}" />
+                    <input type="hidden" name="field" value="${court.name}" />
+                    <input
+                      type="hidden"
+                      name="email"
+                      value="${schedule.renter.email}"
+                    />
+                    <input
+                      type="hidden"
+                      name="schedule"
+                      value="${schedule.time}"
+                    />
                     <c:if test="${!schedule.rented && schedule.renter != null}">
                       <button
                         onclick="confirmCancel(${schedule.id})"
