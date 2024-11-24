@@ -51,7 +51,7 @@ public class CourtController {
     public String showCourtDetails(@PathVariable("id") Long id, Model model, HttpSession session) {
         User userLogin = (User) session.getAttribute("userLogin");
         if (userLogin == null)
-            return "redirect:/login";
+            return "redirect:/auth/login";
         model.addAttribute("user", userLogin);
         Court court = courtService.getCourtById(id);
         if (court == null) {
@@ -77,7 +77,11 @@ public class CourtController {
     }
 
     @GetMapping("/add")
-    public String showAddForm(Model model) {
+    public String showAddForm(Model model, HttpSession session) {
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null)
+            return "redirect:/auth/login";
+        model.addAttribute("user", userLogin);
         model.addAttribute("court", new Court());
         List<User> owners = userService.getOwners();
         model.addAttribute("owners", owners);
@@ -101,7 +105,11 @@ public class CourtController {
 
     // Xử lý việc tải lên ảnh cho sân
     @GetMapping("/add-images/{id}")
-    public String showAddImagesForm(@PathVariable("id") Long id, Model model) {
+    public String showAddImagesForm(@PathVariable("id") Long id, Model model, HttpSession session) {
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null)
+            return "redirect:/auth/login";
+        model.addAttribute("user", userLogin);
         Court court = courtService.getCourtById(id);
         model.addAttribute("court", court);
         return "court/add-images";
@@ -124,7 +132,11 @@ public class CourtController {
     }
 
     @GetMapping("/add-schedules/{id}")
-    public String showAddSchedulesForm(@PathVariable("id") Long id, Model model) {
+    public String showAddSchedulesForm(@PathVariable("id") Long id, Model model, HttpSession session) {
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null)
+            return "redirect:/auth/login";
+        model.addAttribute("user", userLogin);
         Court court = courtService.getCourtById(id);
         List<Schedule> schedules = courtService.getAllSchedulesForCourt(id);
         model.addAttribute("court", court);
@@ -210,10 +222,18 @@ public class CourtController {
         if (userService.checkAdmin(session)) {
             courts = courtService.getAllCourts();
             model.addAttribute("courts", courts);
+            User userLogin = (User) session.getAttribute("userLogin");
+            if (userLogin == null)
+                return "redirect:/auth/login";
+            model.addAttribute("user", userLogin);
             return "court/list";
         } else if (userService.checkOwner(session)) {
             courts = courtService.getCourtsByOwnerId(userService.getCurrentUserId(session));
             model.addAttribute("courts", courts);
+            User userLogin = (User) session.getAttribute("userLogin");
+            if (userLogin == null)
+                return "redirect:/auth/login";
+            model.addAttribute("user", userLogin);
             return "court/list";
         } else
             return "redirect:/home";
@@ -232,27 +252,8 @@ public class CourtController {
 
         if (currentUser == null) {
             // Nếu không có người dùng trong session, điều hướng tới trang đăng nhập
-            return "redirect:/login";
+            return "redirect:/auth/login";
         }
-
-        // try {
-
-        // //lay them cai cour
-        // email="phamthanhlong725@gmail.com";
-        // Map<String, String> variables = new HashMap<>();
-        // variables.put("user.username", name);
-        // variables.put("user.phoneNumber", phone);
-        // variables.put("user.email",email);
-        // variables.put("field",field);
-        // variables.put("schedule",schedule);
-        // // Add other variables as needed
-        // String subject = "XÁC NHẬN ĐẶT SÂN";
-
-        // emailService.sendEmailWithHtmlFromJsp(email, subject, "getinfor", variables);
-        // return "ok";
-        // } catch (MessagingException | IOException e) {
-        // return "Failed to send email with HTML content from JSP: " + e.getMessage();
-        // }
 
         try {
             // Tìm kiếm lịch cần thuê
@@ -264,7 +265,6 @@ public class CourtController {
                 scheduleService.save(courtSchedule); // Lưu lại thay đổi
 
                 // Gửi email xác nhận
-                email = "buicongbac182004@gmail.com";
                 Map<String, String> variables = new HashMap<>();
                 variables.put("user.username", name);
                 variables.put("user.phoneNumber", phone);
@@ -272,9 +272,9 @@ public class CourtController {
                 variables.put("field", field);
                 variables.put("schedule", schedule);
                 // Add other variables as needed
-                String subject = "XÁC NHẬN ĐẶT SÂN";
+                String subject = "YÊU CẦU ĐẶT SÂN";
 
-                emailService.sendEmailWithHtmlFromJsp(email, subject, "getinfor", variables);
+                emailService.sendEmailWithHtmlFromJsp(email, subject, "rent-court", variables);
 
                 return "redirect:/manage-courts/details/" + courtSchedule.getCourt().getId() + "?success=true";
             } else {
@@ -286,17 +286,69 @@ public class CourtController {
             e.printStackTrace();
             return "redirect:/manage-courts?error=true";
         }
-
-        // Cập nhật schedule với renter là user hiện tại
-        // Schedule courtSchedule = scheduleService.findById(scheduleId);
-
-        // if (courtSchedule != null && !courtSchedule.isRented()) {
-        // courtSchedule.setRenter(currentUser);
-        // scheduleService.save(courtSchedule); // Lưu lại thay đổi
-        // }
-
-        // Điều hướng về trang chi tiết sân
-        // return "redirect:/manage-courts/details/" + courtSchedule.getCourt().getId();
     }
 
+    @PostMapping("/cancel/{scheduleId}")
+    public String cancelSchedule(@PathVariable Long scheduleId, @RequestParam String role,
+            @RequestParam Long courtId,
+            @RequestParam String email,
+            @RequestParam String field,
+            @RequestParam String schedule,
+            RedirectAttributes redirectAttributes) {
+        try {
+            Schedule courtSchedule = scheduleService.findById(scheduleId);
+            if (courtSchedule != null) {
+                courtSchedule.setRenter(null); // Xóa renter
+                scheduleService.save(courtSchedule);
+                redirectAttributes.addFlashAttribute("message", "Hủy đặt lịch thành công!");
+                Map<String, String> variables = new HashMap<>();
+                variables.put("field", field);
+                variables.put("schedule", schedule);
+                // Add other variables as needed
+                String subject = "HUỶ ĐẶT SÂN";
+
+                emailService.sendEmailWithHtmlFromJsp(email, subject, "cancel-rent-court", variables);
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Lịch sân không tồn tại!");
+            }
+            if (role.equals("user")) {
+                return "redirect:/manage-courts/details/" + courtId;
+            } else {
+                return "redirect:/manage-courts/add-schedules/" + courtId;
+            }
+        } catch (Exception e) { // Catching general exceptions (or specify more relevant ones)
+            e.printStackTrace();
+            return "redirect:/manage-courts?error=true";
+        }
+    }
+
+    @PostMapping("/confirm/{scheduleId}")
+    public String confirmSchedule(@PathVariable Long scheduleId,
+            @RequestParam Long courtId,
+            @RequestParam String email,
+            @RequestParam String field,
+            @RequestParam String schedule,
+            RedirectAttributes redirectAttributes) {
+        try {
+            Schedule courtSchedule = scheduleService.findById(scheduleId);
+            if (courtSchedule != null) {
+                courtSchedule.setRented(true);
+                scheduleService.save(courtSchedule);
+                redirectAttributes.addFlashAttribute("message", "Xác nhận đặt lịch thành công!");
+                Map<String, String> variables = new HashMap<>();
+                variables.put("field", field);
+                variables.put("schedule", schedule);
+                // Add other variables as needed
+                String subject = "XÁC NHẬN ĐẶT SÂN";
+
+                emailService.sendEmailWithHtmlFromJsp(email, subject, "confirm-rent-court", variables);
+            } else {
+                redirectAttributes.addFlashAttribute("error", "Lịch sân không tồn tại!");
+            }
+            return "redirect:/manage-courts/add-schedules/" + courtId;
+        } catch (MessagingException | IOException e) {
+            e.printStackTrace();
+            return "redirect:/manage-courts?error=true";
+        }
+    }
 }

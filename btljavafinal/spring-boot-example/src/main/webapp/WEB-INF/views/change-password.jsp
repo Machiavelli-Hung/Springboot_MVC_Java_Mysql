@@ -20,7 +20,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
   <body>
     <div class="container">
       <div class="form-container">
-        <form action="/home/changePassword" method="post">
+        <form action="/home/change-password" method="post">
           <h1>Đổi mật khẩu</h1>
 
           <c:if test="${not empty message}">
@@ -34,7 +34,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
             <input
               type="password"
               id="old-password"
-              name="old-password"
+              name="oldPassword"
               placeholder="Mật khẩu cũ"
               required
             />
@@ -50,29 +50,13 @@ contentType="text/html;charset=UTF-8" language="java" %>
             <input
               type="password"
               id="new-password"
-              name="new-password"
+              name="newPassword"
               placeholder="Mật khẩu mới"
               required
             />
             <span
               class="password-toggle"
               onclick="togglePassword('new-password')"
-            >
-              <i class="fas fa-eye-slash"></i>
-            </span>
-          </div>
-
-          <div class="password-container">
-            <input
-              type="password"
-              id="confirm-password"
-              name="confirm-password"
-              placeholder="Nhập lại mật khẩu"
-              required
-            />
-            <span
-              class="password-toggle"
-              onclick="togglePassword('confirm-password')"
             >
               <i class="fas fa-eye-slash"></i>
             </span>

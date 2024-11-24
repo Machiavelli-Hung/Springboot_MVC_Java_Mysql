@@ -201,4 +201,59 @@ td {
   cursor: pointer;
 }
 
+header {
+  background-color: #1a4178;
+  padding: 1rem;
+  color: white;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+}
+
+.auth-buttons {
+  align-items: center;
+  display: flex;
+  float: right;
+  margin-right: 1rem;
+  /* Thêm khoảng cách từ cạnh phải */
+  margin-top: -1.6rem;
+  /* Căn chỉnh từ phía trên */
+  align-items: center;
+  display: flex;
+}
+
+.btn {
+  background-color: #eee;
+  color: #1a4178;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-left: 1rem;
+  display: inline-block;
+  /* Đảm bảo các nút nằm ngang */
+  position: relative;
+  /* Bỏ phần margin-top âm */
+  font-size: 0.8rem;
+  /* Tăng kích thước chữ (có thể điều chỉnh) */
+  font-weight: bold;
+}
+.user-btn {
+  width: 30px;
+  border-radius: 50%;
+  height: 30px;
+  margin-left: 20px;
+  color: #000;
+  cursor: pointer;
+}
+
 /* Footer */

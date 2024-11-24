@@ -54,7 +54,7 @@ public class HomeController {
         }
         redirectAttributes.addFlashAttribute("message", "Bạn đã đăng xuất thành công!");
 
-        return "redirect:/login";
+        return "redirect:/auth/login";
     }
 
     // Hiển thị trang Đổi mật khẩu
@@ -62,7 +62,7 @@ public class HomeController {
     public String showChangePasswordForm(Model model, HttpSession session) {
         User userLogin = (User) session.getAttribute("userLogin");
         if (userLogin == null) {
-            return "redirect:/login";
+            return "redirect:/auth/login";
         }
         model.addAttribute("user", userLogin);
         return "change-password";
@@ -73,7 +73,7 @@ public class HomeController {
             RedirectAttributes redirectAttributes) {
         User userLogin = (User) session.getAttribute("userLogin");
         if (userLogin == null) {
-            return "redirect:/login";
+            return "redirect:/auth/login";
         }
 
         // Kiểm tra mật khẩu cũ
@@ -96,6 +96,11 @@ public class HomeController {
     @GetMapping("/manage-users")
     public String getCustomers(Model model, HttpSession session) {
         // phan nay khong xoa la phan chan quyen
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null) {
+            return "redirect:/auth/login";
+        }
+        model.addAttribute("user", userLogin);
         if (userService.checkAdmin(session)) {
             List<User> customers = userService.getAllCustomers();
             model.addAttribute("customers", customers);
@@ -147,5 +152,18 @@ public class HomeController {
             return "redirect:/home/manage-users";
         }
         return "redirect:/home";
+    }
+
+    @GetMapping("/search-court")
+    public String listCourts(@RequestParam(value = "keyword", required = false) String keyword, Model model,
+            HttpSession session) {
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null)
+            return "redirect:/auth/login";
+        model.addAttribute("user", userLogin);
+        List<Court> courts = courtService.search(keyword);
+        model.addAttribute("courts", courts);
+        model.addAttribute("keyword", keyword);
+        return "search-court";
     }
 }

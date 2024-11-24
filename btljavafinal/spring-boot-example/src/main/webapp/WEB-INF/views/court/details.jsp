@@ -233,9 +233,12 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             <button onclick="location.href='/home/logout'" class="btn">
               Đăng xuất
             </button>
-            <button onclick="location.href='/home/changePassword'" class="btn">
+
+            <!-- phần này để xác thực không xóa -> nó chuyển đến trang /auth/reset-password   -->
+            <button onclick="location.href='/auth/reset-password'" class="btn">
               Đổi mật khẩu
             </button>
+            <!-- kết thúc phần sửa trang này  -->
             <button
               onclick="location.href='/user/details/${user.id}'"
               class="user-btn"
@@ -243,18 +246,19 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
               <i class="fa-solid fa-user"></i>
             </button>
           </c:if>
+
+          <!-- Kiểm tra nếu chưa có user trong session -->
           <c:if test="${user == null}">
-            <button onclick="location.href='/login'" class="btn">
+            <button onclick="location.href='/auth/login'" class="btn">
               Đăng nhập
             </button>
-            <button onclick="location.href='/register'" class="btn">
+            <button onclick="location.href='/auth/register'" class="btn">
               Đăng ký
             </button>
           </c:if>
         </div>
       </nav>
     </header>
-
     <div class="court-details">
       <div class="court-info">
         <h3>${court.name}</h3>
@@ -337,7 +341,11 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                         name="name"
                         value="${user.username}"
                       />
-                      <input type="hidden" name="email" value="${user.email}" />
+                      <input
+                        type="hidden"
+                        name="email"
+                        value="${court.owner.email}"
+                      />
                       <input
                         type="hidden"
                         name="phone"
@@ -351,13 +359,47 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                       />
                       <button type="submit" class="rent-btn">Thuê ngay</button>
                     </c:if>
+                  </form>
+                  <form
+                    action="/manage-courts/cancel/${schedule.id}"
+                    method="post"
+                  >
+                    <input type="hidden" name="courtId" value="${court.id}" />
+                    <input type="hidden" name="role" value="user" />
                     <c:if test="${!schedule.rented && schedule.renter != null}">
-                      <button type="submit" class="rent-btn">
+                      <button
+                        onclick="confirmCancel(${schedule.id})"
+                        type="submit"
+                        class="rent-btn"
+                      >
                         Chờ xác nhận
                       </button>
                     </c:if>
-                    <c:if test="${schedule.rented}"> Không thể thuê </c:if>
+                    <script>
+                      function confirmCancel(scheduleId) {
+                        const isConfirmed = confirm(
+                          "Bạn có chắc chắn muốn hủy đặt lịch sân này không?"
+                        );
+                        if (isConfirmed) {
+                          // Lấy form dựa trên scheduleId và gửi yêu cầu
+                          document
+                            .getElementById(`cancel-form-${scheduleId}`)
+                            .submit();
+                        }
+                      }
+                    </script>
                   </form>
+                  <c:if
+                    test="${schedule.rented && schedule.renter.id != user.id}"
+                  >
+                    Không thể thuê
+                  </c:if>
+
+                  <c:if
+                    test="${schedule.rented && schedule.renter.id == user.id}"
+                  >
+                    Bạn đã đặt sân này
+                  </c:if>
                 </td>
               </tr>
             </c:forEach>

@@ -19,7 +19,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <body>
     <div class="container">
       <div class="form-container">
-        <form action="/register" method="post">
+        <form action="/auth/register" method="post">
           <h2>Đăng ký</h2>
 
           <input
@@ -27,6 +27,14 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             id="username"
             name="username"
             placeholder="Tên người dùng"
+            required
+          />
+
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Email"
             required
           />
 
@@ -46,26 +54,18 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           <div class="password-container">
             <input
               type="password"
-              id="confirm-password"
-              name="confirm-password"
+              id="confirmpassword"
+              name="confirmpassword"
               placeholder="Nhập lại mật khẩu"
               required
             />
             <span
               class="password-toggle"
-              onclick="togglePassword('confirm-password')"
+              onclick="togglePassword('confirmpassword')"
             >
               <i class="fas fa-eye-slash"></i>
             </span>
           </div>
-
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Email"
-            required
-          />
 
           <select id="role" name="role" required>
             <option value="nguoi-dung">Người Dùng</option>
@@ -74,8 +74,8 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
           <input
             type="text"
-            id="phone-number"
-            name="phone-number"
+            id="phoneNumber"
+            name="phoneNumber"
             placeholder="Số điện thoại"
             required
           />
@@ -91,7 +91,10 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       <!-- Phần overlay-container trong HTML -->
       <div class="overlay-container">
         <div class="overlay-content">
-          <form action="${pageContext.request.contextPath}/login" method="get">
+          <form
+            action="${pageContext.request.contextPath}/auth/login"
+            method="get"
+          >
             <button type="submit" class="ghost">Đăng nhập</button>
           </form>
         </div>

@@ -36,15 +36,31 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
           </c:if>
         </ul>
         <div class="auth-buttons">
-          <c:if test="${userDetails != null}">
+          <c:if test="${user != null}">
             <button onclick="location.href='/home/logout'" class="btn">
               Đăng xuất
             </button>
-            <button onclick="location.href='/home/changePassword'" class="btn">
+
+            <!-- phần này để xác thực không xóa -> nó chuyển đến trang /auth/reset-password   -->
+            <button onclick="location.href='/auth/reset-password'" class="btn">
               Đổi mật khẩu
             </button>
-            <button class="user-btn">
+            <!-- kết thúc phần sửa trang này  -->
+            <button
+              onclick="location.href='/user/details/${user.id}'"
+              class="user-btn"
+            >
               <i class="fa-solid fa-user"></i>
+            </button>
+          </c:if>
+
+          <!-- Kiểm tra nếu chưa có user trong session -->
+          <c:if test="${user == null}">
+            <button onclick="location.href='/auth/login'" class="btn">
+              Đăng nhập
+            </button>
+            <button onclick="location.href='/auth/register'" class="btn">
+              Đăng ký
             </button>
           </c:if>
         </div>

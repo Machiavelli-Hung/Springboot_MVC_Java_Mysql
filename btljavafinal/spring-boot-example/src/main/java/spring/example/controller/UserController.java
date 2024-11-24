@@ -25,7 +25,7 @@ public class UserController {
         User userLogin = (User) session.getAttribute("userLogin");
         if (userLogin == null) {
             // Chuyển hướng hoặc thông báo nếu người dùng không có quyền
-            return "redirect:/login";
+            return "redirect:/auth/login";
         }
 
         model.addAttribute("user", userLogin);

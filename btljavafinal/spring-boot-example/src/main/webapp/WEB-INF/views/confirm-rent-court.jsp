@@ -47,38 +47,14 @@
   <body>
     <!-- trang nay để mô phỏng việc lấy thông tin  -->
     <div class="form-container">
-      <h1>Thông tin đặt sân</h1>
-      <div class="form-group">
-        <label for="name">Tên:</label>
-        <input type="text" id="name" name="name" value="${user.username}" />
-      </div>
-      <div class="form-group">
-        <label for="phone">Số điện thoại:</label>
-        <input
-          type="text"
-          id="phone"
-          name="phone"
-          value="${user.phoneNumber}"
-        />
-      </div>
+      <h1>Yêu cầu đặt sân của bạn đã được xác nhận!</h1>
       <div class="form-group">
         <label for="field">Sân đã đặt:</label>
         <input type="text" id="field" name="field" value="${field}" />
       </div>
       <div class="form-group">
-        <label for="schedule">Lịch đặt:</label>
+        <label for="schedule">Lịch đã đặt:</label>
         <input type="text" id="schedule" name="schedule" value="${schedule}" />
-      </div>
-      <!-- Thêm các trường nhập liệu cho email -->
-      <div class="form-group">
-        <label for="toEmail">Email gửi đến:</label>
-        <input
-          type="email"
-          id="toEmail"
-          name="toEmail"
-          value="${user.email}"
-          required
-        />
       </div>
     </div>
   </body>

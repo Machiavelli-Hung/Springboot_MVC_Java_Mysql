@@ -24,18 +24,6 @@ public class EmailService {
     @Autowired
     private ServletContext servletContext;
 
-    // @Value("${spring.mail.username1}")
-    // private String username1;
-
-    // @Value("${spring.mail.password1}")
-    // private String password1;
-
-    // @Value("${spring.mail.username2}")
-    // private String username2;
-
-    // @Value("${spring.mail.password2}")
-    // private String password2;
-
     public void sendSimpleEmail(String toEmail, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("pthanhlong303@gmail.com");
@@ -45,34 +33,6 @@ public class EmailService {
 
         mailSender.send(message);
     }
-
-    // public void sendEmailWithAttachment(String to, String subject, String body,
-    // String filePath) throws MessagingException {
-    // MimeMessage message = mailSender.createMimeMessage();
-    // MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-    // helper.setTo(to);
-    // helper.setSubject(subject);
-    // helper.setText(body, true);
-
-    // FileSystemResource file = new FileSystemResource(new File(filePath));
-    // helper.addAttachment(file.getFilename(), file);
-
-    // mailSender.send(message);
-    // }
-
-    // public void sendEmailWithHtmlFromJsp(String to, String subject, String
-    // jspFilePath) throws MessagingException, IOException {
-    // MimeMessage message = mailSender.createMimeMessage();
-    // MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-    // String htmlContent = readHtmlFromJsp(jspFilePath);
-    // helper.setTo(to);
-    // helper.setSubject(subject);
-    // helper.setText(htmlContent, true);
-
-    // mailSender.send(message);
-    // }
 
     public void sendEmailWithHtmlFromJsp(String toEmail, String subject, String jspFilePath,
             Map<String, String> variables) throws MessagingException, IOException {

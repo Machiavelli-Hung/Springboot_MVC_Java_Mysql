@@ -27,7 +27,7 @@ public class UserService {
                 .orElseThrow(() -> new UserException("Không tìm thấy người dùng với id: " + id));
     }
 
-    public void saveUser(User user) {
+    public void saveUser(User user, String confirmpassword) {
         if (userRepository.existsByUsername(user.getUsername())) {
             throw new UserException("Username đã tồn tại.");
         }
@@ -41,6 +41,9 @@ public class UserService {
         // phan nay them vao de check mat khau chuan hon khong xoa
         if (user.getUsername().length() < 6 || containsSpecialChar(user.getUsername())) {
             throw new UserException("Tên người dùng phải có 6 ký tự trở lên và không được chứa kí tự đặc biệt nào");
+        }
+        if (user.getPassword().compareTo(confirmpassword) != 0) {
+            throw new UserException("Mật khẩu không nhập chính xác với mật khẩu ! nhập lại");
         }
         if (user.getPassword().length() < 6) {
             throw new UserException("Mật khẩu người dùng phải có 6 ký tự trở lên ");
@@ -150,5 +153,14 @@ public class UserService {
         }
 
         return currentUser.getId(); // Trả về ID của người dùng
+    }
+
+    public String getPassword(String email) {
+        User check = userRepository.findByEmail(email);
+        return check.getPassword();
+    }
+
+    public boolean checkEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 }

@@ -20,8 +20,11 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       class="container ${param.formType == 'signup' ? 'right-panel-active' : ''}"
     >
       <div class="form-container sign-in-container">
-        <form action="/login" method="post">
+        <form action="/auth/login" method="post">
           <h1>Đăng nhập</h1>
+          <c:if test="${not empty message}">
+            <p class="message success" style="color: red">${message}</p>
+          </c:if>
           <input type="text" name="username" placeholder="Username" required />
           <div style="position: relative; width: 100%">
             <input
@@ -44,15 +47,21 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
             >
             </i>
           </div>
-
+          <c:if test="${not empty errorMessage}">
+            <p style="color: red">${errorMessage}</p>
+          </c:if>
           <button type="submit">Đăng nhập</button>
+          <p>
+            Nếu quên mật khẩu hãy ấn
+            <a href="/auth/get-password" style="color: red">tại đây </a>
+          </p>
         </form>
       </div>
 
       <div class="overlay-container">
         <div class="overlay">
           <div class="overlay-panel overlay-right">
-            <a href="/register" class="ghost button">Đăng ký</a>
+            <a href="/auth/register" class="ghost button">Đăng ký</a>
           </div>
         </div>
       </div>

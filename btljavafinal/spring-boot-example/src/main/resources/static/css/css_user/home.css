@@ -81,6 +81,7 @@ nav a {
 .main-content {
   display: flex;
   padding: 2rem;
+  padding-top: 0;
 }
 .venues-grid {
   display: grid;
@@ -187,6 +188,35 @@ nav a {
   margin-left: 20px;
   color: #000;
   cursor: pointer;
+}
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.search-container input[type="text"] {
+  width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.search-container button {
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.search-container button:hover {
+  background-color: #0056b3;
 }
 
 /* Footer */
