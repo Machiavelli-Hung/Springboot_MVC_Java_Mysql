@@ -69,7 +69,9 @@ public class HomeController {
     }
 
     @PostMapping("/change-password")
-    public String changePassword(HttpSession session, String oldPassword, String newPassword,
+    public String changePassword(HttpSession session,
+                                    @RequestParam String oldpassword, 
+                                    @RequestParam String newpassword,
             RedirectAttributes redirectAttributes) {
         User userLogin = (User) session.getAttribute("userLogin");
         if (userLogin == null) {
@@ -77,13 +79,13 @@ public class HomeController {
         }
 
         // Kiểm tra mật khẩu cũ
-        if (!userService.checkPassword(userLogin, oldPassword)) {
+        if (!userService.checkPassword(userLogin, oldpassword)) {
             redirectAttributes.addFlashAttribute("error", "Mật khẩu cũ không đúng.");
             return "redirect:/home/change-password";
         }
 
         // Cập nhật mật khẩu mới
-        userService.updatePassword(userLogin, newPassword);
+        userService.updatePassword(userLogin, newpassword);
         redirectAttributes.addFlashAttribute("message", "Đổi mật khẩu thành công!");
 
         if ("admin".equals(userLogin.getRole())) {

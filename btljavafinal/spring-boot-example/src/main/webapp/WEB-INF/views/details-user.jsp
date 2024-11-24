@@ -35,7 +35,8 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
             <button onclick="location.href='/home/logout'" class="btn">
               Đăng xuất
             </button>
-            <button onclick="location.href='/home/changePassword'" class="btn">
+            <!-- thay doi action  -->
+            <button onclick="location.href='/home/change-password'" class="btn">
               Đổi mật khẩu
             </button>
             <button class="user-btn">

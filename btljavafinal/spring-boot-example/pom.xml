@@ -67,6 +67,14 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-text -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.12.0</version>
+        </dependency>
+
+
 
         <!-- Spring Boot Use EmailSender -->
         <dependency>
@@ -115,5 +123,6 @@
         </plugins>
     </build>
 
+    
 
 </project>

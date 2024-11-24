@@ -1,26 +1,23 @@
+
 package spring.example.service;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Map;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletContext;
 
- import java.io.File;
- import java.io.IOException;
- import javax.servlet.ServletContext;
-import java.io.BufferedReader;
-import java.io.FileReader;
-
-
-// import javax.mail.MessagingException;
-// import javax.mail.internet.MimeMessage;
-
+import org.apache.commons.text.StringSubstitutor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-// import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-// import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+
+
 
 
 @Service
@@ -55,31 +52,50 @@ public class EmailService {
     }
 
 
-    public void sendEmailWithAttachment(String to, String subject, String body, String filePath) throws MessagingException {
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+    // public void sendEmailWithAttachment(String to, String subject, String body, String filePath) throws MessagingException {
+    //     MimeMessage message = mailSender.createMimeMessage();
+    //     MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(body, true);
+    //     helper.setTo(to);
+    //     helper.setSubject(subject);
+    //     helper.setText(body, true);
 
-        FileSystemResource file = new FileSystemResource(new File(filePath));
-        helper.addAttachment(file.getFilename(), file);
+    //     FileSystemResource file = new FileSystemResource(new File(filePath));
+    //     helper.addAttachment(file.getFilename(), file);
 
-        mailSender.send(message);
-    }
+    //     mailSender.send(message);
+    // }
 
-    public void sendEmailWithHtmlFromJsp(String to, String subject, String jspFilePath) throws MessagingException, IOException {
+    
+
+    // public void sendEmailWithHtmlFromJsp(String to, String subject, String jspFilePath) throws MessagingException, IOException {
+    //     MimeMessage message = mailSender.createMimeMessage();
+    //     MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+    //     String htmlContent = readHtmlFromJsp(jspFilePath);
+    //     helper.setTo(to);
+    //     helper.setSubject(subject);
+    //     helper.setText(htmlContent, true);
+
+    //     mailSender.send(message);
+    // }
+
+    
+    public void sendEmailWithHtmlFromJsp(String toEmail, String subject, String jspFilePath, Map<String, String> variables) throws MessagingException, IOException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
         String htmlContent = readHtmlFromJsp(jspFilePath);
-        helper.setTo(to);
+        StringSubstitutor sub = new StringSubstitutor(variables);
+        String resolvedHtmlContent = sub.replace(htmlContent);
+
+        helper.setTo(toEmail);
         helper.setSubject(subject);
-        helper.setText(htmlContent, true);
+        helper.setText(resolvedHtmlContent, true);
 
         mailSender.send(message);
     }
+
 
 
     private String readHtmlFromJsp(String jspFilePath) throws IOException {

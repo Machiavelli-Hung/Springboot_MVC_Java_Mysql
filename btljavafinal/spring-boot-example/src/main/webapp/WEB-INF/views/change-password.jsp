@@ -20,7 +20,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
   <body>
     <div class="container">
       <div class="form-container">
-        <form action="/home/changePassword" method="post">
+        <form action="/home/change-password" method="post"> <!-- sua lai action-->
           <h1>Đổi mật khẩu</h1>
 
           <c:if test="${not empty message}">
@@ -33,12 +33,13 @@ contentType="text/html;charset=UTF-8" language="java" %>
           <div class="password-container">
             <input
               type="password"
-              id="old-password"
-              name="old-password"
+              id="oldpassword"
+              name="oldpassword"
               placeholder="Mật khẩu cũ"
               required
             />
-            <span class="password-toggle" onclick="togglePassword('old-password')">
+            <!-- da sua trang nay khong xoa  -->
+            <span class="password-toggle" onclick="togglePassword('oldpassword')">
               <i class="fas fa-eye-slash"></i>
             </span>
           </div>
@@ -46,12 +47,12 @@ contentType="text/html;charset=UTF-8" language="java" %>
           <div class="password-container">
             <input
               type="password"
-              id="new-password"
-              name="new-password"
+              id="newpassword"
+              name="newpassword"
               placeholder="Mật khẩu mới"
               required
             />
-            <span class="password-toggle" onclick="togglePassword('new-password')">
+            <span class="password-toggle" onclick="togglePassword('newpassword')">
               <i class="fas fa-eye-slash"></i>
             </span>
           </div>
@@ -59,8 +60,8 @@ contentType="text/html;charset=UTF-8" language="java" %>
           <div class="password-container">
             <input
               type="password"
-              id="confirm-password"
-              name="confirm-password"
+              id="confirmpassword"
+              name="confirmpassword"
               placeholder="Nhập lại mật khẩu"
               required
             />
