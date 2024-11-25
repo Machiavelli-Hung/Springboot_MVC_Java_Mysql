@@ -69,8 +69,8 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
           </div>
 
           <select id="role" name="role" required>
-            <option value="nguoi-dung">Người Dùng</option>
-            <option value="chu-san">Chủ Sân</option>
+            <option value="user">Người Dùng</option>
+            <option value="owner">Chủ Sân</option>
           </select>
 
           <input
