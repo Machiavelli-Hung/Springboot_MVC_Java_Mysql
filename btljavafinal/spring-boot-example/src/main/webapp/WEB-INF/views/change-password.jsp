@@ -69,7 +69,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
             <c:when test="${user.role == 'admin'}">
               <c:set
                 var="homeUrl"
-                value="${pageContext.request.contextPath}/chusans"
+                value="${pageContext.request.contextPath}/home"
               />
             </c:when>
             <c:otherwise>

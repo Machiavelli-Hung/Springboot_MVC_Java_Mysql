@@ -85,12 +85,7 @@ public class HomeController {
         // Cập nhật mật khẩu mới
         userService.updatePassword(userLogin, newPassword);
         redirectAttributes.addFlashAttribute("message", "Đổi mật khẩu thành công!");
-
-        if ("admin".equals(userLogin.getRole())) {
-            return "redirect:/admin"; // Redirect to admin page
-        }
-        return "redirect:/home"; // Redirect to home page for regular users
-
+        return "redirect:/home";
     }
 
     @GetMapping("/manage-users")

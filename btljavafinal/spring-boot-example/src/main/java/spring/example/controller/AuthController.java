@@ -44,11 +44,15 @@ public class AuthController {
 
     // Xử lý yêu cầu gửi mã PIN
     @PostMapping("/reset-password")
-    public String sendPin(@RequestParam String email, Model model) {
-        verificationService.sendPin(email);
-        model.addAttribute("message", "Mã PIN đã được gửi đến email của bạn.");
-        model.addAttribute("email", email);
-        if (userService.checkEmail(email)) {
+    public String sendPin(@RequestParam String email, Model model, HttpSession session) {
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null)
+            return "redirect:/auth/login";
+        model.addAttribute("user", userLogin);
+        if (userService.checkEmail(email) && userLogin.getEmail().equals(email)) {
+            verificationService.sendPin(email);
+            model.addAttribute("message", "Mã PIN đã được gửi đến email của bạn.");
+            model.addAttribute("email", email);
             return "enter-pin";
         } else {
             model.addAttribute("message", "Vui lòng nhập lại chính xác  email của bạn.");
