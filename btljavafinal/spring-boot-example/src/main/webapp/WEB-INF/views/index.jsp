@@ -4,6 +4,7 @@ pageEncoding="UTF-8"%>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
     <title>Spring Example Index JSP Web page</title>
   </head>
   <body>

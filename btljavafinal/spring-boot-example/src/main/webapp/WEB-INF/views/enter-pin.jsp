@@ -10,6 +10,7 @@ pageEncoding="UTF-8"%>
       type="text/css"
       href="${pageContext.request.contextPath}/css/css_user/enter-pin.css"
     />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
     <title>Enter PIN</title>
   </head>
   <body>

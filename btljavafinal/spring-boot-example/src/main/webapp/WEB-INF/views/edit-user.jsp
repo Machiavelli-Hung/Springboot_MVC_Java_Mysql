@@ -11,6 +11,7 @@ uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
       type="text/css"
       href="${pageContext.request.contextPath}/css/css_user/edit-user.css"
     />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
   </head>
 
   <body>

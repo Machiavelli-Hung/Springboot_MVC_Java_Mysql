@@ -13,6 +13,7 @@ prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
       type="text/css"
       href="${pageContext.request.contextPath}/css/css_user/login.css"
     />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
   </head>
 
   <body>

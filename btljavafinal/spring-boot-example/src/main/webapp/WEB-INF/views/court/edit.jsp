@@ -11,6 +11,7 @@ contentType="text/html" pageEncoding="UTF-8" %>
     type="text/css"
     href="${pageContext.request.contextPath}/css/css_admin/edit.css"
   />
+  <link rel="icon" href="/images/logo.png" type="image/x-icon" />
     <title>Chỉnh sửa sân</title>
   </head>
   <body>

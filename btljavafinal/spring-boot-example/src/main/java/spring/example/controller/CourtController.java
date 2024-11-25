@@ -69,7 +69,12 @@ public class CourtController {
     }
 
     @GetMapping("/search")
-    public String listCourts(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+    public String listCourts(@RequestParam(value = "keyword", required = false) String keyword, Model model,
+            HttpSession session) {
+        User userLogin = (User) session.getAttribute("userLogin");
+        if (userLogin == null)
+            return "redirect:/auth/login";
+        model.addAttribute("user", userLogin);
         List<Court> courts = courtService.search(keyword);
         model.addAttribute("courts", courts);
         model.addAttribute("keyword", keyword);

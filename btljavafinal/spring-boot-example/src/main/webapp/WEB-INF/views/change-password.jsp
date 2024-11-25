@@ -15,6 +15,7 @@ contentType="text/html;charset=UTF-8" language="java" %>
       type="text/css"
       href="${pageContext.request.contextPath}/css/css_user/change-password.css"
     />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
   </head>
 
   <body>

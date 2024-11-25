@@ -17,6 +17,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
       type="text/css"
       href="${pageContext.request.contextPath}/css/css_admin/details.css"
     />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
   </head>
 
   <body>

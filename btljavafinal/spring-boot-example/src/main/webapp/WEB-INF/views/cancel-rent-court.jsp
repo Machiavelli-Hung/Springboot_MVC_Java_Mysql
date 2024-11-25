@@ -16,6 +16,7 @@
       type="text/css"
       href="${pageContext.request.contextPath}/css/css_user/cancel-rent-court.css"
     />
+    <link rel="icon" href="/images/logo.png" type="image/x-icon" />
     <style>
       body {
         font-family: Arial, sans-serif;
