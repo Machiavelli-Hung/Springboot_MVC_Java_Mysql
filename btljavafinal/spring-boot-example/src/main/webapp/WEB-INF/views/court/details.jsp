@@ -168,6 +168,7 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                     </c:if>
                   </form>
                   <form
+                    id="cancel-form-${schedule.id}"
                     action="/manage-courts/cancel/${schedule.id}"
                     method="post"
                   >
@@ -186,27 +187,31 @@ language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
                     />
                     <c:if test="${!schedule.rented && schedule.renter != null}">
                       <button
-                        onclick="confirmCancel(${schedule.id})"
-                        type="submit"
+                        style="${schedule.renter.id != user.id ? 'pointer-events: none; opacity: 0.6;' : ''}"
+                        type="button"
                         class="rent-btn"
+                        onclick="confirmCancel(${schedule.id})"
                       >
                         Chờ xác nhận
                       </button>
                     </c:if>
-                    <script>
-                      function confirmCancel(scheduleId) {
-                        const isConfirmed = confirm(
-                          "Bạn có chắc chắn muốn hủy đặt lịch sân này không?"
-                        );
-                        if (isConfirmed) {
-                          // Lấy form dựa trên scheduleId và gửi yêu cầu
-                          document
-                            .getElementById(`cancel-form-${scheduleId}`)
-                            .submit();
-                        }
-                      }
-                    </script>
                   </form>
+                  <script>
+                    function confirmCancel(scheduleId) {
+                      // Hiển thị hộp thoại xác nhận
+                      const isConfirmed = confirm(
+                        "Bạn có chắc chắn muốn hủy đặt lịch sân này không?"
+                      );
+                      const currentForm = document.querySelector(
+                        `#cancel-form-${schedule.id}`
+                      );
+                      if (isConfirmed) {
+                        // Gửi biểu mẫu sau khi xác nhận
+                        currentForm.submit();
+                      }
+                    }
+                  </script>
+
                   <c:if
                     test="${schedule.rented && schedule.renter.id != user.id}"
                   >

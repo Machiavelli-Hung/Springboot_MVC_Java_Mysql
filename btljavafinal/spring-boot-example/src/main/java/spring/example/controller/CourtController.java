@@ -303,16 +303,19 @@ public class CourtController {
         try {
             Schedule courtSchedule = scheduleService.findById(scheduleId);
             if (courtSchedule != null) {
+                courtSchedule.setRented(false);
                 courtSchedule.setRenter(null); // Xóa renter
                 scheduleService.save(courtSchedule);
                 redirectAttributes.addFlashAttribute("message", "Hủy đặt lịch thành công!");
-                Map<String, String> variables = new HashMap<>();
-                variables.put("field", field);
-                variables.put("schedule", schedule);
-                // Add other variables as needed
-                String subject = "HUỶ ĐẶT SÂN";
+                if (role.equals("user") == false) {
+                    Map<String, String> variables = new HashMap<>();
+                    variables.put("field", field);
+                    variables.put("schedule", schedule);
+                    // Add other variables as needed
+                    String subject = "HUỶ ĐẶT SÂN";
 
-                emailService.sendEmailWithHtmlFromJsp(email, subject, "cancel-rent-court", variables);
+                    emailService.sendEmailWithHtmlFromJsp(email, subject, "cancel-rent-court", variables);
+                }
             } else {
                 redirectAttributes.addFlashAttribute("error", "Lịch sân không tồn tại!");
             }
